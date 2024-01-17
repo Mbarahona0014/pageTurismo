@@ -1,0 +1,17 @@
+{
+    "SatisFactorio": true,
+    "Codigo": "00",
+    "Mensaje": "AUTORIZADO",
+    "Fecha": "2020-10-15T10:17:35.7401834-06:00",
+    "NumeroAutorizacion": "344969",
+    "ClientIdTransaction": "71842471-866f-4766-8649-54879129b2bb",
+    "MaskPan": "400000****0002",
+    "CardHolder": "alberto molina",
+    "MedioPago": "COMPRA",
+    "NumeroReferencia": "728910173135",
+    "IsCloseView": false,
+    "Monto": "0.06",
+    "IsRedirect": false,
+    "TransaccionId": "9320"
+  }
+  

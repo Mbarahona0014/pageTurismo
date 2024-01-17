@@ -1,0 +1,221 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@font-face {
+    font-family: MuseoSans;
+    src: url(../fonts/MuseoSans.otf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: MuseoSans;
+}
+
+.bg-marn-blue{
+    background-color: #111E60;
+}
+
+.bg-marn-gray{
+    background-color: #303845;
+}
+.bg-marn-black{
+    background-color: #1E1E1E;
+}
+.bg-marn-lgray{
+    background-color: #D9D9D9;
+}
+.bg-marn-green{
+    background-color: green;
+}
+.bg-marn-red{
+    background-color: crimson;
+}
+.btn-float-br{
+    bottom:10%;
+    right:5%;
+}
+.btn-float-mr{
+    bottom:20%;
+    right:5%;
+}
+.btn-float-bl{
+    bottom:10%;
+    left:0;
+}
+.card{
+    border: 0;
+}
+.img-icon{
+    width: 250px;
+    height: 250px;
+}
+.fs-48{
+    font-size: 48px;
+}
+.img-shadow::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.5);
+}
+
+.carousel-inner-sh {
+    height: 0;
+    padding-bottom: 50%;
+}
+  
+.carousel-item-sh {
+    position: absolute !important; /* Bootstrap is insistent */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.carousel-item-sh img {
+    height: 100%; /* Bootstrap handles width already */
+    object-fit: cover; /* or 'contain' if you want stretch instead of crop */
+}
+
+#carouselAvisos .carousel-item img {  
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  height:75vh;
+}
+
+#carouselSlider .carousel-item img {  
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    height:75vh;
+  }
+
+.btn-float-screen{
+	position:fixed;
+	bottom:40px;
+	right:40px;
+	text-align:center;
+}
+
+#galeria-portada{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    height:75vh;
+}
+
+.card-anp{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    height:50vh;
+}
+
+/* Category Ads */
+
+#ads {
+    margin: 30px 0 30px 0;
+   
+}
+
+#ads .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        background: yellowgreen;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px; 
+        color: #000;
+        padding: 5px 10px;
+        font-size: 14px;
+
+    }
+
+#ads .card-notify-year {
+        position: absolute;
+        right: -10px;
+        top: -20px;
+        background: #ff4444;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;      
+        font-size: 14px;      
+        width: 50px;
+        height: 50px;    
+        padding: 15px 0 0 0;
+}
+
+
+#ads .card-detail-badge {      
+        background: #111E60;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px;
+        color: #FFFFFF;
+        padding: 5px 10px;
+        font-size: 14px;        
+    }
+
+   
+
+#ads .card:hover {
+            background: transparent;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+#ads .card-image-overlay {
+        font-size: 20px;
+        
+    }
+
+
+#ads .card-image-overlay span {
+            display: inline-block;              
+        }
+
+
+#ads .ad-btn {
+        text-transform: uppercase;
+        width: 100px;
+        height: 40px;
+        border-radius: 80px;
+        font-size: 12px;
+        line-height: 35px;
+        text-align: center;
+        border: 0;
+        display: inline-block;
+        text-decoration: none;
+        margin: 20px auto 1px auto;
+        color: #FFFFFF;
+        overflow: hidden;        
+        position: relative;
+    }
+
+#ads .ad-btn:hover {
+            background-color: #303845;
+            color: #FFFFFF;
+            border: 2px solid #303845;
+            /* background: transparent; */
+            transition: all 0.3s ease;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+        }
+
+#ads .ad-title h5 {
+        text-transform: uppercase;
+        font-size: 18px;
+    }
