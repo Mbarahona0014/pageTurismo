@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redireccionar URL con la palabra "pdf"
+RewriteCond %{REQUEST_URI} pdf [NC]
+RewriteRule ^ pdf.php [L]
+
+Header always add Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, PUT, POST, OPTIONS"
+Header always add Access-Control-Allow-Headers "Authorization"
+Header always add Access-Control-Allow-Headers "Authorization"

@@ -501,13 +501,13 @@ async function validarFormReserva() {
         //GUARDAR RESERVACION COMO NO PAGADA
         let respuestaReservacion = await saveReservacion();
         if (respuestaReservacion.ok) {
+          //ACTUALIZAR CAMPO DE RESERVACION
+          $("#idReserva").val(respuestaReservacion.data.reservacionId);
+          $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
           if (cabanias != "") {
             //GUARDAR INFORMACION DE RESERVA DE CABANIAS
             const respuestaCabanias = await saveCabanias();
             if (respuestaCabanias.ok) {
-              //ACTUALIZAR CAMPO DE RESERVACION
-              $("#idReserva").val(respuestaReservacion.data.reservacionId);
-              $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
               //PEDIR TOKEN SERFINSA
               var myHeaders = new Headers();
               myHeaders.append("Content-Type", "application/json");
@@ -778,6 +778,7 @@ async function saveCabanias() {
   let inicio, fin;
   const cabanias = $("#idCanabias").val();
   const idlugar = $("#idanp").val();
+  const idreserva = $("#idReserva").val();
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
     inicio = new Date(parseInt(arrayfechainicio[2]), parseInt(arrayfechainicio[1]) - 1, parseInt(arrayfechainicio[0])).toISOString().split("T")[0];
@@ -793,6 +794,7 @@ async function saveCabanias() {
   let bodyContent = JSON.stringify({
     id_cabanias: cabanias,
     id_lugar: idlugar,
+    id_reserva: idreserva,
     inicio: inicio,
     fin: fin
   });

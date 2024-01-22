@@ -3,5 +3,6 @@ fontawesome6/
 phpmailer/
 fpdf/
 recursos/archivo
+recursos/qr
 phpqrcode
 qrtest
