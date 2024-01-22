@@ -69,7 +69,6 @@
                 </p>
             </div>
         </div>
-        <!-- Barra de separacion -->
         <div class="row">
             <div class="navbar navbar-dark bg-marn-blue shadow-sm">
                 <div class="container p-2 text-white">
@@ -83,6 +82,25 @@
         <!--Actividades-->
         <div class="row bg-marn-lgray" id='row-actividades'>
 
+        </div>
+        <!-- Barra de separacion -->
+        <div class="row">
+            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+                <div class="container p-2 text-white">
+                    <div class="col-12 text-center">
+                        <i class="fa fa-list fa-xl"></i>
+                        <label>INDICACIONES</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Indicaciones-->
+        <div class="row bg-marn-lgray" id='row-indicaciones'>
+            <div class="col-12 text-center m-0 p-0">
+                <div class="position-relative">
+                    <img id="imagen-indicaciones" src="" class="img-fluid w-100" />
+                </div>
+            </div>
         </div>
         <!-- Barra de separacion -->
         <div class="row">
@@ -244,7 +262,7 @@
         </div>
     </div>
     <script src="./js/general.js"></script>
-    <script src="./js/calendario.js"></script>
+    <!-- <script src="./js/calendario.js"></script> -->
     <script src="./js/anp.js"></script>
     <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
 </body>

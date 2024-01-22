@@ -10,28 +10,26 @@ async function initPage() {
   let htmlActividades = "";
   let htmlRecomendaciones = "";
   let i = 0;
-  console.log(res);
-  document.getElementById("titulo-area-res").innerHTML =
-    res.generalidades[0].nombre_anp.toUpperCase();
-  document.getElementById("titulo-area").innerHTML =
-    res.generalidades[0].nombre_anp.toUpperCase();
-  document.getElementById("desc-florafauna").innerHTML =
-    res.generalidades[0].texto_fyf;
-  document.getElementById("qr-como-llegar").src =
-    url_imagenes + `/qr/` + res.generalidades[0].qr_como_llegar;
-  document.getElementById("descripcion-como-llegar").innerHTML =
-    res.generalidades[0].ubicacion_anp;
-  document.getElementById("enlace-como-llegar").href =
-    res.generalidades[0].enlace_como_llegar;
-  document.getElementById("galeria-portada").src =
-    url_imagenes + `/galeria/` + res.galeria[0].imagen_galeria;
+  document.getElementById("titulo-area-res").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
+  document.getElementById("titulo-area").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
+  document.getElementById("desc-florafauna").innerHTML = res.generalidades[0].texto_fyf;
+  document.getElementById("qr-como-llegar").src = url_imagenes + `/qr/` + res.generalidades[0].qr_como_llegar;
+  document.getElementById("descripcion-como-llegar").innerHTML = res.generalidades[0].ubicacion_anp;
+  //ENLACE DE COMO LLEGAR
+  document.getElementById("enlace-como-llegar").href = res.generalidades[0].enlace_como_llegar;
+  //PORTADA DE GALERIA
+  document.getElementById("galeria-portada").src = url_imagenes + `/galeria/` + res.galeria[0].imagen_galeria;
+  //IMAGEN DE INDICACIONES
+  if (res.generalidades[0].imagen_indicaciones) {
+    document.getElementById("imagen-indicaciones").src = url_imagenes + `/indicaciones/` + res.generalidades[0].imagen_indicaciones;
+  }
+  //ENLACE A TOUR VIRTUAL
   if (res.generalidades[0].enlace_tour) {
-    document.getElementById("div-tour").style.display ="block";
+    document.getElementById("div-tour").style.display = "block";
     document.getElementById("enlace-tour").href =
       res.generalidades[0].enlace_como_llegar;
   }
-
-  console.log(res.generalidades[0].texto_nivel);
+  
   res.galeria.forEach((galeria) => {
     htmlGaleria +=
       `

@@ -26,7 +26,7 @@
 
 <body style='padding: 1rem;'>
   <input type="hidden" id="idanp" value="<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
-  <input type="hidden" id="MerchantToken"/>
+  <input type="hidden" id="MerchantToken" />
   <input type="hidden" id="TokenSerfinsa" value="81d4c8f5-fd44-41ec-b084-b09570fbe043" />
   <input type="hidden" id="IdTransaccion" />
   <input type="hidden" id="montoEntradas" />
@@ -35,7 +35,9 @@
   <input type="hidden" id="MontoTransaccion" />
   <input type="hidden" id="cantidadDias" value="1" />
   <input type="hidden" id="ConceptoPago" />
-  <input type="hidden" id="idCanabias"/>
+  <input type="hidden" id="idCanabias" />
+  <input type="hidden" id="idReserva" />
+  <input type="hidden" id="claveAcceso" />
   <br>
 
   <div class="row">
@@ -132,11 +134,11 @@
             </button>
           </div> -->
           <div id="divPagar" class="col-md-12 d-flex justify-content-center">
-            <button class="btn btn-success" id="btValidar" onclick="validarForm()">Validar</button>
+            <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button>
             <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
           </div>
           <div class="col-md-12 d-flex justify-content-center">
-            <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
+            <button class=" btn btn-warning" id="btTest" onclick="testPago()">Test pago</button>
           </div>
         </div>
       </div>

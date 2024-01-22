@@ -118,6 +118,14 @@ input[type=number] {
     height:75vh;
 }
 
+#imagen-indicaciones{
+    object-fit: cover;
+    object-position: center;
+    overflow: hidden;
+    height:75vh;
+}
+
+
 .card-anp{
     object-fit: cover;
     object-position: center;

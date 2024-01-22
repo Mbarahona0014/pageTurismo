@@ -343,18 +343,6 @@ async function quitarReserva(id) {
   prependCabania(id);
 }
 
-/* function setfechainicio() {
-  var fecha_inicio = document.getElementById("fecha_inicio");
-  document.getElementById("fecha_ingreso").value = fecha_inicio;
-  console.log("fechainicio: " + fecha_inicio);
-}
-
-function setfechafin() {
-  var fecha_fin = document.getElementById("fecha_fin").value;
-  document.getElementById("fecha_retiro").value = fecha_fin;
-  console.log("fechafin: " + fecha_fin);
-} */
-
 function alert(mensaje) {
   Swal.fire(mensaje);
 }
@@ -417,6 +405,7 @@ function appendCabania(idcabania) {
   /* console.log(arrayCabanias); */
   $("#idCanabias").val(arrayCabanias.toString());
 }
+
 function prependCabania(idcabania) {
   let arrayCabanias =
     $("#idCanabias").val() == "" ? [] : $("#idCanabias").val().split(",");
@@ -431,7 +420,181 @@ function arrayRemove(arr, value) {
   });
 }
 
-function validarForm() {
+async function validarFormReserva() {
+  //VALIDAR CAMPOS DE FORMULARIO DE RESERVA
+  var mensajeError = "";
+  var error = 0;
+  const nombres = document.getElementById("nombres").value;
+  const apellidos = document.getElementById("apellidos").value;
+  const correo = document.getElementById("correo").value;
+  const telefono = document.getElementById("telefono").value;
+  const fecha_ingreso = document.getElementById("fecha_ingreso").value;
+  const fecha_retiro = document.getElementById("fecha_retiro").value;
+  const cabanias = $("#idCanabias").val();
+  //DATOS DE PAGO
+  const IdTransaccion = document.getElementById("IdTransaccion").value;
+  const TokenSerfinsa = document.getElementById("TokenSerfinsa").value;
+  const MontoTransaccion = document.getElementById("MontoTransaccion").value;
+  const ConceptoPago = document.getElementById("ConceptoPago").value;
+
+  if (nombres == "") {
+    mensajeError += "Verificar Nombres<br>";
+    error++;
+  }
+  if (apellidos == "") {
+    mensajeError += "Verificar Apellidos<br>";
+    error++;
+  }
+  if (validarCorreo(correo)) {
+    mensajeError += "Verificar Correo<br>";
+    error++;
+  }
+  if (telefono == "") {
+    mensajeError += "Verificar Telefono<br>";
+    error++;
+  }
+  if (fecha_ingreso == "" || fecha_retiro == "") {
+    mensajeError += "Verificar Fechas<br>";
+    error++;
+  }
+  if (MontoTransaccion <= 0) {
+    mensajeError += "El monto debe ser mayor a 0<br>";
+    error++;
+  }
+  if (error > 0) {
+    Swal.fire({
+      title: "<strong>No se puede realizar la transaccion</strong>",
+      icon: "error",
+      html: mensajeError,
+      showCloseButton: true,
+    });
+  } else {
+    //VERIFICAR DISPONIBILIDAD
+    let timerInterval;
+    Swal.fire({
+      title: "¡Verificando!",
+      html: "Espere un momento por favor <b></b>...",
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then(async (result) => {
+      //CONTADOR DE DISPONIBILIDAD
+      const lugarId = document.getElementById("idanp").value;
+      const disponibilidad = await getDisponibilidadesMax(lugarId);
+      if (disponibilidad[0].cantidadMaxima < 1) {
+        Swal.fire({
+          title: "<strong>No se puede realizar la transacción</strong>",
+          icon: "error",
+          html: "No hay disponibilidad para realizar la reserva",
+          showCloseButton: true,
+        });
+      } else {
+        //GUARDAR RESERVACION COMO NO PAGADA
+        let respuestaReservacion = await saveReservacion();
+        if (respuestaReservacion.ok) {
+          if (cabanias != "") {
+            //GUARDAR INFORMACION DE RESERVA DE CABANIAS
+            const respuestaCabanias = await saveCabanias();
+            if (respuestaCabanias.ok) {
+              //ACTUALIZAR CAMPO DE RESERVACION
+              $("#idReserva").val(respuestaReservacion.data.reservacionId);
+              $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
+              //PEDIR TOKEN SERFINSA
+              var myHeaders = new Headers();
+              myHeaders.append("Content-Type", "application/json");
+
+              var raw = JSON.stringify({
+                TokeyComercio: TokenSerfinsa,
+                IdTransaccionCliente: IdTransaccion,
+                Monto: MontoTransaccion,
+                ConceptoPago: ConceptoPago,
+              });
+
+              var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+              };
+              fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
+                .then(response => response.json())
+                .then(async result => {
+                  console.log(result);
+                  if (result.Satisfactorio) {
+                    $("#MerchantToken").val(result.JwtMerchantToken);
+                    $("#btValidar").hide();
+                    $("#btPagar").show();
+                    $("#btTest").show();
+                  } else {
+                    Swal.fire({
+                      title: "<strong>No se puede realizar la transacción</strong>",
+                      icon: "error",
+                      html: "No hay disponibilidad para realizar la reserva",
+                      showCloseButton: true,
+                    });
+                  }
+                })
+                .catch(error => console.log('error', error));
+            } else {
+              alert(respuestaCabanias.mensaje);
+            }
+          } else {
+            //ACTUALIZAR CAMPO DE RESERVACION
+            $("#idReserva").val(respuestaReservacion.data.reservacionId);
+            $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
+            //PEDIR TOKEN SERFINSA
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+              TokeyComercio: TokenSerfinsa,
+              IdTransaccionCliente: IdTransaccion,
+              Monto: MontoTransaccion,
+              ConceptoPago: ConceptoPago,
+            });
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
+              .then(response => response.json())
+              .then(async result => {
+                console.log(result);
+                if (result.Satisfactorio) {
+                  $("#MerchantToken").val(result.JwtMerchantToken);
+                  $("#btValidar").hide();
+                  $("#btPagar").show();
+                  $("#btTest").show();
+                } else {
+                  Swal.fire({
+                    title: "<strong>No se puede realizar la transacción</strong>",
+                    icon: "error",
+                    html: "No hay disponibilidad para realizar la reserva",
+                    showCloseButton: true,
+                  });
+                }
+              })
+              .catch(error => console.log('error', error));
+          }
+        } else {
+          alert(respuestaReservacion.mensaje);
+        }
+      }
+    });
+  }
+}
+
+async function validarForm() {
   //VALIDAR CAMPOS DE FORMULARIO DE RESERVA
   var mensajeError = "";
   var error = 0;
@@ -504,7 +667,7 @@ function validarForm() {
         //DATOS DE RESERVA
         const IdTransaccion = document.getElementById("IdTransaccion").value;
         const TokenSerfinsa = document.getElementById("TokenSerfinsa").value;
-        const MontroTransaccion = document.getElementById("MontoTransaccion").value;
+        const MontoTransaccion = document.getElementById("MontoTransaccion").value;
         const ConceptoPago = document.getElementById("ConceptoPago").value;
 
         var myHeaders = new Headers();
@@ -513,7 +676,7 @@ function validarForm() {
         var raw = JSON.stringify({
           TokeyComercio: TokenSerfinsa,
           IdTransaccionCliente: IdTransaccion,
-          Monto: MontroTransaccion,
+          Monto: MontoTransaccion,
           ConceptoPago: ConceptoPago,
         });
 
@@ -525,13 +688,34 @@ function validarForm() {
         };
         fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
           .then(response => response.json())
-          .then(result => {
+          .then(async result => {
             console.log(result);
             if (result.Satisfactorio) {
               $("#MerchantToken").val(result.JwtMerchantToken);
               $("#btValidar").hide();
               $("#btPagar").show();
               $("#btTest").show();
+              //GUARDAR RESERVACION COMO NO PAGADA
+              let respuestaReservacion = await saveReservacion();
+              if (respuestaReservacion.ok) {
+                if (cabanias != "") {
+                  //GUARDAR INFORMACION DE RESERVA DE CABANIAS
+                  const respuestaCabanias = await saveCabanias();
+                  if (respuestaCabanias.ok) {
+                    //ACTUALIZAR CAMPO DE RESERVACION
+                    $("#idReserva").val(respuestaReservacion.data.reservacionId);
+                    $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
+                  } else {
+                    alert(respuestaCabanias.mensaje);
+                  }
+                } else {
+                  //ACTUALIZAR CAMPO DE RESERVACION
+                  $("#idReserva").val(respuestaReservacion.data.reservacionId);
+                  $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
+                }
+              } else {
+                alert(respuestaReservacion.mensaje);
+              }
             } else {
               Swal.fire({
                 title: "<strong>No se puede realizar la transacción</strong>",
@@ -547,47 +731,85 @@ function validarForm() {
   }
 }
 
-function pedirToken() {
-  //PEDIR TOKEN
-  //DATOS DE RESERVA
-  const IdTransaccion = document.getElementById("IdTransaccion").value;
-  const TokenSerfinsa = document.getElementById("TokenSerfinsa").value;
-  const MontroTransaccion = document.getElementById("MontoTransaccion").value;
-  const ConceptoPago = document.getElementById("ConceptoPago").value;
-
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({
-    TokeyComercio: TokenSerfinsa,
-    IdTransaccionCliente: IdTransaccion,
-    Monto: MontroTransaccion,
-    ConceptoPago: ConceptoPago,
+async function saveReservacion() {
+  const cantidad = document.querySelectorAll("#cantidad");
+  const nombres = document.getElementById("nombres").value;
+  const apellidos = document.getElementById("apellidos").value;
+  const correo = document.getElementById("correo").value;
+  const telefono = document.getElementById("telefono").value;
+  const fecha_ingreso = document.getElementById("fecha_ingreso").value.split("-");
+  const fecha_retiro = document.getElementById("fecha_retiro").value.split("-");
+  const fecha_ingreso_format = fecha_ingreso[2] + "-" + fecha_ingreso[1] + "-" + fecha_ingreso[0];
+  const fecha_retiro_format = fecha_retiro[2] + "-" + fecha_retiro[1] + "-" + fecha_retiro[0];
+  const lugarid = parseInt(document.getElementById("idanp").value);
+  detalles = [];
+  cantidad.forEach((item, index) => {
+    detalles.push({
+      servicioId: item.getAttribute("data-servicio"),
+      cantidad: item.value,
+    });
   });
-
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
+  let headersList = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
   };
-  fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
-    .then(response => response.json())
-    .then(result => {
-      console.log(result);
-      if (result.Satisfactorio) {
-        $("#MerchantToken").val(result.JwtMerchantToken);
-        $("#btValidar").hide();
-        $("#btPagar").show();
-        $("#btTest").show();
-      } else {
-        Swal.fire({
-          title: "<strong>No se puede realizar la transacción</strong>",
-          icon: "error",
-          html: "No hay disponibilidad para realizar la reserva",
-          showCloseButton: true,
-        });
-      }
-    })
-    .catch(error => console.log('error', error));
+  let bodyContent = JSON.stringify({
+    codeStatus: false,
+    lugarId: lugarid,
+    nombres: nombres,
+    apellidos: apellidos,
+    dui: "",
+    pagada: false,
+    inicio: fecha_ingreso_format,
+    fin: fecha_retiro_format,
+    correo: correo,
+    telefono: telefono,
+    detalles: detalles
+  });
+  let response = await fetch(`${url}/reservaciones/api/reservaciones`, {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  }).then(response => response.json())
+  return response;
 }
+
+async function saveCabanias() {
+  let inicio, fin;
+  const cabanias = $("#idCanabias").val();
+  const idlugar = $("#idanp").val();
+  if ($("#fecha_ingreso").val() != "") {
+    const arrayfechainicio = $("#fecha_ingreso").val().split("-");
+    inicio = new Date(parseInt(arrayfechainicio[2]), parseInt(arrayfechainicio[1]) - 1, parseInt(arrayfechainicio[0])).toISOString().split("T")[0];
+  }
+  if ($("#fecha_retiro").val() != "") {
+    const arrayfecharetiro = $("#fecha_retiro").val().split("-");
+    fin = new Date(parseInt(arrayfecharetiro[2]), parseInt(arrayfecharetiro[1]) - 1, parseInt(arrayfecharetiro[0])).toISOString().split("T")[0];
+  }
+  let headersList = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
+  };
+  let bodyContent = JSON.stringify({
+    id_cabanias: cabanias,
+    id_lugar: idlugar,
+    inicio: inicio,
+    fin: fin
+  });
+  let response = await fetch(`${url}/turismo/api/reserva`, {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  }).then(response => response.json())
+  return response;
+}
+
+function validarCorreo(correo) {
+  var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if (!expr.test(correo)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
