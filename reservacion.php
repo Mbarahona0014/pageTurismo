@@ -84,6 +84,11 @@
           <div class="col-md-12 d-flex justify-content-center">
             <p>VER DISPONIBILIDAD</p>
           </div>
+          <div class="col-md-12 d-flex justify-content-center">
+            <figcaption class="blockquote-footer">
+              <cite>Puedes realizar tu reserva con un maximo de <b id="diasAnticipacion"></b> dias de anticipacion</cite>
+            </figcaption>
+          </div>
         </div>
         <div class="mb-3">
           <label for="fecha_ingreso" class="form-label">FECHA DE INGRESO AL ÁREA</label>
@@ -134,12 +139,15 @@
             </button>
           </div> -->
           <div id="divPagar" class="col-md-12 d-flex justify-content-center">
-            <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button>
-            <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
+          <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()">
+            <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
+          </button>
+            <!-- <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button> -->
+            <!-- <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button> -->
           </div>
-          <div class="col-md-12 d-flex justify-content-center">
+          <!-- <div class="col-md-12 d-flex justify-content-center">
             <button class=" btn btn-warning" id="btTest" onclick="testPago()">Test pago</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

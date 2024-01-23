@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let cabanias = await getCabanias(document.getElementById("idanp").value);
   let htmlCabanias = ``;
   document.getElementById("ads").innerHTML = "";
-
+  document.getElementById("diasAnticipacion").innerHTML = lugar.data.diasAnticipacionReserva;
   if (cabanias.cabanias.length == 0) {
     htmlCabanias = `
     <div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <span class="card-detail-badge"><i class="fa fa-users"></i> ` +
         item.capacidad +
         `</span>
-          <span class="card-detail-badge"><i class="fa fa-coins"></i> ` +
+          <span class="card-detail-badge"><i class="fa fa-coins"></i> $` +
         item.precio +
         `</span>
         </div>
