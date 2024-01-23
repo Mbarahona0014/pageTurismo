@@ -9,7 +9,7 @@ $idreserva = $url[1];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://localhost/Turismo-MARN/turismo/api/reserva/225',
+    CURLOPT_URL => 'http://localhost/Turismo-MARN/turismo/api/reserva/' . $idreserva,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
@@ -174,6 +174,12 @@ foreach ($reserva->reserva->detalle as $detalle) {
     $pdf->Cell(35, 5, "$" . number_format(($detalle->precio * $dias), 2), '', 0, 'L');
     $pdf->Ln();
 }
+$pdf->SetFont('arial', 'B', 12);
+$pdf->Cell(0, 10, 'CABANIAS: ', 0, 1);
+$pdf->SetFont('arial', 'B', 10);
+foreach ($reserva->reserva->cabanias as $cabania) {
+    $pdf->Cell(0, 5, "Codigo de cabaña: ".$cabania->codcabania, '', 0, 'L');
+}
 
 $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
 El ticket tendrá vigencia de 60 días a partir de la fecha de compra, pasado el tiempo estipulado caducará el mismo y se tendrá por utilizado.
@@ -216,11 +222,11 @@ $pdf->AddPage();
 $pdf->Ln();
 $pdf->Cell(0, 5, 'INDICACIONES ESPECIFICAS', 0, 1);
 $pdf->SetFont('arial', '', 10);
-$textoIndicacionesEspecificas='';
+$textoIndicacionesEspecificas = '';
 foreach ($reserva->indicaciones->data as $indicaciones) {
     /* $pdf->Cell(0, 5, "* ".utf8_decode($indicaciones->indicaciones), 0,1);
     $pdf->Ln(); */
-    $textoIndicacionesEspecificas.="
+    $textoIndicacionesEspecificas .= "
 * $indicaciones->indicaciones";
 }
 $pdf->MultiCell(0, 5, utf8_decode($textoIndicacionesEspecificas), 0, 1);

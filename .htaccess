@@ -4,6 +4,10 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} pdf [NC]
 RewriteRule ^ pdf.php [L]
 
+# Redireccionar URL con la palabra "verificar"
+RewriteCond %{REQUEST_URI} verificar [NC]
+RewriteRule ^ reserva.php [L]
+
 Header always add Access-Control-Allow-Origin "*"
 Header set Access-Control-Allow-Methods "GET, PUT, POST, OPTIONS"
 Header always add Access-Control-Allow-Headers "Authorization"
