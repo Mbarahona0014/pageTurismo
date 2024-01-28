@@ -146,7 +146,7 @@
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
                         <i class="far fa-map fa-xl"></i>
-                        <label>COMO LLEGAR</label>
+                        <label>CÓMO LLEGAR</label>
                     </div>
                 </div>
             </div>
@@ -197,8 +197,8 @@
                                     </a>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    <label>RESERVA AQUí</label>
-                                </div>
+                                    </div>
+                                    <label>RESERVA AQUÍ</label>
                             </div>
                         </div>
                     </div>

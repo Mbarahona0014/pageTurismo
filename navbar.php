@@ -1,28 +1,8 @@
 <?php
 require_once './config/params.php';
-/* var_dump($config); */
 ?>
 
 <header>
-    <!-- <div class="navbar navbar-dark bg-marn-blue shadow-sm">
-        <div class="container m-0 p-0">
-            <div class="col-3 align-self-start">
-                <div class="row">
-                    <span class="navbar-text">
-                        TURISMO
-                    </span>
-                </div>
-                <div class="row">
-                    <a class="navbar-brand" href="http://localhost/pageTurismo">
-                        <span class="navbar-text"><i class="fa fa-home"></i>&nbsp;Inicio</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-9 text-center">
-                <img src="recursos/imagenes/logo.png" />
-            </div>
-        </div>
-    </div> -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-marn-blue">
         <div class="container-fluid">
             <!-- <a class="navbar-brand" href="/"><img src="recursos/imagenes/logo.png" style="width: 200px;" /></a> -->
@@ -53,7 +33,7 @@ require_once './config/params.php';
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#row-contactanos"><i class="fa fa-user"></i>&nbsp;&nbsp;Contactanos</a>
+                        <a class="nav-link active" aria-current="page" href="#row-contactanos"><i class="fa fa-user"></i>&nbsp;&nbsp;Contáctanos</a>
                     </li>
                 </ul>
             </div>
