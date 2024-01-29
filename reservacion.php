@@ -77,7 +77,7 @@
 
         <div class="row mb-2" style="height: 140px;">
           <div class="col-md-12 mb-2 d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-dark text-white rounded-circle btn-lg bg-marn-blue" data-bs-toggle="modal" data-bs-target="#modalCalendario">
+            <button type="button" class="btn btn-dark btn-calendario text-white rounded-circle btn-lg bg-marn-blue" data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
               <h2 class="fa fa-calendar-days p-2"></h2>
             </button>
           </div>
@@ -86,17 +86,17 @@
           </div>
           <div class="col-md-12 d-flex justify-content-center">
             <figcaption class="blockquote-footer">
-              <cite>Puedes realizar tu reserva con un maximo de <b id="diasAnticipacion"></b> dias de anticipacion</cite>
+              <cite id="diasAnticipacion"></cite>
             </figcaption>
           </div>
         </div>
         <div class="mb-3">
           <label for="fecha_ingreso" class="form-label">FECHA DE INGRESO AL ÁREA</label>
-          <input type="text" class="form-control" name="fecha_inicio" id="fecha_ingreso" readonly>
+          <input type="text" class="form-control btn-calendario" name="fecha_inicio" id="fecha_ingreso" readonly data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
         </div>
         <div class="mb-3" id="div-fecha-retiro">
           <label for="fecha_retiro" class="form-label">FECHA RETIRO DEL ÁREA</label>
-          <input type="text" class="form-control" name="fecha_fin" id="fecha_retiro" readonly>
+          <input type="text" class="form-control btn-calendario" name="fecha_fin" id="fecha_retiro" readonly data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
         </div>
 
       </div>
@@ -114,7 +114,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-12 col-md-12 col-sm-12 p4">
+    <div id="div-cabanias" class="col-lg-12 col-md-12 col-sm-12 p4">
       <div class="container">
         <br>
         <h4>Puedes reservar tu cabaña aqui</h2>
@@ -143,7 +143,7 @@
             <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
           </button>
             <!-- <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button> -->
-            <!-- <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button> -->
+            <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
           </div>
           <!-- <div class="col-md-12 d-flex justify-content-center">
             <button class=" btn btn-warning" id="btTest" onclick="testPago()">Test pago</button>

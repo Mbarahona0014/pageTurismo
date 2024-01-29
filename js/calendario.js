@@ -26,7 +26,7 @@ async function initCalendar() {
   let lugarId = document.getElementById("idanp").value;
   let datalugar = await getLugarTuristico(lugarId);
   /* console.log(datalugar); */
-  diasMaxDeAntelacion = datalugar.data.diasAnticipacionReserva;
+  diasMaxDeAntelacion = datalugar.data.diasAnticipacionReserva - 1;
   permiteAcampar = datalugar.data.permiteAcampar;
   periodosDeshabilitados = await getPeriodosDeshabilitados(lugarId);
   responseDisponibilidades = await getDisponibilidadesMax(lugarId);

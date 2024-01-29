@@ -1,6 +1,8 @@
 const div_entradas = document.getElementById("div_entradas");
 const div_parqueos = document.getElementById("div_parqueos");
 const div_fecha_retiro = document.getElementById("div-fecha-retiro");
+const div_cabanias = document.getElementById("div-cabanias");
+
 const inputFechas = document.querySelector("#fecha_ingreso");
 const personas = [];
 const parqueos = [];
@@ -10,8 +12,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   let lugar = await getLugarTuristico(document.getElementById("idanp").value);
   let cabanias = await getCabanias(document.getElementById("idanp").value);
   let htmlCabanias = ``;
+  let htmlDias = ``;
   document.getElementById("ads").innerHTML = "";
-  document.getElementById("diasAnticipacion").innerHTML = lugar.data.diasAnticipacionReserva;
+  if(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva>0){
+    htmlDias = `Puedes realizar tu reserva con un máximo de ${lugar.data.diasAnticipacionReserva} días de anticipación`;
+  }else{
+    htmlDias = `No hay fechas disponibles`;
+  }
+  document.getElementById("diasAnticipacion").innerHTML = htmlDias;
   if (cabanias.cabanias.length == 0) {
     htmlCabanias = `
     <div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">
@@ -68,6 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   //OCULTAR FECHA DE RETIRO SI LUGAR NO PERMITE ACAMPAR
   if (!lugar.data.permiteAcampar) {
     div_fecha_retiro.style.display = "none";
+    div_cabanias.style.display = "none";
   }
   const idtransaccion =
     Date.now() + "-" + document.getElementById("idanp").value;
@@ -243,7 +252,7 @@ async function showModalCabania(id) {
 }
 
 async function reservarCabania(id) {
-  let inicio, fin;
+  let inicio, fin,mensaje='';
   const cantidad_dias = document.getElementById("cantidadDias").value;
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
@@ -306,10 +315,13 @@ async function reservarCabania(id) {
       appendCabania(id);
     }
   } else {
+    if(!inicio){
+      mensaje+='<br>No se ha se han seleccionado fechas<br>';
+    }
     Swal.fire({
-      title: "<strong>Error</strong>",
+      title: "<strong>No se pudo comprobar la disponibilidad</strong>",
       icon: "error",
-      html: "No se pudo comprobar la disponibilidad",
+      html: mensaje,
       showCloseButton: true,
     });
   }
@@ -815,3 +827,25 @@ function validarCorreo(correo) {
   }
 }
 
+async function verificardias(){
+  let lugar = await getLugarTuristico(document.getElementById("idanp").value);
+  if(!(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva>0)){
+    Swal.fire({
+      title: "<strong>Error</strong>",
+      icon: "error",
+      html: "No hay fechas disponibles",
+      showCloseButton: true,
+    });
+    $("#modalCalendario").hide();
+  }else{
+    $("#modalCalendario").modal();
+  }
+}
+
+window.addEventListener("beforeunload", (evento) => {
+  if (true) {
+      evento.preventDefault();
+      evento.returnValue = "";
+      return "";
+  }
+});

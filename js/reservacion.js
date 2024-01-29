@@ -168,7 +168,7 @@ async function sendCorreo(correo, mensaje) {
   return response;
 }
 
-async function testPago() {
+/* async function testPago() {
   reserva = await updateReserva();
   if (reserva.ok) {
     //ENVIAR CORREO
@@ -265,7 +265,7 @@ async function testPago() {
     window.open(`http://localhost/pageTurismo/pdf/${reservacion.reserva.data.id}`);
   }
 }
-
+ */
 async function updateReserva() {
   const cabanias = $("#idCanabias").val();
   const cabanias_metadata = (cabanias != "") ? cabanias : 0;
