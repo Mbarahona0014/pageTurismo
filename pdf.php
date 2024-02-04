@@ -1,12 +1,17 @@
 <?php
 require('fpdf/fpdf.php');
 require('phpqrcode/qrlib.php');
+require('recursos/helper.class.php');
 
 $uri = explode("/pdf", $_SERVER["REQUEST_URI"]);
 $url = count($uri) > 1 ? explode("/", $uri[1]) : [""];
-$idreserva = $url[1];
+$idencriptado = $url[1];
 
 $curl = curl_init();
+$hlp = new Helper();
+
+//DESENCRIPTAR ID DE RESERVA
+$idreserva = $hlp->decrypt($idencriptado);
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => 'http://localhost/Turismo-MARN/turismo/api/reserva/' . $idreserva,
@@ -26,10 +31,9 @@ $response = curl_exec($curl);
 $reserva = json_decode($response);
 curl_close($curl);
 
-
 $fecha_fin = date("Y-m-d", strtotime($reserva->reserva->data->inicio . "+ 1 year"));
-$url_qr = "recursos/qr/" . $idreserva . ".png";
-$url_reserva = "https://megabytesv.com/reservas/$idreserva";
+$url_qr = "recursos/qr/" . $idencriptado . ".png";
+$url_reserva = "https://megabytesv.com/reservas/$idencriptado";
 
 
 $GLOBALS["params"] = $params = array(
@@ -178,7 +182,7 @@ $pdf->SetFont('arial', 'B', 12);
 $pdf->Cell(0, 10, 'CABANIAS: ', 0, 1);
 $pdf->SetFont('arial', 'B', 10);
 foreach ($reserva->reserva->cabanias as $cabania) {
-    $pdf->Cell(0, 5, "Codigo de cabaña: ".$cabania->codcabania, '', 0, 'L');
+    $pdf->Cell(0, 5, "Codigo de cabaña: " . $cabania->codcabania, '', 0, 'L');
 }
 
 $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.

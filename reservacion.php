@@ -7,20 +7,11 @@
   <meta name='robots' content='index, follow'>
   <meta name='theme-color' content='#282c34'>
   <title>Reservar</title>
+  <?php require_once("head.php"); ?>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <!--CSS-->
-  <link href="recursos/css/custom.css" rel="stylesheet">
-  <!-- Plugin CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/light.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/themes/dark.min.css" rel="stylesheet">
-  <!-- Plugin JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@uvarov.frontend/vanilla-calendar/build/vanilla-calendar.min.js" defer></script>
-  <!-- Font Awasome -->
-  <link href="fontawesome6/css/all.css" rel="stylesheet" />
-  <link href="fontawesome6/webfonts/fa-brands-400.ttf" rel="stylesheet" />
+
   <link href="https://testcheckout.redserfinsa.com:8087/Assets/css/BtnGoesStyle.css" rel="stylesheet" />
 </head>
 
@@ -139,9 +130,9 @@
             </button>
           </div> -->
           <div id="divPagar" class="col-md-12 d-flex justify-content-center">
-          <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()">
-            <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
-          </button>
+            <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()">
+              <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
+            </button>
             <!-- <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button> -->
             <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
           </div>
@@ -206,16 +197,16 @@
       </div>
     </div>
   </div>
-
+  <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://testcheckout.redserfinsa.com:8087/Scripts/Serfinsa.PayV2.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="./js/general.js"></script>
   <script src="./js/pliego_tarifario.js"></script>
   <script src="./js/calendario.js"></script>
   <script src="./js/reservacion.js"></script>
-
+  <!-- <script src="https://testcheckout.redserfinsa.com:8087/Scripts/Serfinsa.PayV2.js"></script> -->
+  <script src="./js/serfinsalocal.js"></script>
 </body>
 
 </html>

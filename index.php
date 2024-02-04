@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Areas Naturales protegidas</title>
     <?php require_once("head.php"); ?>
 </head>
 

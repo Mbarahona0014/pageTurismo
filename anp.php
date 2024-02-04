@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Areas Naturales protegidas</title>
     <?php require_once("head.php"); ?>
 </head>
 
@@ -197,8 +198,8 @@
                                     </a>
                                 </div>
                                 <div class="col-12 mt-3">
-                                    </div>
-                                    <label>RESERVA AQUÍ</label>
+                                </div>
+                                <label>RESERVA AQUÍ</label>
                             </div>
                         </div>
                     </div>

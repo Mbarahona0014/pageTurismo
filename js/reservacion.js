@@ -10,6 +10,18 @@ async function PayResultJson(message) {
   const cabanias = $("#idCanabias").val();
   const cabanias_metadata = (cabanias != "") ? cabanias : 0;
   const idReserva = document.getElementById("idReserva").value;
+  //ENCRYPTAR ID PARA RESERVA
+  const idReservaEncriptado = await encriptarId(idReserva);
+  //ENVIAR CORREO
+  let headersListClave = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
+  };
+  let clave = await fetch(`${url}/turismo/api/reserva/${idReserva}`, {
+    method: "GET",
+    headers: headersList
+  }).then(response => response.json());
+
   const claveAcceso = document.getElementById("claveAcceso").value;
   var obj = JSON.parse(message);
   //DAR FORMA A METADATA
@@ -137,7 +149,7 @@ async function PayResultJson(message) {
     </p>`;
       sendCorreo(reservacion.reserva.data.correo, mensaje);
       //VER PDF DE RESERVA
-      window.open(`http://localhost/pageTurismo/pdf/${reservacion.reserva.data.id}`);
+      window.open(`http://localhost/pageTurismo/pdf/${idReservaEncriptado}`);
       Swal.fire({
         title: "<strong>Reservacion realizada con exito</strong>",
         icon: "info",
@@ -149,52 +161,107 @@ async function PayResultJson(message) {
     }
   }
 }
-//Esta función capta todos los errores reportados por la plataforma.
-function CallBackErrorCliente(e) { }
 
-async function sendCorreo(correo, mensaje) {
-  const datos = new FormData();
-  datos.append("accion", "sendReserva");
-  datos.append("correo", correo);
-  datos.append("mensaje", mensaje);
 
-  let response = await fetch(
-    "../pageTurismo/recursos/correo.controller.php",
-    {
-      method: "POST",
-      body: datos
-    }
-  );
-  return response;
-}
+async function testPago() {
+  const cabanias = $("#idCanabias").val();
+  const cabanias_metadata = (cabanias != "") ? cabanias : 0;
+  const claveAcceso = "3f79807b687510f35a47ac1e";
+  const idReserva = 243;
+  //ENCRYPTAR ID PARA RESERVA
+  const idReservaEncriptado = await encriptarId(idReserva);
+  console.log(idReservaEncriptado);
+  var obj = {
+    "SatisFactorio": true,
+    "Codigo": "00",
+    "Mensaje": "AUTORIZADO",
+    "Fecha": "2024-01-10T15:18:42.7581044-06:00",
+    "NumeroAutorizacion": "232706",
+    "ClientIdTransaction": "1704921243380-11",
+    "OrdenCompra": null,
+    "MaskPan": "439093****8756",
+    "CardHolder": "DENNIS BARAHONA",
+    "Documento": null,
+    "MedioPago": "COMPRA",
+    "NumeroReferencia": "401015000005",
+    "SecretToken": null,
+    "IsCloseView": true,
+    "MontoNeto": "9",
+    "Monto": "9",
+    "Puntos": null,
+    "IsRedirect": false,
+    "UrlRedirect": null,
+    "Referencia": "401015000005",
+    "TransaccionId": "60627",
+    "Email": null,
+    "Direccion": null,
+    "Telefono": null,
+    "Cantidad": null,
+    "Total": null,
+    "StringBtc": null,
+    "Aranceles": null,
+    "TokenComercio": null,
+    "Adicionales": "",
+    "MontoCuota": 0
+  };
+  //DAR FORMA A METADATA
+  const metadata = {
+    pago: {
+      cuenta: obj.MaskPan,
+      titular: obj.CardHolder,
+      realizado: obj.SatisFactorio,
+      referencia: obj.Referencia,
+      transaccion: obj.TransaccionId,
+      autorizacion: obj.NumeroAutorizacion
+    },
+    tramite: {
+      origen: "turismo"
+    },
+    cabanias: cabanias_metadata
+  }
 
-/* async function testPago() {
-  reserva = await updateReserva();
-  if (reserva.ok) {
-    //ENVIAR CORREO
+  if (obj.SatisFactorio) {
+    //SI SE REALIZA EL PAGO ACTUALIZAR ESTADO DE RESERVA A PAGADO Y ACTUALIZAR METADATA
     let headersList = {
       "Content-Type": "application/json",
       "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
     };
-    let reservacion = await fetch(`${url}/turismo/api/reserva/${reserva.data.reservacionId}`, {
-      method: "GET",
-      headers: headersList
-    }).then(response => response.json());
-    console.log(reservacion);
-    let pago = JSON.parse(reservacion.reserva.data.metadata);
-    let tabladetalle = '';
-    let dias = reserva.data.numeroDeDias;
-    for (const [key, value] of Object.entries(reservacion.reserva.detalle)) {
-      const subtotal = value.precio * value.cantidad
-      tabladetalle += `
-      <td>${value.nombre}</td>
-      <td>${value.precio}</td>
-      <td>${value.cantidad}</td>
-      <td>$ ${subtotal.toFixed(2)}</td>
-      <td>$ ${(subtotal * dias).toFixed(2)}</td>`;
-    }
+    let bodyContent = JSON.stringify({
+      "claveAcceso": claveAcceso,
+      "pagada": true,
+      "metadata": metadata
+    });
 
-    let mensaje = `
+    let response = await fetch(`${url}/reservaciones/api/reservaciones/${idReserva}`, {
+      method: "PUT",
+      body: bodyContent,
+      headers: headersList,
+    }).then(response => response.json());
+
+    if (response.ok) {
+      //ENVIAR CORREO
+      let headersList = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
+      };
+      let reservacion = await fetch(`${url}/turismo/api/reserva/${idReserva}`, {
+        method: "GET",
+        headers: headersList
+      }).then(response => response.json());
+      let pago = JSON.parse(reservacion.reserva.data.metadata);
+      let tabladetalle = '';
+      let dias = response.data.numeroDeDias;
+      for (const [key, value] of Object.entries(reservacion.reserva.detalle)) {
+        const subtotal = value.precio * value.cantidad
+        tabladetalle += `
+        <td>${value.nombre}</td>
+        <td>${value.precio}</td>
+        <td>${value.cantidad}</td>
+        <td>$ ${subtotal.toFixed(2)}</td>
+        <td>$ ${(subtotal * dias).toFixed(2)}</td>`;
+      }
+
+      let mensaje = `
     RESOLUCIÓN: <b>SERVICIO DE ENTRADA A ANP</b>
     <h3>Datos de la reserva</h3>
     <b>Número de reservación:</b> ${reservacion.reserva.data.id}<br/>
@@ -260,12 +327,55 @@ async function sendCorreo(correo, mensaje) {
     </ol>
 
     </p>`;
-    sendCorreo(reservacion.reserva.data.correo, mensaje);
-    //VER PDF DE RESERVA
-    window.open(`http://localhost/pageTurismo/pdf/${reservacion.reserva.data.id}`);
+      sendCorreo(reservacion.reserva.data.correo, mensaje);
+      //VER PDF DE RESERVA
+      window.open(`http://localhost/pageTurismo/pdf/${idReservaEncriptado}`);
+      Swal.fire({
+        title: "<strong>Reservacion realizada con exito</strong>",
+        icon: "info",
+        html: 'Puede verificar la informacion de la reserva en el archivo descargado',
+        showCloseButton: true,
+      }).then(function () {
+        goPageANP();
+      });
+    }
   }
 }
- */
+
+//Esta función capta todos los errores reportados por la plataforma.
+function CallBackErrorCliente(e) { }
+
+async function sendCorreo(correo, mensaje) {
+  const datos = new FormData();
+  datos.append("accion", "sendReserva");
+  datos.append("correo", correo);
+  datos.append("mensaje", mensaje);
+
+  let response = await fetch(
+    "../pageTurismo/recursos/correo.controller.php",
+    {
+      method: "POST",
+      body: datos
+    }
+  );
+  return response;
+}
+
+async function encriptarId(id) {
+  const datos = new FormData();
+  datos.append("accion", "encrypt");
+  datos.append("data", id);
+
+  let response = await fetch(
+    "../pageTurismo/recursos/helper.controller.php",
+    {
+      method: "POST",
+      body: datos
+    }
+  ).then(response => response.json());
+  return response.data;
+}
+
 async function updateReserva() {
   const cabanias = $("#idCanabias").val();
   const cabanias_metadata = (cabanias != "") ? cabanias : 0;
