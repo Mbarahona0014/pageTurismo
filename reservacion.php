@@ -34,7 +34,7 @@
   <div class="row">
     <div class="col-12 p-1">
       <a href="anp.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
-        <button type="button" class="btn bg-marn-black text-white">
+        <button type="button" class="btn btn-dark bg-marn-black text-white">
           <i class="fa fa-arrow-left fa-xl"></i><span class="d-none d-md-block" style="font-size: 10px;">REGRESAR</span>
         </button>
       </a>
@@ -48,27 +48,27 @@
       <div class="form">
         <div class="mb-3">
           <label for="nombres" class="form-label">NOMBRES</label>
-          <input type="text" class="form-control" id="nombres">
+          <input type="text" class="form-control ctrl-reserva" id="nombres">
         </div>
 
         <div class="mb-3">
           <label for="apellidos" class="form-label">APELLIDOS</label>
-          <input type="text" class="form-control" id="apellidos">
+          <input type="text" class="form-control ctrl-reserva" id="apellidos">
         </div>
 
         <div class="mb-3">
           <label for="correo" class="form-label">CORREO</label>
-          <input type="email" class="form-control" id="correo">
+          <input type="email" class="form-control ctrl-reserva" id="correo">
         </div>
 
         <div class="mb-3">
           <label for="telefono" class="form-label">TELÉFONO</label>
-          <input type="tel" class="form-control" id="telefono">
+          <input type="tel" class="form-control ctrl-reserva" id="telefono">
         </div>
 
         <div class="row mb-2" style="height: 140px;">
           <div class="col-md-12 mb-2 d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-dark btn-calendario text-white rounded-circle btn-lg bg-marn-blue" data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
+            <button type="button" class="btn btn-dark btn-calendario text-white rounded-circle btn-lg bg-marn-blue ctrl-reserva" data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
               <h2 class="fa fa-calendar-days p-2"></h2>
             </button>
           </div>
@@ -83,10 +83,10 @@
         </div>
         <div class="mb-3">
           <label for="fecha_ingreso" class="form-label">FECHA DE INGRESO AL ÁREA</label>
-          <input type="text" class="form-control btn-calendario" name="fecha_inicio" id="fecha_ingreso" readonly data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
+          <input type="text" class="form-control btn-calendario ctrl-reserva" name="fecha_inicio" id="fecha_ingreso" readonly data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
         </div>
         <div class="mb-3" id="div-fecha-retiro">
-          <label for="fecha_retiro" class="form-label">FECHA RETIRO DEL ÁREA</label>
+          <label for="fecha_retiro" class="form-label ctrl-reserva">FECHA RETIRO DEL ÁREA</label>
           <input type="text" class="form-control btn-calendario" name="fecha_fin" id="fecha_retiro" readonly data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
         </div>
 
@@ -197,7 +197,14 @@
       </div>
     </div>
   </div>
-  <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
+
+  <button id="btEdit" type="button" style="padding:1rem; display: none;" class="btn btn-warning rounded-circle btn-float-screen" onclick="reabrirReserva()">
+    <i class="fa fa-pencil fa-xl"></i><br><span class="d-none d-md-block" style="font-size: 10px;">EDITAR<br>&nbsp;&nbsp;RESERVA&nbsp;&nbsp;</span>
+  </button>
+
+  <!--  <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
+  <button class=" btn btn-warning" id="btTest" onclick="testBotones()">Test botones</button> -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

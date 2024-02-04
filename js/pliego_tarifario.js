@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   let htmlCabanias = ``;
   let htmlDias = ``;
   document.getElementById("ads").innerHTML = "";
-  if(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva>0){
+  if (lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva > 0) {
     htmlDias = `Puedes realizar tu reserva con un máximo de ${lugar.data.diasAnticipacionReserva} días de anticipación`;
-  }else{
+  } else {
     htmlDias = `No hay fechas disponibles`;
   }
   document.getElementById("diasAnticipacion").innerHTML = htmlDias;
@@ -57,10 +57,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         item.descripcion +
         `</h5>
           </div>
-          <button data-bs-toggle="modal" data-bs-target="#modalCabania" class="ad-btn bg-marn-blue" href="#" onclick="showModalCabania(` +
+          <button data-bs-toggle="modal" data-bs-target="#modalCabania" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="showModalCabania(` +
         item.idcabania +
         `)">VER MAS</a>
-          <button id ="btn_reservar_${item.idcabania}" data-precio="${item.precio}" class="ad-btn bg-marn-blue" href="#" onclick="reservarCabania(` +
+          <button id ="btn_reservar_${item.idcabania}" data-precio="${item.precio}" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="reservarCabania(` +
         item.idcabania +
         `)">RESERVAR</a>
         </div>
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("nombre-lugar").innerHTML =
     "<b>" + lugar.data.nombre.toUpperCase() + "</b>";
   document.getElementById("ads").innerHTML = htmlCabanias;
-  /* console.log(lugar.data.permiteAcampar); */
+  //console.log(lugar.data.permiteAcampar);
   //OCULTAR FECHA DE RETIRO SI LUGAR NO PERMITE ACAMPAR
   if (!lugar.data.permiteAcampar) {
     div_fecha_retiro.style.display = "none";
@@ -205,10 +205,10 @@ const pintarPliegos = (data, div) => {
   data.forEach((item) => {
     html += `
     <div class="col-md-4 mb-3 d-flex justify-content-center align-items-center">
-      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white" id="btn_menos">-</button>
-      <input type="number" class="form-control text-center input-sm" id="cantidad" value="0" step="1" min="0" data-servicio="${item.id
+      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_menos">-</button>
+      <input type="number" class="form-control text-center input-sm ctrl-reserva" id="cantidad" value="0" step="1" min="0" data-servicio="${item.id
       }" data-entradas="0">
-      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white" id="btn_mas">+</button>
+      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_mas">+</button>
     </div>
     <div class="col-md-5 mb-3 d-flex justify-content-start align-items-center">
       <div>${item.nombre}</div>
@@ -252,7 +252,7 @@ async function showModalCabania(id) {
 }
 
 async function reservarCabania(id) {
-  let inicio, fin,mensaje='';
+  let inicio, fin, mensaje = '';
   const cantidad_dias = document.getElementById("cantidadDias").value;
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
@@ -315,8 +315,8 @@ async function reservarCabania(id) {
       appendCabania(id);
     }
   } else {
-    if(!inicio){
-      mensaje+='<br>No se ha se han seleccionado fechas<br>';
+    if (!inicio) {
+      mensaje += '<br>No se ha se han seleccionado fechas<br>';
     }
     Swal.fire({
       title: "<strong>No se pudo comprobar la disponibilidad</strong>",
@@ -542,10 +542,12 @@ async function validarFormReserva() {
                 .then(async result => {
                   console.log(result);
                   if (result.Satisfactorio) {
+                    //DESHABILITAR BOTONES DE RESERVA
+                    $(".ctrl-reserva").prop('disabled', true);
                     $("#MerchantToken").val(result.JwtMerchantToken);
                     $("#btValidar").hide();
                     $("#btPagar").show();
-                    $("#btTest").show();
+                    $("#btEdit").show();
                   } else {
                     Swal.fire({
                       title: "<strong>No se puede realizar la transacción</strong>",
@@ -583,10 +585,12 @@ async function validarFormReserva() {
               .then(async result => {
                 console.log(result);
                 if (result.Satisfactorio) {
+                  $(".ctrl-reserva").prop('disabled', true);
                   $("#MerchantToken").val(result.JwtMerchantToken);
                   $("#btValidar").hide();
                   $("#btPagar").show();
-                  $("#btTest").show();
+                  $("#btEdit").show();
+                  //$("#btTest").show();
                 } else {
                   Swal.fire({
                     title: "<strong>No se puede realizar la transacción</strong>",
@@ -606,7 +610,7 @@ async function validarFormReserva() {
   }
 }
 
-async function validarForm() {
+/* async function validarForm() {
   //VALIDAR CAMPOS DE FORMULARIO DE RESERVA
   var mensajeError = "";
   var error = 0;
@@ -703,10 +707,11 @@ async function validarForm() {
           .then(async result => {
             console.log(result);
             if (result.Satisfactorio) {
+              $(".ctrl-reserva").prop('disabled', true);
               $("#MerchantToken").val(result.JwtMerchantToken);
               $("#btValidar").hide();
               $("#btPagar").show();
-              $("#btTest").show();
+              $("#btEdit").show();
               //GUARDAR RESERVACION COMO NO PAGADA
               let respuestaReservacion = await saveReservacion();
               if (respuestaReservacion.ok) {
@@ -742,7 +747,7 @@ async function validarForm() {
     });
   }
 }
-
+ */
 async function saveReservacion() {
   const cantidad = document.querySelectorAll("#cantidad");
   const nombres = document.getElementById("nombres").value;
@@ -827,9 +832,9 @@ function validarCorreo(correo) {
   }
 }
 
-async function verificardias(){
+async function verificardias() {
   let lugar = await getLugarTuristico(document.getElementById("idanp").value);
-  if(!(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva>0)){
+  if (!(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva > 0)) {
     Swal.fire({
       title: "<strong>Error</strong>",
       icon: "error",
@@ -837,15 +842,25 @@ async function verificardias(){
       showCloseButton: true,
     });
     $("#modalCalendario").hide();
-  }else{
+  } else {
     $("#modalCalendario").modal();
   }
 }
 
+async function reabrirReserva() {
+  $("#idReserva").val("");
+  $("#claveAcceso").val("");
+  $("#MerchantToken").val("");
+  $("#btEdit").hide();
+  $("#btValidar").show();
+  $("#btPagar").hide();
+  $(".ctrl-reserva").prop('disabled', false);
+};
+
 window.addEventListener("beforeunload", (evento) => {
   if (true) {
-      evento.preventDefault();
-      evento.returnValue = "";
-      return "";
+    evento.preventDefault();
+    evento.returnValue = "";
+    return "";
   }
 });
