@@ -35,7 +35,7 @@ class Correo
         }
         return $enviado;
     }
-    public function enviarCorreoConfirmacion($correo, $mensaje, $attachment)
+    public function enviarCorreoConfirmacion($correo, $mensaje, $attachment='')
     {
         $enviado = false;
         try {
@@ -54,7 +54,7 @@ class Correo
             $mail->Subject = 'RESERVA';
             $html = $mensaje;
             $mail->Body = $html;
-            $mail->addAttachment($attachment); 
+            /* $mail->addAttachment($attachment);  */
             $mail->send();
             $enviado = true;
         } catch (Exception $e) {

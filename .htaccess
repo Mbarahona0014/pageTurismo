@@ -1,7 +1,7 @@
 RewriteEngine On
 
-# Redireccionar URL con la palabra "pdf"
-RewriteCond %{REQUEST_URI} pdf [NC]
+# Redireccionar URL con la palabra "comprobante"
+RewriteCond %{REQUEST_URI} comprobante [NC]
 RewriteRule ^ pdf.php [L]
 
 # Redireccionar URL con la palabra "verificar"

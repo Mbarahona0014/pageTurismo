@@ -204,7 +204,6 @@
 
   <!--  <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
   <button class=" btn btn-warning" id="btTest" onclick="testBotones()">Test botones</button> -->
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

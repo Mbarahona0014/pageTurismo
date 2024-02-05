@@ -5,7 +5,7 @@ require('fpdf/fpdf.php');
 require('phpqrcode/qrlib.php');
 require('recursos/helper.class.php');
 
-$uri = explode("/pdf", $_SERVER["REQUEST_URI"]);
+$uri = explode("/comprobante", $_SERVER["REQUEST_URI"]);
 $url = count($uri) > 1 ? explode("/", $uri[1]) : [""];
 $idencriptado = $url[1];
 

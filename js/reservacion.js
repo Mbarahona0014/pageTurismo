@@ -135,13 +135,14 @@ async function PayResultJson(message) {
       <li>Prohibido el ingreso de plásticos de un solo uso como pajitas, platos, vasos y otros objetos desechables.</li>
       <li>Prohibido el ingreso de mascotas.</li>
     </ol>
-
-    </p>`;
+    </p>
+    <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
+    `;
 
       //VER PDF DE RESERVA
-      window.open(`${url_landing}/pdf/${idReservaEncriptado}`);
-      await new Promise(r => setTimeout(r, 2000));
-      sendCorreo(reservacion.reserva.data.correo, mensaje, `${url_landing}/recursos/archivo/${idReservaEncriptado}`);
+      window.open(`${url_landing}/comprobante/${idReservaEncriptado}`);
+      //await new Promise(r => setTimeout(r, 20000));
+      sendCorreo(reservacion.reserva.data.correo, mensaje);
       Swal.fire({
         title: "<strong>Reservacion realizada con exito</strong>",
         icon: "info",
@@ -155,7 +156,7 @@ async function PayResultJson(message) {
 }
 
 
-async function testPago() {
+/* async function testPago() {
   const cabanias = $("#idCanabias").val();
   const cabanias_metadata = (cabanias != "") ? cabanias : 0;
   const claveAcceso = "3f79807b687510f35a47ac1e";
@@ -332,12 +333,12 @@ async function testPago() {
       });
     }
   }
-}
+} */
 
 //Esta función capta todos los errores reportados por la plataforma.
 function CallBackErrorCliente(e) { }
 
-async function sendCorreo(correo, mensaje,attach) {
+async function sendCorreo(correo, mensaje, attach) {
   const datos = new FormData();
   datos.append("accion", "sendReserva");
   datos.append("correo", correo);
@@ -449,3 +450,6 @@ function goPageANP() {
   location.replace(`${url_landing}/anp.php?id=${idlugar}`);
 }
 
+/* function testArchivo(){
+  sendCorreo("dnisbarahona007@gmail.com", "test", `${url_landing}/recursos/archivo/TnU3anBVMndaUTlXeVN0b3BBVWcyZz09.pdf`);
+} */
