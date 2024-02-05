@@ -54,6 +54,7 @@ class Correo
             $mail->Subject = 'RESERVA';
             $html = $mensaje;
             $mail->Body = $html;
+            $mail->addAttachment($attachment); 
             $mail->send();
             $enviado = true;
         } catch (Exception $e) {
