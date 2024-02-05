@@ -35,7 +35,7 @@ class Correo
         }
         return $enviado;
     }
-    public function enviarCorreoConfirmacion($correo,$mensaje)
+    public function enviarCorreoConfirmacion($correo,$mensaje,$attachment)
     {
         $enviado = false;
         try {

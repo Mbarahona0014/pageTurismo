@@ -137,9 +137,10 @@ async function PayResultJson(message) {
     </ol>
 
     </p>`;
-      sendCorreo(reservacion.reserva.data.correo, mensaje);
+
       //VER PDF DE RESERVA
       window.open(`http://localhost/pageTurismo/pdf/${idReservaEncriptado}`);
+      sendCorreo(reservacion.reserva.data.correo, mensaje, `../recursos/archivo/${idReservaEncriptado}`);
       Swal.fire({
         title: "<strong>Reservacion realizada con exito</strong>",
         icon: "info",
@@ -444,5 +445,5 @@ async function updateReserva() {
 
 function goPageANP() {
   let idlugar = $("#idanp").val();
-  location.replace(`http://localhost/pageTurismo/anp.php?id=${idlugar}`);
+  location.replace(`${url_landing}/anp.php?id=${idlugar}`);
 }

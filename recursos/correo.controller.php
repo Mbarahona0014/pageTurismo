@@ -15,6 +15,7 @@ if (isset($_POST)) {
   $correo = isset($_POST["correo"]) ? $_POST["correo"] : false;
   $pregunta = isset($_POST["pregunta"]) ? $_POST["pregunta"] : false;
   $mensaje = isset($_POST["mensaje"]) ? $_POST["mensaje"] : false;
+  $attachment = isset($_POST["attachment"]) ? $_POST["attachment"] : false;
   if ($accion) {
     switch ($accion) {
       case 'send':
@@ -32,7 +33,7 @@ if (isset($_POST)) {
         }
         break;
       case 'sendReserva':
-        $sendmail = $mm->enviarCorreoConfirmacion($correo, $mensaje);
+        $sendmail = $mm->enviarCorreoConfirmacion($correo, $mensaje,$attachment);
         if ($sendmail) {
           return print_r(json_encode([
             "success" => true,
