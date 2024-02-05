@@ -1,6 +1,3 @@
-<?php
-define("URL_GALLERY", "http://localhost/Turismo-MARN/vista/recursos");
-?>
 
 <head>
     <!-- Required meta tags -->

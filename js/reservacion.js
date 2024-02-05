@@ -139,7 +139,7 @@ async function PayResultJson(message) {
     </p>`;
 
       //VER PDF DE RESERVA
-      window.open(`http://localhost/pageTurismo/pdf/${idReservaEncriptado}`);
+      window.open(`${url_landing}/pdf/${idReservaEncriptado}`);
       sendCorreo(reservacion.reserva.data.correo, mensaje, `../recursos/archivo/${idReservaEncriptado}`);
       Swal.fire({
         title: "<strong>Reservacion realizada con exito</strong>",
@@ -320,7 +320,7 @@ async function testPago() {
     </p>`;
       sendCorreo(reservacion.reserva.data.correo, mensaje);
       //VER PDF DE RESERVA
-      window.open(`http://localhost/pageTurismo/pdf/${idReservaEncriptado}`);
+      window.open(`${url_landing}/pdf/${idReservaEncriptado}`);
       Swal.fire({
         title: "<strong>Reservacion realizada con exito</strong>",
         icon: "info",
