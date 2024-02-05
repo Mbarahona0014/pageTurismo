@@ -204,16 +204,16 @@ const pintarPliegos = (data, div) => {
   let html = "";
   data.forEach((item) => {
     html += `
-    <div class="col-md-4 mb-3 d-flex justify-content-center align-items-center">
-      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_menos">-</button>
-      <input type="number" class="form-control text-center input-sm ctrl-reserva" id="cantidad" value="0" step="1" min="0" data-servicio="${item.id
-      }" data-entradas="0">
-      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_mas">+</button>
-    </div>
     <div class="col-md-5 mb-3 d-flex justify-content-start align-items-center">
       <div>${item.nombre}</div>
     </div>
-    <div class="col-md-3 mb-3 d-flex justify-content-center align-items-center">
+    <div class="col-md-5 mb-3 d-flex justify-content-center align-items-center">
+      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_menos">-</button>
+      <input type="number" class="form-control text-center input-sm ctrl-reserva w-50" id="cantidad" value="0" step="1" min="0" data-servicio="${item.id
+      }" data-entradas="0">
+      <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_mas">+</button>
+    </div>
+    <div class="col-md-2 mb-3 d-flex justify-content-center align-items-center">
       <div>
         <b>${item.precio === 0 ? "GRATIS" : formatMoney(item.precio)}</b>
       </div>

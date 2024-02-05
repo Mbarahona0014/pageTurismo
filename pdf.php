@@ -175,7 +175,7 @@ foreach ($reserva->reserva->detalle as $detalle) {
     $pdf->Cell(20, 5, "$" . number_format($detalle->precio, 2), '', 0, 'L');
     $pdf->Cell(30, 5, $detalle->cantidad, '', 0, 'L');
     $pdf->Cell(40, 5, "$" . number_format($subtotal, 2), '', 0, 'L');
-    $pdf->Cell(35, 5, "$" . number_format(($detalle->precio * $dias), 2), '', 0, 'L');
+    $pdf->Cell(35, 5, "$" . number_format(($subtotal * $dias), 2), '', 0, 'L');
     $pdf->Ln();
 }
 $pdf->SetFont('arial', 'B', 12);

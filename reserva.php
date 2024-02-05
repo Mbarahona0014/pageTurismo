@@ -44,7 +44,7 @@ foreach ($reserva->reserva->detalle as $detalle) {
         <td>' . "$" . number_format($detalle->precio, 2) . '</td>
         <td>' . $detalle->cantidad . '</td>
         <td>' . "$" . number_format($subtotal, 2) . '</td>
-        <td>' . "$" . number_format(($detalle->precio * $dias), 2) . '</td>
+        <td>' . "$" . number_format(($subtotal * $dias), 2) . '</td>
     </tr>';
 }
 foreach ($reserva->reserva->cabanias as $cabania) {

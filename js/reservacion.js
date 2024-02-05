@@ -12,16 +12,6 @@ async function PayResultJson(message) {
   const idReserva = document.getElementById("idReserva").value;
   //ENCRYPTAR ID PARA RESERVA
   const idReservaEncriptado = await encriptarId(idReserva);
-  //ENVIAR CORREO
-  let headersListClave = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
-  };
-  let clave = await fetch(`${url}/turismo/api/reserva/${idReserva}`, {
-    method: "GET",
-    headers: headersList
-  }).then(response => response.json());
-
   const claveAcceso = document.getElementById("claveAcceso").value;
   var obj = JSON.parse(message);
   //DAR FORMA A METADATA
