@@ -9,7 +9,7 @@ require_once '../phpmailer/src/SMTP.php';
 
 class Correo
 {
-    public function enviarCorreo($nombre,$telefono,$correo,$pregunta)
+    public function enviarCorreo($nombre, $telefono, $correo, $pregunta)
     {
         $enviado = false;
         try {
@@ -35,7 +35,7 @@ class Correo
         }
         return $enviado;
     }
-    public function enviarCorreoConfirmacion($correo,$mensaje,$attachment)
+    public function enviarCorreoConfirmacion($correo, $mensaje, $attachment)
     {
         $enviado = false;
         try {

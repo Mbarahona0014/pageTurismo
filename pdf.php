@@ -234,6 +234,7 @@ foreach ($reserva->indicaciones->data as $indicaciones) {
 }
 $pdf->MultiCell(0, 5, utf8_decode($textoIndicacionesEspecificas), 0, 1);
 
-$pdf->Output();
+
 $pdf->Output('recursos/archivo/' . $idencriptado . '.pdf', 'F');
-$pdf->Output('test.pdf', 'D');
+$pdf->Output($idencriptado . '.pdf', 'D');
+$pdf->Output();

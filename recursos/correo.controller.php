@@ -33,7 +33,7 @@ if (isset($_POST)) {
         }
         break;
       case 'sendReserva':
-        $sendmail = $mm->enviarCorreoConfirmacion($correo, $mensaje,$attachment);
+        $sendmail = $mm->enviarCorreoConfirmacion($correo, $mensaje, $attachment);
         if ($sendmail) {
           return print_r(json_encode([
             "success" => true,

@@ -336,12 +336,12 @@ async function testPago() {
 //Esta función capta todos los errores reportados por la plataforma.
 function CallBackErrorCliente(e) { }
 
-async function sendCorreo(correo, mensaje) {
+async function sendCorreo(correo, mensaje,attach) {
   const datos = new FormData();
   datos.append("accion", "sendReserva");
   datos.append("correo", correo);
   datos.append("mensaje", mensaje);
-
+  datos.append("attachment", attach);
   let response = await fetch(
     "../pageTurismo/recursos/correo.controller.php",
     {
