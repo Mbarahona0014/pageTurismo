@@ -1,7 +1,7 @@
 <?php
-
+require('config/params.php');
 require('recursos/helper.class.php');
-$uri = explode("/reserva", $_SERVER["REQUEST_URI"]);
+$uri = explode("/verificar", $_SERVER["REQUEST_URI"]);
 $url = count($uri) > 1 ? explode("/", $uri[1]) : [""];
 $idencriptado = $url[1];
 
@@ -13,7 +13,7 @@ $idreserva = $hlp->decrypt($idencriptado);
 
 //DETALLAR RESERVA
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://localhost/Turismo-MARN/turismo/api/reserva/' . $idreserva,
+    CURLOPT_URL => $config["url_portal"] . '/turismo/api/reserva/' . $idreserva,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,

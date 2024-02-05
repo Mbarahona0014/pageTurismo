@@ -1,11 +1,15 @@
 <?php
 
 $urls_dev = [
-  'tour_virtual' => 'http://localhost/tourVirtual'
+  'tour_virtual' => 'http://localhost/tourVirtual',
+  'url_landing' => 'http://localhost/pageTurismo',
+  'url_portal' => 'http://localhost/Turismo-MARN'
 ];
 
 $urls_prod = [
-  'tour_virtual' => 'https://megabytesv.com/tourVirtual'
+  'tour_virtual' => 'https://megabytesv.com/tourVirtual',
+  'url_landing' => 'https://megabytesv.com/pageTurismo',
+  'url_portal' => 'https://megabytesv.com/Turismo-MARN'
 ];
 
-$config = $urls_prod;
+$config = $urls_dev;

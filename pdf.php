@@ -1,4 +1,6 @@
 <?php
+
+require('config/params.php');
 require('fpdf/fpdf.php');
 require('phpqrcode/qrlib.php');
 require('recursos/helper.class.php');
@@ -14,7 +16,7 @@ $hlp = new Helper();
 $idreserva = $hlp->decrypt($idencriptado);
 
 curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://localhost/Turismo-MARN/turismo/api/reserva/' . $idreserva,
+    CURLOPT_URL => $config['url_portal'] . '/turismo/api/reserva/' . $idreserva,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
@@ -33,8 +35,7 @@ curl_close($curl);
 
 $fecha_fin = date("Y-m-d", strtotime($reserva->reserva->data->inicio . "+ 1 year"));
 $url_qr = "recursos/qr/" . $idencriptado . ".png";
-$url_reserva = "https://megabytesv.com/reservas/$idencriptado";
-
+$url_reserva = $config['url_landing'] . "/verificar/$idencriptado";
 
 $GLOBALS["params"] = $params = array(
     'fechainicio' => $reserva->reserva->data->inicio,
@@ -228,15 +229,11 @@ $pdf->Cell(0, 5, 'INDICACIONES ESPECIFICAS', 0, 1);
 $pdf->SetFont('arial', '', 10);
 $textoIndicacionesEspecificas = '';
 foreach ($reserva->indicaciones->data as $indicaciones) {
-    /* $pdf->Cell(0, 5, "* ".utf8_decode($indicaciones->indicaciones), 0,1);
-    $pdf->Ln(); */
     $textoIndicacionesEspecificas .= "
 * $indicaciones->indicaciones";
 }
 $pdf->MultiCell(0, 5, utf8_decode($textoIndicacionesEspecificas), 0, 1);
-/* $pdf->SetFont('Times', '', 12);
-for ($i = 1; $i <= 40; $i++)
-    $pdf->Cell(0, 10, 'Printing line number ' . $i, 0, 1); */
+
 $pdf->Output();
-/* $pdf->Output('recursos/archivo/test.pdf','F');
-$pdf->Output('test.pdf','D'); */
+$pdf->Output('recursos/archivo/' . $idencriptado . '.pdf', 'F');
+$pdf->Output('test.pdf', 'D');
