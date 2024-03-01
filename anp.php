@@ -38,11 +38,11 @@
         </div>
         <!-- Barra de separacion -->
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-seedling fa-xl"></i>
-                        <label>FLORA Y FAUNA</label>
+                        <!-- <i class="fa fa-seedling fa-xl"></i> -->
+                        <label class="lbl-md">FLORA Y FAUNA</label>
                     </div>
                 </div>
             </div>
@@ -71,11 +71,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-campground fa-xl"></i>
-                        <label>ACTIVIDADES</label>
+                        <!-- <i class="fa fa-campground fa-xl"></i> -->
+                        <label class="lbl-md">ACTIVIDADES</label>
                     </div>
                 </div>
             </div>
@@ -86,11 +86,11 @@
         </div>
         <!-- Barra de separacion -->
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-list fa-xl"></i>
-                        <label>INDICACIONES</label>
+                        <!-- <i class="fa fa-list fa-xl"></i> -->
+                        <label class="lbl-md">INDICACIONES</label>
                     </div>
                 </div>
             </div>
@@ -105,11 +105,11 @@
         </div>
         <!-- Barra de separacion -->
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-walking fa-xl"></i>
-                        <label>SENDEROS</label>
+                        <!-- <i class="fa fa-walking fa-xl"></i> -->
+                        <label class="lbl-md">SENDEROS</label>
                     </div>
                 </div>
             </div>
@@ -143,11 +143,11 @@
         </div> -->
         <!-- Barra de separacion -->
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="far fa-map fa-xl"></i>
-                        <label>CÓMO LLEGAR</label>
+                        <!-- <i class="far fa-map fa-xl"></i> -->
+                        <label class="lbl-md">CÓMO LLEGAR</label>
                     </div>
                 </div>
             </div>
@@ -208,11 +208,11 @@
         </div>
         <!-- Barra de separacion -->
         <div class="row">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-address-card fa-xl"></i>
-                        <label>¿TIENES ALGUNA DUDA?</label>
+                        <!-- <i class="fa fa-address-card fa-xl"></i> -->
+                        <label class="lbl-md">¿TIENES ALGUNA DUDA?</label>
                     </div>
                 </div>
             </div>

@@ -26,11 +26,11 @@
         </div> -->
         <!-- Barra de separacion -->
         <div class="row m-0 p-0">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
-                <div class="container p-2 text-white">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
+                <div class="container p-2 text-white ">
                     <div class="col-12 text-center">
-                        <i class="fa fa-mountain fa-xl"></i>
-                        <label>ÁREAS NATURALES PROTEGIDAS</label>
+                        <!-- <i class="fa fa-mountain fa-xl"></i> -->
+                        <label class="lbl-lg">ÁREAS<br>NATURALES<br>PROTEGIDAS</label>
                     </div>
                 </div>
             </div>
@@ -41,11 +41,11 @@
         </div>
         <!-- Barra de separacion -->
         <div class="row m-0 p-0">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-newspaper fa-xl"></i>
-                        <label>AVISOS</label>
+                        <!-- <i class="fa fa-newspaper fa-xl"></i> -->
+                        <label class="lbl-md">AVISOS</label>
                     </div>
                 </div>
             </div>
@@ -75,11 +75,11 @@
         </div> -->
         <!-- Barra de separacion -->
         <div class="row m-0 p-0">
-            <div class="navbar navbar-dark bg-marn-blue shadow-sm">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
-                        <i class="fa fa-address-card fa-xl"></i>
-                        <label>¿TIENES ALGUNA DUDA?</label>
+                        <!-- <i class="fa fa-address-card fa-xl"></i> -->
+                        <label class="lbl-md">¿TIENES ALGUNA DUDA?</label>
                     </div>
                 </div>
             </div>

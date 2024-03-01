@@ -3,7 +3,7 @@ require_once './config/params.php';
 ?>
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-marn-blue">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
         <div class="container-fluid">
             <!-- <a class="navbar-brand" href="/"><img src="recursos/imagenes/logo.png" style="width: 200px;" /></a> -->
             <a class="navbar-brand" href="/pageTurismo"><img src="recursos/imagenes/anplogoblanco.png" alt="" width="150"></a>
