@@ -14,4 +14,4 @@ $urls_prod = [
   'url_portal' => 'https://megabytesv.com/Turismo-MARN'
 ];
 
-$config = $urls_dev;
+$config = $urls_prod;

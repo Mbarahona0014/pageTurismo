@@ -4,7 +4,8 @@ header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
 header('Strict-Transport-Security: max-age=10886400');
-//header('Content-Security-Policy: default-src self');
+header("Content-Security-Policy: default-src 'self' https: 'unsafe-inline'");
+
 ?>
 <head>
 
