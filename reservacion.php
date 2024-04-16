@@ -18,7 +18,7 @@
 <body style='padding: 1rem;'>
   <input type="hidden" id="idanp" value="<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
   <input type="hidden" id="MerchantToken" />
-  <input type="hidden" id="TokenSerfinsa" value="81d4c8f5-fd44-41ec-b084-b09570fbe043" />
+  <input type="hidden" id="TokenSerfinsa" value=<?php echo TKN_SFS ?> />
   <input type="hidden" id="IdTransaccion" />
   <input type="hidden" id="montoEntradas" />
   <input type="hidden" id="montoCabanias" />

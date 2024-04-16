@@ -5,3 +5,4 @@ const url_imagenes = "https://megabytesv.com/Turismo-MARN/vista/recursos/turismo
 const url = "http://localhost/Turismo-MARN";
 const url_landing = "http://localhost/pageTurismo";
 const url_imagenes = "http://localhost/Turismo-MARN/vista/recursos/turismo";
+const token = "marn_turismo-2024dfsIjf348Jf_-sf39jsH830-3";

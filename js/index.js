@@ -117,6 +117,7 @@ async function getPage() {
   let res = null;
   try {
     const response = await fetch(`${url}/turismo/api/principal`, {
+      headers: {Authorization: `Bearer ${token}`},
       method: "GET",
     });
     if (!response.ok) {
