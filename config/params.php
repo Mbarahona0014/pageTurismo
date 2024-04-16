@@ -8,7 +8,7 @@ $urls_dev = [
 
 $urls_prod = [
   'tour_virtual' => 'https://megabytesv.com/tourVirtual',
-  'url_landing' => 'https://megabytesv.com/pageTurismo',
+  'url_landing' => 'http://localhost/pageTurismo',
   'url_portal' => 'https://megabytesv.com/Turismo-MARN'
 ];
 

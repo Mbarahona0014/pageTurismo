@@ -211,8 +211,8 @@
   <script src="./js/pliego_tarifario.js"></script>
   <script src="./js/calendario.js"></script>
   <script src="./js/reservacion.js"></script>
-  <!-- <script src="https://testcheckout.redserfinsa.com:8087/Scripts/Serfinsa.PayV2.js"></script> -->
-  <script src="./js/serfinsalocal.js"></script>
+  <script src="https://testcheckout.redserfinsa.com:8087/Scripts/Serfinsa.PayV2.js"></script>
+  <!-- <script src="./js/serfinsalocal.js"></script> -->
 </body>
 
 </html>

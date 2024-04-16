@@ -1,5 +1,13 @@
-
+<?php
+include_once("config/params.php");
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: SAMEORIGIN');
+header('X-XSS-Protection: 1; mode=block');
+header('Strict-Transport-Security: max-age=10886400');
+header('Content-Security-Policy: default-src self');
+?>
 <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

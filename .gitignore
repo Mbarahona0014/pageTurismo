@@ -8,3 +8,4 @@ phpqrcode
 qrtest
 js/general.js
 config/params.php
+head.php

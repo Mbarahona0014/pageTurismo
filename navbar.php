@@ -6,14 +6,14 @@ require_once './config/params.php';
     <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
         <div class="container-fluid">
             <!-- <a class="navbar-brand" href="/"><img src="recursos/imagenes/logo.png" style="width: 200px;" /></a> -->
-            <a class="navbar-brand" href="/pageTurismo"><img src="recursos/imagenes/anplogoblanco.png" alt="" width="150"></a>
+            <a class="navbar-brand" href="/"><img src="recursos/imagenes/anplogoblanco.png" alt="" width="150"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/pageTurismo"><i class="fa fa-home"></i>&nbsp;&nbsp;Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="/"><i class="fa fa-home"></i>&nbsp;&nbsp;Inicio</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
