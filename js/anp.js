@@ -128,6 +128,7 @@ async function getPage() {
   let idanp = document.getElementById("idanp").value;
   try {
     const response = await fetch(`${url}/turismo/api/anp/${idanp}`, {
+      headers: {Authorization: `Bearer ${token}`},
       method: "GET",
     });
     if (!response.ok) {

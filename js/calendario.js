@@ -152,6 +152,7 @@ async function getLugarId(idanp) {
   let lugares = [];
   try {
     const response = await fetch(`${url}/turismo/api/lugares/${idanp}`, {
+      headers: {Authorization: `Bearer ${token}`},
       method: "GET",
     });
     if (!response.ok) {
@@ -183,6 +184,7 @@ async function getContador(lugarId, reservacionOmitida) {
     const response = await fetch(
       `${url}/reservaciones/api/contador?lugarId=${lugarId}&idReservacionOmitida=${reservacionOmitida}`,
       {
+        headers: {Authorization: `Bearer ${token}`},
         method: "GET",
       }
     );
@@ -254,6 +256,7 @@ async function getDisponibilidadesMax(lugarId) {
     const response = await fetch(
       `${url}/reservaciones/api/lugares/${lugarId}/disponibilidades`,
       {
+        headers: {Authorization: `Bearer ${token}`},
         method: "GET",
       }
     );
@@ -308,6 +311,7 @@ async function getPeriodosDeshabilitados(lugarId) {
     const response = await fetch(
       `${url}/reservaciones/api/lugares/${lugarId}/periodosDeshabilitados`,
       {
+        headers: {Authorization: `Bearer ${token}`},
         method: "GET",
       }
     );

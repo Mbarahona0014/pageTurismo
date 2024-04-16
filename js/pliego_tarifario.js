@@ -178,7 +178,7 @@ const getPliego = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer marn_calendario-2023dfsIjf348Jf_-sf39jsH830-3",
+      Authorization: `Bearer ${token}`,
     },
   }).then((response) => response.json());
   response.forEach((item) => {
@@ -264,7 +264,7 @@ async function reservarCabania(id) {
   }
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: "Bearer marn_bdps-2023jJ99uafT6fUjdiIU87hUI",
+    Authorization: `Bearer ${token}`
   };
   let bodyContent = JSON.stringify({
     id_cabania: id,
@@ -374,7 +374,7 @@ function totalFinal(dias) {
 async function getLugarTuristico(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: "Bearer marn_bdps-2023jJ99uafT6fUjdiIU87hUI",
+    Authorization: `Bearer ${token}`
   };
   let response = fetch(`${url}/reservaciones/api/lugares/${id}`, {
     method: "GET",
@@ -386,7 +386,7 @@ async function getLugarTuristico(id) {
 async function getCabanias(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: "Bearer marn_bdps-2023jJ99uafT6fUjdiIU87hUI",
+    Authorization: `Bearer ${token}`
   };
   let response = fetch(`${url}/turismo/api/cabanias/${id}`, {
     method: "GET",
@@ -398,7 +398,7 @@ async function getCabanias(id) {
 async function getImagenesCabanias(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: "Bearer marn_bdps-2023jJ99uafT6fUjdiIU87hUI",
+    Authorization: `Bearer ${token}`
   };
   let response = fetch(
     `${url}/turismo/api/cabanias/imagenes/${id}`,
@@ -768,7 +768,7 @@ async function saveReservacion() {
   });
   let headersList = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
+    Authorization: `Bearer ${token}`
   };
   let bodyContent = JSON.stringify({
     codeStatus: false,
@@ -806,7 +806,7 @@ async function saveCabanias() {
   }
   let headersList = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
+    Authorization: `Bearer ${token}`
   };
   let bodyContent = JSON.stringify({
     id_cabanias: cabanias,
