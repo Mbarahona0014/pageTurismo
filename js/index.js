@@ -120,6 +120,7 @@ async function getPage() {
       headers: {Authorization: `Bearer ${token}`},
       method: "GET",
     });
+    //console.log(response);
     if (!response.ok) {
       console.error(`Error en la solicitud: ${response.statusText}`);
     }

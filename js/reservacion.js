@@ -42,7 +42,7 @@ async function PayResultJson(message) {
       "metadata": metadata
     });
 
-    let response = await fetch(`${url}/reservaciones/api/reservaciones/${idReserva}`, {
+    let response = await fetch(`${url}/turismo/api/reservaciones/${idReserva}`, {
       method: "PUT",
       body: bodyContent,
       headers: headersList,
@@ -254,7 +254,7 @@ async function updateReserva() {
       "metadata": metadata
     });
 
-    let response = await fetch(`${url}/reservaciones/api/reservaciones/${idReserva}`, {
+    let response = await fetch(`${url}/turismo/api/reservaciones/${idReserva}`, {
       method: "PUT",
       body: bodyContent,
       headers: headersList,

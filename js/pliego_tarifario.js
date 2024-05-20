@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 const getPliego = async () => {
-  const response = await fetch(`${url}/reservaciones/api/servicios`, {
+  const response = await fetch(`${url}/turismo/api/servicios`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -376,7 +376,7 @@ async function getLugarTuristico(id) {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`
   };
-  let response = fetch(`${url}/reservaciones/api/lugares/${id}`, {
+  let response = fetch(`${url}/turismo/api/lugares/${id}`, {
     method: "GET",
     headers: headersList,
   }).then((response) => response.json());
@@ -783,7 +783,7 @@ async function saveReservacion() {
     telefono: telefono,
     detalles: detalles
   });
-  let response = await fetch(`${url}/reservaciones/api/reservaciones`, {
+  let response = await fetch(`${url}/turismo/api/reservaciones`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
