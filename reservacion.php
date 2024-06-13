@@ -133,12 +133,9 @@
             <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()">
               <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
             </button>
-            <!-- <button class="btn btn-success" id="btValidar" onclick="validarFormReserva()">Validar</button> -->
             <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
+            <button class="btn btn-primary" style="display: none;" id="btTestPago" onclick="testPago()"></button>
           </div>
-          <!-- <div class="col-md-12 d-flex justify-content-center">
-            <button class=" btn btn-warning" id="btTest" onclick="testPago()">Test pago</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -201,9 +198,7 @@
   <button id="btEdit" type="button" style="padding:1rem; display: none;" class="btn btn-warning rounded-circle btn-float-screen" onclick="reabrirReserva()">
     <i class="fa fa-pencil fa-xl"></i><br><span class="d-none d-md-block" style="font-size: 10px;">EDITAR<br>&nbsp;&nbsp;RESERVA&nbsp;&nbsp;</span>
   </button>
-
-  <!--  <button class=" btn btn-warning" id="btTest" style="display: none;" onclick="testPago()">Test pago</button>
-  <button class=" btn btn-warning" id="btTest" onclick="testBotones()">Test botones</button> -->
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

@@ -548,6 +548,7 @@ async function validarFormReserva() {
                     $("#MerchantToken").val(result.JwtMerchantToken);
                     $("#btValidar").hide();
                     $("#btPagar").show();
+                    $("#btTestPago").show();//TEST PAGO
                     $("#btEdit").show();
                   } else {
                     Swal.fire({
@@ -590,6 +591,7 @@ async function validarFormReserva() {
                   $("#MerchantToken").val(result.JwtMerchantToken);
                   $("#btValidar").hide();
                   $("#btPagar").show();
+                  $("#btTestPago").show();//TEST PAGO
                   $("#btEdit").show();
                   //$("#btTest").show();
                 } else {
@@ -855,6 +857,7 @@ async function reabrirReserva() {
   $("#btEdit").hide();
   $("#btValidar").show();
   $("#btPagar").hide();
+  $("#btTestPago").hide();//TEST PAGO
   $(".ctrl-reserva").prop('disabled', false);
 };
 
