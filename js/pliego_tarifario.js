@@ -537,6 +537,7 @@ async function validarFormReserva() {
                 body: raw,
                 redirect: 'follow'
               };
+
               fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
                 .then(response => response.json())
                 .then(async result => {
@@ -783,7 +784,7 @@ async function saveReservacion() {
     telefono: telefono,
     detalles: detalles
   });
-  let response = await fetch(`${url}/turismo/api/reservaciones`, {
+  let response = await fetch(`${url}/turismo/api/validar`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,

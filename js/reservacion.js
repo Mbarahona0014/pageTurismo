@@ -42,7 +42,7 @@ async function PayResultJson(message) {
       "metadata": metadata
     });
 
-    let response = await fetch(`${url}/turismo/api/reservaciones/${idReserva}`, {
+    let response = await fetch(`${url}/turismo/api/validar/${idReserva}`, {
       method: "PUT",
       body: bodyContent,
       headers: headersList,
@@ -54,7 +54,7 @@ async function PayResultJson(message) {
         "Content-Type": "application/json",
         "Authorization": "Bearer marn_bdps-2023?_3j--_0sdf20J09J988hj9",
       };
-      let reservacion = await fetch(`${url}/turismo/api/reserva/${idReserva}`, {
+      let reservacion = await fetch(`${url}/turismo/api/validar/${idReserva}`, {
         method: "GET",
         headers: headersList
       }).then(response => response.json());
@@ -254,7 +254,7 @@ async function updateReserva() {
       "metadata": metadata
     });
 
-    let response = await fetch(`${url}/turismo/api/reservaciones/${idReserva}`, {
+    let response = await fetch(`${url}/turismo/api/validar/${idReserva}`, {
       method: "PUT",
       body: bodyContent,
       headers: headersList,
