@@ -54,7 +54,7 @@ async function PayResultJson(message) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       };
-      let reservacion = await fetch(`${url}/turismo/api/validar/${idReserva}`, {
+      let reservacion = await fetch(`${url}/turismo/api/reservacion/${idReserva}`, {
         method: "GET",
         headers: headersList
       }).then(response => response.json());
@@ -236,7 +236,7 @@ async function testPago() {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       };
-      let reservacion = await fetch(`${url}/turismo/api/validar/${idReserva}`, {
+      let reservacion = await fetch(`${url}/turismo/api/reservacion/${idReserva}`, {
         method: "GET",
         headers: headersList
       }).then(response => response.json());

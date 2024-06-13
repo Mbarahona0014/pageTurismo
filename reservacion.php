@@ -134,7 +134,7 @@
               <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
             </button>
             <button class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="btPagar"></button>
-            <button class="btn btn-primary" style="display: none;" id="btTestPago" onclick="testPago()"></button>
+            <button class="btn btn-primary" style="display: none;" id="btTestPago" onclick="testPago()"><i class="fa fa-bug" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>

@@ -25,12 +25,13 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => 'GET',
     CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer marn_calendario-2023dfsIjf348Jf_-sf39jsH830-3'
+        'Authorization: Bearer marn_turismo-2024dfsIjf348Jf_-sf39jsH830-3'
     ),
 ));
 
 $response = curl_exec($curl);
 $reserva = json_decode($response);
+//var_dump($response);
 curl_close($curl);
 
 $fecha_fin = date("Y-m-d", strtotime($reserva->reserva->data->inicio . "+ 1 year"));
