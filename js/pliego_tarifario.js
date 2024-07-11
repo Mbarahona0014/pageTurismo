@@ -448,6 +448,11 @@ async function validarFormReserva() {
   const TokenSerfinsa = document.getElementById("TokenSerfinsa").value;
   const MontoTransaccion = document.getElementById("MontoTransaccion").value;
   const ConceptoPago = document.getElementById("ConceptoPago").value;
+  
+  if (document.hasFocus()) {
+    mensajeError += "Debe terminar de editar todos los campos<br>";
+    error++;
+  }
 
   if (nombres == "") {
     mensajeError += "Verificar Nombres<br>";
