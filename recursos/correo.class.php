@@ -41,14 +41,15 @@ class Correo
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = "miguelbarahona014@gmail.com";
-            $mail->Password = "gsry gdae tjuq drzy";
+            $mail->Host = 'smtp.gmail.com';                         //SERVIDOR DE CORREOS
+            $mail->SMTPAuth = true; 
+            $mail->Username = "miguelbarahona014@gmail.com";        //CORREO DE SALIDA   
+            $mail->Password = "gsry gdae tjuq drzy";                //CONTRASE;A DE CORREO
             $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
-            $mail->setFrom("miguelbarahona014@gmail.com");
-            $mail->addAddress($correo);
+            $mail->Port = 465;                                      //PUERTO DE SALIDA
+            $mail->setFrom("miguelbarahona014@gmail.com");          //CORREO DE SALIDA
+            $mail->addAddress($correo);                             //CORREO DE CLIENTE
+            $mail->addBCC('copia_oculta@outlook.com');              //CORREO DE COPIA OCULTA
             $mail->isHTML(true);
             /* $cod_verificacion = substr(number_format(time() * rand(), 0, '', ''), 0, 6); */
             $mail->Subject = 'RESERVA';

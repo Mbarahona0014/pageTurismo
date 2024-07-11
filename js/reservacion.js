@@ -346,7 +346,7 @@ async function sendCorreo(correo, mensaje, attach) {
   datos.append("mensaje", mensaje);
   datos.append("attachment", attach);
   let response = await fetch(
-    "../pageTurismo/recursos/correo.controller.php",
+    `${url_landing}/recursos/correo.controller.php`,
     {
       method: "POST",
       body: datos
@@ -361,7 +361,7 @@ async function encriptarId(id) {
   datos.append("data", id);
 
   let response = await fetch(
-    "../pageTurismo/recursos/helper.controller.php",
+    `${url_landing}/recursos/helper.controller.php`,
     {
       method: "POST",
       body: datos

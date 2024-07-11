@@ -44,7 +44,7 @@ function mainPage() {
       datos.append("pregunta",pregunta);
 
       let response = await fetch(
-        "https://megabytesv.com/pageTurismo/recursos/correo.controller.php",
+        `${url_landing}/recursos/correo.controller.php`,
         {
           method: "POST",
           body: datos

@@ -606,7 +606,20 @@ async function validarFormReserva() {
               .catch(error => console.log('error', error));
           }
         } else {
-          alert(respuestaReservacion.mensaje);
+          let mensajeerror = 'No fue posible realizar su reservacion intente nuevamente mas tarde';
+          if (respuestaReservacion.detalle) {
+            mensajeerror = '<br>';
+            var detalle = Object.keys(respuestaReservacion.detalle).map((key) => [key, respuestaReservacion.detalle[key]]);
+            detalle.forEach((e) => {
+              const [key, value] = e;
+              mensajeerror += `<b>${key.toUpperCase()} : </b> ${value}<br>`;
+            })
+          }
+          Swal.fire({
+            title: respuestaReservacion.mensaje,
+            html: mensajeerror,
+            type: "warning"
+          });
         }
       }
     });
