@@ -140,7 +140,7 @@ async function PayResultJson(message) {
       <li>Prohibido el ingreso de mascotas.</li>
     </ol>
     </p>
-    <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
+    <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
     `;
       //VER PDF DE RESERVA
       window.open(`${url_landing}/pdf.php?id=${idReservaEncriptado}`);
@@ -320,7 +320,7 @@ async function testPago() {
         <li>Prohibido el ingreso de mascotas.</li>
       </ol>
       </p>
-      <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
+      <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
       `;
 
       //VER PDF DE RESERVA

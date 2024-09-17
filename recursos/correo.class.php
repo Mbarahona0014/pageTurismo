@@ -53,7 +53,7 @@ class Correo
             $mail->isHTML(true);
             /* $cod_verificacion = substr(number_format(time() * rand(), 0, '', ''), 0, 6); */
             $mail->Subject = 'RESERVA';
-            $html = $mensaje;
+            $html = mb_convert_encoding($mensaje, "ISO-8859-1", "UTF-8");
             $mail->Body = $html;
             /* $mail->addAttachment($attachment);  */
             $mail->send();
