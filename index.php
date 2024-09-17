@@ -40,7 +40,7 @@
 
         </div>
         <!-- Barra de separacion -->
-        <div class="row m-0 p-0">
+        <div class="row m-0 p-0" id="titulo-avisos">
             <div class="navbar navbar-dark bg-titulos shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">

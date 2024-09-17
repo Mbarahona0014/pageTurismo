@@ -14,13 +14,21 @@ async function initPage() {
   //SLIDER CON IMAGENES DESTACADAS
   htmlSlider += `<div id="carouselSlider" class="carousel slide" data-bs-ride="carousel">
                   <div class="carousel-inner">`;
+
   res.slider.forEach((slider) => {
     htmlSlider +=
-      `<div class="carousel-item ` + (i == 0 ? "active" : "") +`">
-        <img src="` +url_imagenes + `/slider/` + slider.imagen_slider +`" class="d-block w-100"/>
+      `<div class="carousel-item ` + (i == 0 ? "active" : "") + `">
+        <img src="` + url_imagenes + `/slider/` + slider.imagen_slider + `" class="img-fluid w-100"/>
       </div>`;
-      i++;
+    i++;
   });
+  //AGREGAR IMAGEN POR DEFECTO SI NO HAY IMAGENES AGREGADAS
+  if (res.slider.length <= 0) {
+    htmlSlider +=
+      `<div class="carousel-item ` + (i == 0 ? "active" : "") + `">
+      <img src="recursos/imagenes/portada.jpg" class="img-fluid w-100"/>
+    </div>`;
+  }
   htmlSlider += `</div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlider" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -85,6 +93,12 @@ async function initPage() {
               </div>`;
   htmlAvisos += `</div>`;
   let rowavisos = document.getElementById("row-avisos");
+  let tituloavisos = document.getElementById("titulo-avisos");
+  //SI NO HAY AVISOS OCULTAR LA SECCION
+  if (res.avisos.length <= 0) {
+    tituloavisos.style = "display:none;";
+    rowavisos.style = "display:none;"
+  }
   //console.log(htmlAvisos);
   rowavisos.innerHTML = htmlAvisos;
   //console.log(res.listaanp);
@@ -117,7 +131,7 @@ async function getPage() {
   let res = null;
   try {
     const response = await fetch(`${url}/turismo/api/principal`, {
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
       method: "GET",
     });
     //console.log(response);

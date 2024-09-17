@@ -9,27 +9,41 @@ async function initPage() {
   let htmlGaleriaFloraFauna = "";
   let htmlActividades = "";
   let htmlRecomendaciones = "";
+  let htmlIndicaciones = "";
   let i = 0;
   document.getElementById("titulo-area-res").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
   document.getElementById("titulo-area").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
-  document.getElementById("desc-florafauna").innerHTML = res.generalidades[0].texto_fyf;
+
+  //SI NO HAY DESCRIPCION DE FLORA Y FAUNA NO SE MOSTRARA LA SECCION
+  if (res.generalidades[0].texto_fyf) {
+    document.getElementById("desc-florafauna").innerHTML = res.generalidades[0].texto_fyf;
+  } else {
+    document.getElementById("seccion-flora-fauna").style = "display:none;";
+  }
+
   document.getElementById("qr-como-llegar").src = url_imagenes + `/qr/` + res.generalidades[0].qr_como_llegar;
   document.getElementById("descripcion-como-llegar").innerHTML = res.generalidades[0].ubicacion_anp;
   //ENLACE DE COMO LLEGAR
   document.getElementById("enlace-como-llegar").href = res.generalidades[0].enlace_como_llegar;
   //PORTADA DE GALERIA
-  document.getElementById("galeria-portada").src = url_imagenes + `/galeria/` + res.galeria[0].imagen_galeria;
-  //IMAGEN DE INDICACIONES
-  if (res.generalidades[0].imagen_indicaciones) {
-    document.getElementById("imagen-indicaciones").src = url_imagenes + `/indicaciones/` + res.generalidades[0].imagen_indicaciones;
+  if (res.galeria.length > 0) {
+    document.getElementById("galeria-portada").src = url_imagenes + `/galeria/` + res.galeria[0].imagen_galeria;
+  } else {
+    //IMAGEN POR DEFECTO SI NO HAY PORTADA CONFIGURADA
+    document.getElementById("galeria-portada").src = 'recursos/imagenes/portada.jpg';
   }
+  //IMAGEN DE INDICACIONES
+  /* if (res.generalidades[0].imagen_indicaciones) {
+    document.getElementById("imagen-indicaciones").src = url_imagenes + `/indicaciones/` + res.generalidades[0].imagen_indicaciones;
+  } */
   //ENLACE A TOUR VIRTUAL
   if (res.generalidades[0].enlace_tour) {
     document.getElementById("div-tour").style.display = "block";
     document.getElementById("enlace-tour").href =
       res.generalidades[0].enlace_como_llegar;
   }
-  
+
+  //CARGAR IMAGENES A MODAL DE GALERIA
   res.galeria.forEach((galeria) => {
     htmlGaleria +=
       `
@@ -50,8 +64,17 @@ async function initPage() {
     `;
     i++;
   });
+
+  //OCULTAR BOTON DE GALERIA SI NO HAY IMAGENES CARGADAS
+  if (res.galeria.length <= 0) {
+    let btngaleria = document.getElementById("btn-galeria")
+    btngaleria.style = "display:none;"
+  }
   i = 0;
+  //CARGAR IMAGENES EN ELEMENTO
   document.getElementById("itemsModalGaleria").innerHTML = htmlGaleria;
+
+  //CARGAR IMAGENES DE FLORA Y FAUNA
   res.florafauna.forEach((florafauna) => {
     htmlGaleriaFloraFauna +=
       `
@@ -67,9 +90,21 @@ async function initPage() {
     `;
     i++;
   });
+
+  //DE NO ENCONTRAR IMAGENES CARGAR IMAGEN POR DEFECTO
+  if (res.florafauna.length <= 0) {
+    htmlGaleriaFloraFauna +=
+      `
+    <div class="carousel-item ` + (i == 0 ? "active" : "") + ` carousel-item-sh">
+      <img src="recursos/imagenes/florafaunadefecto.jpg" class="d-block w-100"/>
+    </div> 
+    `;
+  }
   i = 0;
-  document.getElementById("carouselflorafauna").innerHTML =
-    htmlGaleriaFloraFauna;
+  //CARGAR IMAGENES A ELEMENTO
+  document.getElementById("carouselflorafauna").innerHTML = htmlGaleriaFloraFauna;
+
+  //CARGAR ACTIVIDADES
   res.actividades.forEach((actividad) => {
     htmlActividades +=
       `
@@ -93,8 +128,30 @@ async function initPage() {
     `;
     i++;
   });
+  //SI NO HAY ACTIVIDADES OCULTAR LA SECCION
+  if (res.actividades.length <= 0) {
+    document.getElementById("seccion-actividades").style = "display:none;"
+  }
   i = 0;
+  //CARGAR ACTIVIDADES EN ELEMENTO
   document.getElementById("row-actividades").innerHTML = htmlActividades;
+
+  //CARGAR INDICACIONES
+  htmlIndicaciones = `<div class="col-12 text-center m-1 p-1 bg-marn-lgray"><div class="list-group bg-marn-lgray" id="list-tab" role="tablist">`;
+  res.indicaciones.forEach((indicacion) => {
+    htmlIndicaciones += `<a class="list-group-item bg-marn-lgray border-0" role="tab">${indicacion.indicaciones}</a>`;
+    i++;
+  });
+  htmlIndicaciones += `</div></div>`;
+  //SI NO HAY INDICACIONES OCULTAR LA SECCION
+  if (res.indicaciones.length <= 0) {
+    document.getElementById("seccion-indicaciones").style = "display:none;"
+  }
+  i = 0;
+  //CARGAR INDICACIONES EN ELEMENTO
+  document.getElementById("row-indicaciones").innerHTML = htmlIndicaciones;
+
+  //CARGAR RECOMENDACIONES/SENDEROS
   res.recomendaciones.forEach((recomendacion) => {
     htmlRecomendaciones +=
       `
@@ -112,15 +169,19 @@ async function initPage() {
     </div>
     `;
   });
+  //SI NO HAY OCULTAR SECCION
+  if (res.recomendaciones.length <= 0) {
+    document.getElementById("seccion-recomendaciones").style = "display:none;"
+  }
   i = 0;
   htmlRecomendaciones +=
-    `<div class="col-12 text-center p-3">
-                          <label>Nivel de dificultad: </label><label id="texto-dificultad" class="text-danger">` +
-    res.generalidades[0].texto_nivel +
-    `</label>
-                        </div>`;
-  document.getElementById("row-recomendaciones").innerHTML =
-    htmlRecomendaciones;
+    `
+    <div class="col-12 text-center p-3">
+      <label>Nivel de dificultad: </label><label id="texto-dificultad" class="text-danger">` + res.generalidades[0].texto_nivel + `</label>
+    </div>
+    `;
+  //CARGAR SECCION EN ELEMENTO                        
+  document.getElementById("row-recomendaciones").innerHTML = htmlRecomendaciones;
 }
 
 async function getPage() {
@@ -128,7 +189,7 @@ async function getPage() {
   let idanp = document.getElementById("idanp").value;
   try {
     const response = await fetch(`${url}/turismo/api/anp/${idanp}`, {
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
       method: "GET",
     });
     if (!response.ok) {
