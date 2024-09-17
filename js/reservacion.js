@@ -4,9 +4,12 @@ function CallBackPopUp(datos) {
   window.focus();
 }
 //Esta función capta el resultado de la transacción en texto;
-function PayResult(Resultado) { }
+function PayResult(Resultado) {
+  console.log(Resultado)
+}
 //Esta función capta el resultado de la transaccion en format json;
 async function PayResultJson(message) {
+  console.log(message)
   const cabanias = $("#idCanabias").val();
   const cabanias_metadata = (cabanias != "") ? cabanias : 0;
   const idReserva = document.getElementById("idReserva").value;
@@ -14,6 +17,7 @@ async function PayResultJson(message) {
   const idReservaEncriptado = await encriptarId(idReserva);
   const claveAcceso = document.getElementById("claveAcceso").value;
   var obj = JSON.parse(message);
+  console.log(obj);
   //DAR FORMA A METADATA
   const metadata = {
     pago: {
@@ -29,8 +33,8 @@ async function PayResultJson(message) {
     },
     cabanias: cabanias_metadata
   }
-
-  if (obj.SatisFactorio) {
+  //SI SE AUTORIZA EL PAGO
+  if (obj.Mensaje == "AUTORIZADO") {
     //SI SE REALIZA EL PAGO ACTUALIZAR ESTADO DE RESERVA A PAGADO Y ACTUALIZAR METADATA
     let headersList = {
       "Content-Type": "application/json",
@@ -211,8 +215,7 @@ async function testPago() {
     },
     cabanias: cabanias_metadata
   }
-
-  if (obj.SatisFactorio) {
+  if (obj.Mensaje == "AUTORIZADO") {
     //SI SE REALIZA EL PAGO ACTUALIZAR ESTADO DE RESERVA A PAGADO Y ACTUALIZAR METADATA
     let headersList = {
       "Content-Type": "application/json",

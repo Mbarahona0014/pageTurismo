@@ -141,7 +141,7 @@ document.getElementById("btnPagar").addEventListener("click", () => {
   fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
     .then(response => response.json())
     .then(result => {
-      console.log(result);
+      //console.log(result);
       if (result.Satisfactorio) {
         const urlPost = result.Datos.UrlPost;
         window.open(`https://testcheckout.redserfinsa.com:8087/${urlPost}`);

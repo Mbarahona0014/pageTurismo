@@ -85,9 +85,9 @@ async function initPage() {
               </div>`;
   htmlAvisos += `</div>`;
   let rowavisos = document.getElementById("row-avisos");
-  console.log(htmlAvisos);
+  //console.log(htmlAvisos);
   rowavisos.innerHTML = htmlAvisos;
-  console.log(res.listaanp);
+  //console.log(res.listaanp);
   res.listaanp.forEach((anp) => {
     htmlCardAnp +=
       `<div class="col-lg-6 col-md-6 col-sm-12 p-0 m-0">

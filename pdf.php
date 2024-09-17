@@ -158,10 +158,10 @@ $pdf->Ln();
 $pdf->Cell(0, 10, 'DATOS DE PAGO: ', 0, 1);
 $pago = json_decode($reserva->reserva->data->metadata);
 $pdf->SetFont('arial', '', 10);
-$pdf->Cell(0, 5, 'Transaccion: ' . $pago->pago->transaccion, 0, 1);
+$pdf->Cell(0, 5, mb_convert_encoding('Transacción: ', "ISO-8859-1", "UTF-8") . $pago->pago->transaccion, 0, 1);
 /*$pdf->Cell(0, 5, 'Nombre/s y Apellido/s: '.$pago->pago->titular, 0, 1);
  $pdf->Cell(0, 5, 'Monto: '.$pago->pago->transaccion, 0, 1); */
-$pdf->Cell(0, 5, 'Numero de autorización: ' . $pago->pago->autorizacion, 0, 1);
+$pdf->Cell(0, 5, mb_convert_encoding('Numero de autorización: ', "ISO-8859-1", "UTF-8") . $pago->pago->autorizacion, 0, 1);
 $pdf->Cell(0, 5, 'Numero de cuenta: ' . $pago->pago->cuenta, 0, 1);
 $pdf->Cell(0, 5, 'Titular de cuenta: ' . $pago->pago->titular, 0, 1);
 $pdf->AddPage();
@@ -177,7 +177,7 @@ $pdf->Ln();
 $pdf->SetFont('arial', '', 10);
 foreach ($reserva->reserva->detalle as $detalle) {
     $subtotal = ($detalle->cantidad * $detalle->precio);
-    $pdf->Cell(80, 5, utf8_decode($detalle->nombre), '', 0, 'L');
+    $pdf->Cell(80, 5, mb_convert_encoding($detalle->nombre, "ISO-8859-1", "UTF-8"), '', 0, 'L');
     $pdf->Cell(20, 5, "$" . number_format($detalle->precio, 2), '', 0, 'L');
     $pdf->Cell(30, 5, $detalle->cantidad, '', 0, 'L');
     $pdf->Cell(40, 5, "$" . number_format($subtotal, 2), '', 0, 'L');
@@ -220,13 +220,13 @@ $pdf->SetFont('arial', 'B', 10);
 $pdf->Ln();
 $pdf->Cell(0, 5, 'CONDICIONES DE REPROGRAMACION', 0, 1);
 $pdf->SetFont('arial', '', 10);
-$pdf->MultiCell(0, 5, utf8_decode($textoReprogramacion), 0, 1);
+$pdf->MultiCell(0, 5, mb_convert_encoding($textoReprogramacion, "ISO-8859-1", "UTF-8"), 0, 1);
 $pdf->AddPage();
 $pdf->SetFont('arial', 'B', 10);
 $pdf->Ln();
 $pdf->Cell(0, 5, 'INDICACIONES GENERALES', 0, 1);
 $pdf->SetFont('arial', '', 10);
-$pdf->MultiCell(0, 5, utf8_decode($textoIndicaciones), 0, 1);
+$pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicaciones, "ISO-8859-1", "UTF-8"), 0, 1);
 $pdf->SetFont('arial', 'B', 10);
 $pdf->AddPage();
 $pdf->Ln();
@@ -237,8 +237,7 @@ foreach ($reserva->indicaciones->data as $indicaciones) {
     $textoIndicacionesEspecificas .= "
 * $indicaciones->indicaciones";
 }
-$pdf->MultiCell(0, 5, utf8_decode($textoIndicacionesEspecificas), 0, 1);
-
+$pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicacionesEspecificas, "ISO-8859-1", "UTF-8"), 0, 1);
 
 $pdf->Output('recursos/archivo/' . $idencriptado . '.pdf', 'F');
 $pdf->Output($idencriptado . '.pdf', 'D');

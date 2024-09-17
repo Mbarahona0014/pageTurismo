@@ -3,9 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once '../phpmailer/src/Exception.php';
-require_once '../phpmailer/src/PHPMailer.php';
-require_once '../phpmailer/src/SMTP.php';
+require_once __DIR__ . '/../phpmailer/src/Exception.php';
+require_once __DIR__ . '/../phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/../phpmailer/src/SMTP.php';
 
 class Correo
 {
@@ -18,11 +18,11 @@ class Correo
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = "miguelbarahona014@gmail.com";
-            $mail->Password = "rxiz mdby vitb gpex";
+            $mail->Password = "tkiq ydfk zaeo hktc";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
             $mail->setFrom("miguelbarahona014@gmail.com");
-            $mail->addAddress("dnisbarahona007@gmail.com");
+            $mail->addAddress($correo);
             $mail->isHTML(true);
             /* $cod_verificacion = substr(number_format(time() * rand(), 0, '', ''), 0, 6); */
             $mail->Subject = 'INFORMACION';
@@ -35,16 +35,16 @@ class Correo
         }
         return $enviado;
     }
-    public function enviarCorreoConfirmacion($correo, $mensaje, $attachment='')
+    public function enviarCorreoConfirmacion($correo, $mensaje, $attachment = '')
     {
         $enviado = false;
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';                         //SERVIDOR DE CORREOS
-            $mail->SMTPAuth = true; 
+            $mail->SMTPAuth = true;
             $mail->Username = "miguelbarahona014@gmail.com";        //CORREO DE SALIDA   
-            $mail->Password = "gsry gdae tjuq drzy";                //CONTRASE;A DE CORREO
+            $mail->Password = "tkiq ydfk zaeo hktc";                //CONTRASE;A DE CORREO
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;                                      //PUERTO DE SALIDA
             $mail->setFrom("miguelbarahona014@gmail.com");          //CORREO DE SALIDA

@@ -191,7 +191,7 @@
                         <div class="col-6">
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="reservacion.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
+                                    <a href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
                                         <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
                                             <i class="fa fa-check fa-xl"></i>
                                         </button>
@@ -230,7 +230,7 @@
         </div>
     </div>
 
-    <a class="btn-float-screen" href="reservacion.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
+    <a class="btn-float-screen" href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
         <button type="button" style="padding:1rem;" class="btn bg-marn-green text-white rounded-circle">
             <i class="fa fa-hiking fa-xl"></i><br><span class="d-none d-md-block" style="font-size: 10px;">HAZ TU<br>&nbsp;&nbsp;RESERVA&nbsp;&nbsp;</span>
         </button>
