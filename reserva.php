@@ -1,19 +1,16 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require('config/params.php');
 require('recursos/helper.class.php');
-$uri = explode("/verificar", $_SERVER["REQUEST_URI"]);
+/* $uri = explode("/verificar", $_SERVER["REQUEST_URI"]);
 $url = count($uri) > 1 ? explode("/", $uri[1]) : [""];
-$idencriptado = $url[1];
+$idencriptado = $url[1]; */
 
 $curl = curl_init();
 $hlp = new Helper();
 
 //DESENCRIPTAR ID DE RESERVA
+$idencriptado = isset($_GET['id']) ? $_GET['id'] : 0;
 $idreserva = $hlp->decrypt($idencriptado);
 
 //DETALLAR RESERVA

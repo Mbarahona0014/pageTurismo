@@ -534,7 +534,7 @@ async function validarFormReserva() {
         if (respuestaReservacion.ok) {
           //SI SE GUARDO LA RESERVACION GUARDAR POST
           let idencriptado = await encriptarId(respuestaReservacion.data.reservacionId);
-          UrlRedirect = `${url_landing}/comprobante/${idencriptado}`;
+          UrlRedirect = `${url_landing}/pdf.php?id=${idencriptado}`;
           if (cabanias != "") {
             $("#idReserva").val(respuestaReservacion.data.reservacionId);
             $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);

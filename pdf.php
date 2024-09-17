@@ -1,23 +1,20 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require('config/params.php');
 require('fpdf/fpdf.php');
 require('phpqrcode/qrlib.php');
 require('recursos/helper.class.php');
 
-$uri = explode("/comprobante", $_SERVER["REQUEST_URI"]);
+/* $uri = explode("/comprobante", $_SERVER["REQUEST_URI"]);
 $url = count($uri) > 1 ? explode("/", $uri[1]) : [""];
-$idencriptado = $url[1];
+$idencriptado = $url[1]; */
 
 $curl = curl_init();
 $hlp = new Helper();
-
 //DESENCRIPTAR ID DE RESERVA
+$idencriptado = isset($_GET['id']) ? $_GET['id'] : 0;
 $idreserva = $hlp->decrypt($idencriptado);
+
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => $config['url_portal'] . '/turismo/api/reserva/' . $idreserva,
@@ -40,7 +37,7 @@ curl_close($curl);
 
 $fecha_fin = date("Y-m-d", strtotime($reserva->reserva->data->inicio . "+ 1 year"));
 $url_qr = "recursos/qr/" . $idencriptado . ".png";
-$url_reserva = $config['url_landing'] . "/verificar/$idencriptado";
+$url_reserva = $config['url_landing'] . "/reserva.php?id=$idencriptado";
 
 $GLOBALS["params"] = $params = array(
     'fechainicio' => $reserva->reserva->data->inicio,

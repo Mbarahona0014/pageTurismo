@@ -142,9 +142,8 @@ async function PayResultJson(message) {
     </p>
     <a href="${url_landing}/recursos/archivo/${idReservaEncriptado}.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
     `;
-
       //VER PDF DE RESERVA
-      window.open(`${url_landing}/comprobante/${idReservaEncriptado}`);
+      window.open(`${url_landing}/pdf.php?id=${idReservaEncriptado}`);
       //await new Promise(r => setTimeout(r, 20000));
       sendCorreo(reservacion.reserva.data.correo, mensaje);
       Swal.fire({
@@ -325,7 +324,7 @@ async function testPago() {
       `;
 
       //VER PDF DE RESERVA
-      window.open(`${url_landing}/comprobante/${idReservaEncriptado}`);
+      window.open(`${url_landing}/pdf.php?id=${idReservaEncriptado}`);
       //await new Promise(r => setTimeout(r, 20000));
       sendCorreo(reservacion.reserva.data.correo, mensaje);
       Swal.fire({

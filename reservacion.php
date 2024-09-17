@@ -1,10 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
 require('config/params.php');
 require('recursos/helper.class.php');
 require('recursos/correo.class.php');
@@ -171,7 +166,7 @@ if (isset($request['TransaccionId'])) {
       <li>Prohibido el ingreso de mascotas.</li>
     </ol>
     </p>
-    <a href="' . $config['url_landing'] . '/comprobante/' . $idEncriptado . '.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
+    <a href="' . $config['url_landing'] . '/pdf.php?id=' . $idEncriptado . '.pdf" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
     ';
             $mailer->enviarCorreoConfirmacion($response_detalles->reserva->data->correo, $mensaje);
         } else {
