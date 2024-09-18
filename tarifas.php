@@ -201,7 +201,7 @@
   <button id="btEdit" type="button" style="padding:1rem; display: none;" class="btn btn-warning rounded-circle btn-float-screen" onclick="reabrirReserva()">
     <i class="fa fa-pencil fa-xl"></i><br><span class="d-none d-md-block" style="font-size: 10px;">EDITAR<br>&nbsp;&nbsp;RESERVA&nbsp;&nbsp;</span>
   </button>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

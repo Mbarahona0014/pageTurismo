@@ -1,12 +1,13 @@
 <?php
 
 include_once("config/params.php");
+header("Referrer-Policy: origin");
+header("Permissions-Policy: aplication");
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
 header('Strict-Transport-Security: max-age=10886400');
-header("Content-Security-Policy: default-src 'self' https: data: 'unsafe-inline'");
-
+//headeheader("Content-Security-Policy: default-src 'self' https: data: 'unsafe-inline'");
 ?>
 
 <head>

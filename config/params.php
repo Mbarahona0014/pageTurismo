@@ -14,4 +14,4 @@ $urls_prod = [
   'url_portal' => 'https://portaldeb.marn.gob.sv/portal'
 ];
 
-$config = $urls_dev;
+$config = $urls_prod;
