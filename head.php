@@ -2,7 +2,7 @@
 
 include_once("config/params.php");
 header("Referrer-Policy: origin");
-header("Permissions-Policy: geolocation 'self'");
+header("Permissions-Policy: geolocation=(self)");
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
