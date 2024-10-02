@@ -534,7 +534,7 @@ async function validarFormReserva() {
         if (respuestaReservacion.ok) {
           //SI SE GUARDO LA RESERVACION GUARDAR POST
           let idencriptado = await encriptarId(respuestaReservacion.data.reservacionId);
-          UrlRedirect = `${url_landing}/pdf.php?id=${idencriptado}`;
+          UrlRedirect = `${url_landing}/pdf?id=${idencriptado}`;
           if (cabanias != "") {
             $("#idReserva").val(respuestaReservacion.data.reservacionId);
             $("#claveAcceso").val(respuestaReservacion.data.claveAcceso);
@@ -597,7 +597,15 @@ async function validarFormReserva() {
                     });
                   }
                 })
-                .catch(error => console.log('error', error));
+                .catch(error => {
+                  Swal.fire({
+                    title: "<strong>No se puede realizar la transacción</strong>",
+                    icon: "error",
+                    html: "No fue posible realizar su reservacion intente nuevamente mas tarde",
+                    showCloseButton: true,
+                  });
+                  console.log('error', error)
+                });
             } else {
               alert(respuestaCabanias.mensaje);
             }
@@ -661,7 +669,15 @@ async function validarFormReserva() {
                   });
                 }
               })
-              .catch(error => console.log('error', error));
+              .catch(error => {
+                Swal.fire({
+                  title: "<strong>No se puede realizar la transacción</strong>",
+                  icon: "error",
+                  html: "No fue posible realizar su reservacion intente nuevamente mas tarde",
+                  showCloseButton: true,
+                });
+                console.log('error', error)
+              });
           }
         } else {
           let mensajeerror = 'No fue posible realizar su reservacion intente nuevamente mas tarde';
