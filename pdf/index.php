@@ -257,15 +257,15 @@ if (isset($reserva->reserva->data)) {
         $pdf->Ln();
         $pdf->Cell(0, 10, 'DATOS DE LA RESERVA: ', 0, 1);
         $pdf->SetFont('arial', '', 10);
-        $pdf->Cell(0, 5, 'Numero de reservacion: ' . $reserva->reserva->data->id, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Número de reservacion: ', "ISO-8859-1", "UTF-8") . $reserva->reserva->data->id, 0, 1);
         $pdf->Cell(0, 5, 'Lugar: ' . $reserva->reserva->data->nombre, 0, 1);
         $pdf->Cell(0, 5, 'Solicitante: ' . $reserva->reserva->data->nombres . " " . $reserva->reserva->data->apellidos, 0, 1);
         $pdf->Cell(0, 5, 'Correo: ' . $reserva->reserva->data->correo, 0, 1);
-        $pdf->Cell(0, 5, 'Telefono: ' . $reserva->reserva->data->telefono, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Teléfono: ', "ISO-8859-1", "UTF-8") . $reserva->reserva->data->telefono, 0, 1);
         $pdf->Ln();
         $pdf->Cell(0, 5, 'Fecha ingreso: ' . $reserva->reserva->data->inicio, 0, 1);
         $pdf->Cell(0, 5, 'Fecha salida: ' . $reserva->reserva->data->fin, 0, 1);
-        $pdf->Cell(0, 5, 'Numero de dias: ' . $dias, 0, 1);
+        $pdf->Cell(0, 5, 'Numero de días: ' . $dias, 0, 1);
         $pdf->SetFont('arial', 'B', 12);
         $pdf->Ln();
         $pdf->Cell(0, 10, 'DATOS DE PAGO: ', 0, 1);
@@ -274,8 +274,8 @@ if (isset($reserva->reserva->data)) {
         $pdf->Cell(0, 5, mb_convert_encoding('Transacción: ', "ISO-8859-1", "UTF-8") . $pago->pago->transaccion, 0, 1);
         /*$pdf->Cell(0, 5, 'Nombre/s y Apellido/s: '.$pago->pago->titular, 0, 1);
  $pdf->Cell(0, 5, 'Monto: '.$pago->pago->transaccion, 0, 1); */
-        $pdf->Cell(0, 5, mb_convert_encoding('Numero de autorización: ', "ISO-8859-1", "UTF-8") . $pago->pago->autorizacion, 0, 1);
-        $pdf->Cell(0, 5, 'Numero de cuenta: ' . $pago->pago->cuenta, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Número de autorización: ', "ISO-8859-1", "UTF-8") . $pago->pago->autorizacion, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Número de cuenta: ', "ISO-8859-1", "UTF-8") . $pago->pago->cuenta, 0, 1);
         $pdf->Cell(0, 5, 'Titular de cuenta: ' . $pago->pago->titular, 0, 1);
         $pdf->AddPage();
         $pdf->SetFont('arial', 'B', 12);
