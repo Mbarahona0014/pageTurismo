@@ -15,7 +15,6 @@ $hlp = new Helper();
 $idencriptado = isset($_GET['id']) ? $_GET['id'] : 0;
 $idreserva = $hlp->decrypt($idencriptado);
 
-
 curl_setopt_array($curl, array(
     CURLOPT_URL => $config['url_portal'] . '/turismo/api/reserva/' . $idreserva,
     CURLOPT_RETURNTRANSFER => true,
