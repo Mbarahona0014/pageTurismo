@@ -30,6 +30,13 @@ async function initCalendar() {
   permiteAcampar = datalugar.data.permiteAcampar;
   periodosDeshabilitados = await getPeriodosDeshabilitados(lugarId);
   responseDisponibilidades = await getDisponibilidadesMax(lugarId);
+  responseDisponibilidades.forEach(element => {
+    if (element.grupoId == 2) {
+      if (element.cantidadMaxima <= 0) {
+        $("#div_parqueos").hide();
+      }
+    }
+  });
   transformarDisponibilidades(dispMax, responseDisponibilidades);
 
   resContador = await getContador(lugarId, reservacionOmitida);
@@ -152,7 +159,7 @@ async function getLugarId(idanp) {
   let lugares = [];
   try {
     const response = await fetch(`${url}/turismo/api/lugares/${idanp}`, {
-      headers: {Authorization: `Bearer ${token}`},
+      headers: { Authorization: `Bearer ${token}` },
       method: "GET",
     });
     if (!response.ok) {
@@ -184,7 +191,7 @@ async function getContador(lugarId, reservacionOmitida) {
     const response = await fetch(
       `${url}/turismo/api/contador?lugarId=${lugarId}&idReservacionOmitida=${reservacionOmitida}`,
       {
-        headers: {Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
         method: "GET",
       }
     );
@@ -256,7 +263,7 @@ async function getDisponibilidadesMax(lugarId) {
     const response = await fetch(
       `${url}/turismo/api/lugares/${lugarId}/disponibilidades`,
       {
-        headers: {Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
         method: "GET",
       }
     );
@@ -311,7 +318,7 @@ async function getPeriodosDeshabilitados(lugarId) {
     const response = await fetch(
       `${url}/turismo/api/lugares/${lugarId}/periodosDeshabilitados`,
       {
-        headers: {Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
         method: "GET",
       }
     );
