@@ -3,9 +3,11 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once __DIR__ . '/../config/params.php';
 require_once __DIR__ . '/../phpmailer/src/Exception.php';
 require_once __DIR__ . '/../phpmailer/src/PHPMailer.php';
 require_once __DIR__ . '/../phpmailer/src/SMTP.php';
+
 
 class Correo
 {
@@ -15,13 +17,13 @@ class Correo
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = CORREO_HOST;
             $mail->SMTPAuth = true;
-            $mail->Username = "miguelbarahona014@gmail.com";
-            $mail->Password = "tkiq ydfk zaeo hktc";
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
-            $mail->setFrom("miguelbarahona014@gmail.com");
+            $mail->Username = CORREO_USER;
+            $mail->Password = CORREO_PASS;
+            $mail->SMTPSecure = CORREO_SECURE;
+            $mail->Port = CORREO_PORT;
+            $mail->setFrom(CORREO_USER);
             $mail->addAddress($correo);
             $mail->isHTML(true);
             /* $cod_verificacion = substr(number_format(time() * rand(), 0, '', ''), 0, 6); */
@@ -41,15 +43,15 @@ class Correo
         try {
             $mail = new PHPMailer(true);
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';                         //SERVIDOR DE CORREOS
+            $mail->Host = CORREO_HOST;                         //SERVIDOR DE CORREOS
             $mail->SMTPAuth = true;
-            $mail->Username = "miguelbarahona014@gmail.com";        //CORREO DE SALIDA   
-            $mail->Password = "tkiq ydfk zaeo hktc";                //CONTRASE;A DE CORREO
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;                                      //PUERTO DE SALIDA
-            $mail->setFrom("miguelbarahona014@gmail.com");          //CORREO DE SALIDA
+            $mail->Username = CORREO_USER;        //CORREO DE SALIDA   
+            $mail->Password = CORREO_PASS;                //CONTRASE;A DE CORREO
+            $mail->SMTPSecure = CORREO_SECURE;
+            $mail->Port = CORREO_PORT;                                      //PUERTO DE SALIDA
+            $mail->setFrom(CORREO_USER);          //CORREO DE SALIDA
             $mail->addAddress($correo);                             //CORREO DE CLIENTE
-            $mail->addBCC('copia_oculta@outlook.com');              //CORREO DE COPIA OCULTA
+            $mail->addBCC(CORREO_CC);              //CORREO DE COPIA OCULTA
             $mail->isHTML(true);
             /* $cod_verificacion = substr(number_format(time() * rand(), 0, '', ''), 0, 6); */
             $mail->Subject = 'RESERVA';

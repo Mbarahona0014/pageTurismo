@@ -53,5 +53,10 @@ if (isset($_POST)) {
         ], JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE));
         break;
     }
+  }else{
+    return print_r(json_encode([
+      "success" => false,
+      "mensaje" => "¡Operación no encontrada!",
+    ], JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE));
   }
 }

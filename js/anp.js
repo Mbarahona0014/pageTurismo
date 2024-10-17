@@ -137,12 +137,12 @@ async function initPage() {
   document.getElementById("row-actividades").innerHTML = htmlActividades;
 
   //CARGAR INDICACIONES
-  htmlIndicaciones = `<div class="col-12 text-center m-1 p-1 bg-marn-lgray"><div class="list-group bg-marn-lgray" id="list-tab" role="tablist">`;
+  htmlIndicaciones = `<div class="col-12 text-justify m-1 p-3 bg-marn-lgray"><div class="list-group bg-marn-lgray" id="list-tab" role="tablist">`;
   res.indicaciones.forEach((indicacion) => {
-    htmlIndicaciones += `<a class="list-group-item bg-marn-lgray border-0" role="tab">${indicacion.indicaciones}</a>`;
+    htmlIndicaciones += `<span style="white-space: pre-line;" class="p-4 p-md-5">${indicacion.indicaciones}</span>`;
     i++;
   });
-  htmlIndicaciones += `</div></div>`;
+  htmlIndicaciones += `</div>`;
   //SI NO HAY INDICACIONES OCULTAR LA SECCION
   if (res.indicaciones.length <= 0) {
     document.getElementById("seccion-indicaciones").style = "display:none;"

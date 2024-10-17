@@ -179,7 +179,7 @@ if (isset($reserva->reserva->data)) {
                 $this->SetFont('arial', '', 12);
                 $this->Cell(30);
                 // Title
-                $this->Cell(100, 10, ' | Ministerio de Medio Ambiente', 0, 0, 'L');
+                $this->Cell(100, 10, ' | Ministerio de Medio Ambiente', 0, 0, 'C');
                 $this->SetFont('arial', '', 8);
                 $this->Cell(30);
                 $this->Cell(0, 10, 'https://www.ambiente.gob.sv', 0, 0, 'R');
@@ -208,7 +208,7 @@ if (isset($reserva->reserva->data)) {
                 $this->Cell(150, 10, 'Verifica tu reserva:' . $params['urlqr'], 0, 0, 'L');
                 $this->SetY(-35);
                 $this->SetFont('Arial', '', 8);
-                $this->Cell(150, 10, "Valido desde : " . $params['fechainicio'] . " Hasta: " . $params['fechavencimiento'], 'B,T', 0, 'L');
+                $this->Cell(150, 10, "Valido desde : " . $params['fechainicio'] . " Hasta: " . $params['fechavencimiento'], 'B,T', 0, 'FJ');
                 $this->Image($params['imgqr'], 170, 255, 30);
             }
             // Tabla coloreada
@@ -232,8 +232,8 @@ if (isset($reserva->reserva->data)) {
                 // Datos
                 $fill = false;
                 foreach ($data as $row) {
-                    $this->Cell($w[0], 6, $row[0], 'LR', 0, 'L', $fill);
-                    $this->Cell($w[1], 6, $row[1], 'LR', 0, 'L', $fill);
+                    $this->Cell($w[0], 6, $row[0], 'LR', 0, 'FJ', $fill);
+                    $this->Cell($w[1], 6, $row[1], 'LR', 0, 'FJ', $fill);
                     $this->Cell($w[2], 6, number_format($row[2]), 'LR', 0, 'R', $fill);
                     $this->Cell($w[3], 6, number_format($row[3]), 'LR', 0, 'R', $fill);
                     $this->Ln();
@@ -241,6 +241,93 @@ if (isset($reserva->reserva->data)) {
                 }
                 // Línea de cierre
                 $this->Cell(array_sum($w), 0, '', 'T');
+            }
+            function Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = false, $link = '')
+            {
+                $k = $this->k;
+                if ($this->y + $h > $this->PageBreakTrigger && !$this->InHeader && !$this->InFooter && $this->AcceptPageBreak()) {
+                    $x = $this->x;
+                    $ws = $this->ws;
+                    if ($ws > 0) {
+                        $this->ws = 0;
+                        $this->_out('0 Tw');
+                    }
+                    $this->AddPage($this->CurOrientation);
+                    $this->x = $x;
+                    if ($ws > 0) {
+                        $this->ws = $ws;
+                        $this->_out(sprintf('%.3F Tw', $ws * $k));
+                    }
+                }
+                if ($w == 0)
+                    $w = $this->w - $this->rMargin - $this->x;
+                $s = '';
+                if ($fill || $border == 1) {
+                    if ($fill)
+                        $op = ($border == 1) ? 'B' : 'f';
+                    else
+                        $op = 'S';
+                    $s = sprintf('%.2F %.2F %.2F %.2F re %s ', $this->x * $k, ($this->h - $this->y) * $k, $w * $k, -$h * $k, $op);
+                }
+                if (is_string($border)) {
+                    $x = $this->x;
+                    $y = $this->y;
+                    if (is_int(strpos($border, 'FJ')))
+                        $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $x * $k, ($this->h - $y) * $k, $x * $k, ($this->h - ($y + $h)) * $k);
+                    if (is_int(strpos($border, 'T')))
+                        $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $x * $k, ($this->h - $y) * $k, ($x + $w) * $k, ($this->h - $y) * $k);
+                    if (is_int(strpos($border, 'R')))
+                        $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', ($x + $w) * $k, ($this->h - $y) * $k, ($x + $w) * $k, ($this->h - ($y + $h)) * $k);
+                    if (is_int(strpos($border, 'B')))
+                        $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $x * $k, ($this->h - ($y + $h)) * $k, ($x + $w) * $k, ($this->h - ($y + $h)) * $k);
+                }
+                if ($txt != '') {
+                    if ($align == 'R')
+                        $dx = $w - $this->cMargin - $this->GetStringWidth($txt);
+                    elseif ($align == 'C')
+                        $dx = ($w - $this->GetStringWidth($txt)) / 2;
+                    elseif ($align == 'FJ') {
+                        //Set word spacing
+                        $wmax = ($w - 2 * $this->cMargin);
+                        $nb = substr_count($txt, ' ');
+                        if ($nb > 0)
+                            $this->ws = ($wmax - $this->GetStringWidth($txt)) / $nb;
+                        else
+                            $this->ws = 0;
+                        $this->_out(sprintf('%.3F Tw', $this->ws * $this->k));
+                        $dx = $this->cMargin;
+                    } else
+                        $dx = $this->cMargin;
+                    $txt = str_replace(')', '\\)', str_replace('(', '\\(', str_replace('\\', '\\\\', $txt)));
+                    if ($this->ColorFlag)
+                        $s .= 'q ' . $this->TextColor . ' ';
+                    $s .= sprintf('BT %.2F %.2F Td (%s) Tj ET', ($this->x + $dx) * $k, ($this->h - ($this->y + .5 * $h + .3 * $this->FontSize)) * $k, $txt);
+                    if ($this->underline)
+                        $s .= ' ' . $this->_dounderline($this->x + $dx, $this->y + .5 * $h + .3 * $this->FontSize, $txt);
+                    if ($this->ColorFlag)
+                        $s .= ' Q';
+                    if ($link) {
+                        if ($align == 'FJ')
+                            $wlink = $wmax;
+                        else
+                            $wlink = $this->GetStringWidth($txt);
+                        $this->Link($this->x + $dx, $this->y + .5 * $h - .5 * $this->FontSize, $wlink, $this->FontSize, $link);
+                    }
+                }
+                if ($s)
+                    $this->_out($s);
+                if ($align == 'FJ') {
+                    //Remove word spacing
+                    $this->_out('0 Tw');
+                    $this->ws = 0;
+                }
+                $this->lasth = $h;
+                if ($ln > 0) {
+                    $this->y += $h;
+                    if ($ln == 1)
+                        $this->x = $this->lMargin;
+                } else
+                    $this->x += $w;
             }
         }
 
@@ -265,7 +352,7 @@ if (isset($reserva->reserva->data)) {
         $pdf->Ln();
         $pdf->Cell(0, 5, 'Fecha ingreso: ' . $reserva->reserva->data->inicio, 0, 1);
         $pdf->Cell(0, 5, 'Fecha salida: ' . $reserva->reserva->data->fin, 0, 1);
-        $pdf->Cell(0, 5, 'Numero de días: ' . $dias, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Numero de días: ' . $dias, "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('arial', 'B', 12);
         $pdf->Ln();
         $pdf->Cell(0, 10, 'DATOS DE PAGO: ', 0, 1);
@@ -298,16 +385,16 @@ if (isset($reserva->reserva->data)) {
             $pdf->Ln();
         }
         $pdf->SetFont('arial', 'B', 12);
-        $pdf->Cell(0, 10, 'CABANIAS: ', 0, 1);
+        $pdf->Cell(0, 10, mb_convert_encoding('CABAÑAS', "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('arial', 'B', 10);
         foreach ($reserva->reserva->cabanias as $cabania) {
-            $pdf->Cell(0, 5, "Codigo de cabaña: " . $cabania->codcabania, '', 0, 'L');
+            $pdf->Cell(0, 5, mb_convert_encoding("Codigo de cabaña: " . $cabania->codcabania, "ISO-8859-1", "UTF-8"), '', 0, 'L');
         }
 
         $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
 El ticket tendrá vigencia de 60 días a partir de la fecha de compra, pasado el tiempo estipulado caducará el mismo y se tendrá por utilizado.
 Las reprogramaciones deberán hacerse, previamente a la fecha establecida en el ticket, al correo electrónico: cardon@ambiente.gob.sv o al número +503 7850 2018 en días y horarios hábiles.
-En casos fortuitos, el MARN se comunicará con el usuario para informar y dar la opción de reprogramación.';
+En casos afortuitos, el MARN se comunicará con el usuario para informar y dar la opción de reprogramación.';
 
         $textoIndicaciones = '
 *Este trámite es con fines turísticos. De requerir permiso para investigación científica deberá gestionar el respectivo permiso al correo.
