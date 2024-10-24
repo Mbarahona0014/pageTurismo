@@ -166,7 +166,7 @@ if (isset($request['TransaccionId'])) {
       <li>Prohibido el ingreso de mascotas.</li>
     </ol>
     </p>
-    <a href="' . $config['url_landing'] . '/pdf.php?id=' . $idEncriptado . '" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
+    <a href="' . $config['url_landing'] . '/pdf?id=' . $idEncriptado . '" target="_blank">PUEDES DESCARGAR TU COMPROBANTE AQUI</a>
     ';
             $mailer->enviarCorreoConfirmacion($response_detalles->reserva->data->correo, $mensaje);
         } else {
