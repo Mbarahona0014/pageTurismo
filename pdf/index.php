@@ -392,28 +392,28 @@ if (isset($reserva->reserva->data)) {
         }
 
         $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
-El ticket tendrá vigencia de 60 días a partir de la fecha de compra, pasado el tiempo estipulado caducará el mismo y se tendrá por utilizado.
+El ticket tendrá vigencia de 60 días a partir de la fecha de compra, pasado el tiempo estipulado caducará el mismo y se se dará por utilizado.
 Las reprogramaciones deberán hacerse, previamente a la fecha establecida en el ticket, al correo electrónico: cardon@ambiente.gob.sv o al número +503 7850 2018 en días y horarios hábiles.
 En casos afortuitos, el MARN se comunicará con el usuario para informar y dar la opción de reprogramación.';
 
         $textoIndicaciones = '
-*Este trámite es con fines turísticos. De requerir permiso para investigación científica deberá gestionar el respectivo permiso al correo.
-*La hora de ingreso es a partir de las 7:30 a.m. y la hora de salida es a las 3:30 p.m. (para las ANPs donde no es permitido pernoctar).
-*La reserva de ingreso al Área Natural Protegida se confirmará mediante la presentación del documento "Ingreso al Área de Natural Protegida" en caso de haber realizado una compra en línea.
-*Prohibido el ingreso de bebidas embriagantes y su consumo dentro del Área Natural Protegida.
-*Prohibido el ingreso de personas en estado de ebriedad.
-*Prohibido fumar tabaco y otras sustancias alucinógenas.
-*El visitante es responsable de retirar los residuos sólidos que genera en su estadía.
-*Prohibido el ingreso de bocinas y o aparatos de sonidos, ya que el sonido perturba el ambiente de la fauna.
-*Prohibido el ingreso de armas de fuego y armas blancas. En caso de llevar alguna de ellas, se deberán depositar en la caseta de entrada y serán devueltas al salir.
-*Prohibido manchar, calar y rallar los árboles y o la infraestructura en general.
-*Prohibido el ingreso de pólvora.
-*Se prohíbe perturbar la paz de los visitantes y la fauna del bosque mediante ruidos fuertes, como gritos, escándalos, el uso de pólvora o cualquier forma de intimidación hacia terceros.
-*Con el fin de garantizar la seguridad de todos los visitantes, residentes en el área y preservar la fauna local, se establece un límite de velocidad máximo de 10 km por hora para el tránsito.
-*El personal de Guarda Recursos cuenta con la autoridad para aplicar la normativa vigente y confiscar equipos de sonido, armas de fuego, armas blancas, bebidas alcohólicas, mascotas u otros elementos prohibidos.
-*Se solicita atender las indicaciones de los Guarda recursos como la autoridad en el Área Natural Protegida.
-*Prohibido el ingreso de plásticos de un solo uso como pajitas, platos, vasos y otros objetos desechables.
-*Prohibido el ingreso de mascotas.';
+* Este trámite es con fines turísticos. De requerir permiso para investigación científica deberá gestionar el respectivo permiso al correo.
+* La hora de ingreso es a partir de las 7:30 a.m. y la hora de salida es a las 3:30 p.m. (para las ANPs donde no es permitido pernoctar).
+* La reserva de ingreso al Área Natural Protegida se confirmará mediante la presentación del documento "Ingreso al Área de Natural Protegida" en caso de haber realizado una compra en línea.
+* Prohibido el ingreso de bebidas embriagantes y su consumo dentro del Área Natural Protegida.
+* Prohibido el ingreso de personas en estado de ebriedad.
+* Prohibido fumar tabaco y otras sustancias alucinógenas.
+* El visitante es responsable de retirar los residuos sólidos que genera en su estadía.
+* Prohibido el ingreso de bocinas y o aparatos de sonidos, ya que el sonido perturba el ambiente de la fauna.
+* Prohibido el ingreso de armas de fuego y armas blancas. En caso de llevar alguna de ellas, se deberán depositar en la caseta de entrada y serán devueltas al salir.
+* Prohibido manchar, calar y rallar los árboles y o la infraestructura en general.
+* Prohibido el ingreso de pólvora.
+* Se prohíbe perturbar la paz de los visitantes y la fauna del bosque mediante ruidos fuertes, como gritos, escándalos, el uso de pólvora o cualquier forma de intimidación hacia terceros.
+* Con el fin de garantizar la seguridad de todos los visitantes, residentes en el área y preservar la fauna local, se establece un límite de velocidad máximo de 10 km por hora para el tránsito.
+* El personal de Guarda Recursos cuenta con la autoridad para aplicar la normativa vigente y confiscar equipos de sonido, armas de fuego, armas blancas, bebidas alcohólicas, mascotas u otros elementos prohibidos.
+* Se solicita atender las indicaciones de los Guarda recursos como la autoridad en el Área Natural Protegida.
+* Prohibido el ingreso de plásticos de un solo uso como pajitas, platos, vasos y otros objetos desechables.
+* Prohibido el ingreso de mascotas.';
 
         $pdf->Cell(0, 10, 'Precios incluyen IVA', 0, 1);
         $pdf->SetFont('arial', 'B', 10);
@@ -434,10 +434,9 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
         $pdf->SetFont('arial', '', 10);
         $textoIndicacionesEspecificas = '';
         foreach ($reserva->indicaciones->data as $indicaciones) {
-            $textoIndicacionesEspecificas .= " * $indicaciones->indicaciones";
+            $textoIndicacionesEspecificas .= $indicaciones->indicaciones;
         }
         $pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicacionesEspecificas, "ISO-8859-1", "UTF-8"), 0, 1);
-
         $pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');
         $pdf->Output($idencriptado . '.pdf', 'D');
         $pdf->Output();
