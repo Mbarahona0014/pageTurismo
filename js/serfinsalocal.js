@@ -1,5 +1,5 @@
 //var path = "http://localhost:15754/";
-var path = "https://testcheckout.redserfinsa.com:8087/";
+var path = "https://www.serfinsacheckout.com/";
 //var path = "https://bdpdev.redserfinsa.com:8088/";
 //var path = "https://www.serfinsacheckout.com/";
 var $ = jQuery;

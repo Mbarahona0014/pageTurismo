@@ -80,7 +80,7 @@
           ConceptoPago: apellidos,
           Adicionales: ""
         });
-        let response = fetch(`https://testcheckout.redserfinsa.com:8087`, {
+        let response = fetch(`https://www.serfinsacheckout.com`, {
           method: "POST",
           body: bodyContent,
           headers: headersList,
@@ -111,7 +111,7 @@ document.getElementById("btnPagar").addEventListener("click", () => {
     Monto: MontroTransaccion,
     ConceptoPago: ConceptoPago,
   });
-  let response = fetch(`https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran`, {
+  let response = fetch(`https://www.serfinsacheckout.com/api/PayApi/TokeyTran`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
@@ -138,20 +138,20 @@ document.getElementById("btnPagar").addEventListener("click", () => {
     body: raw,
     redirect: 'follow'
   };
-  fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
+  fetch("https://www.serfinsacheckout.com/api/PayApi/TokeyTran", requestOptions)
     .then(response => response.json())
     .then(result => {
       //console.log(result);
       if (result.Satisfactorio) {
         const urlPost = result.Datos.UrlPost;
-        window.open(`https://testcheckout.redserfinsa.com:8087/${urlPost}`);
+        window.open(`https://www.serfinsacheckout.com/${urlPost}`);
         /* var myHeaders = new Headers();
         var requestOptions = {
           method: 'GET',
           headers: myHeaders,
           redirect: 'follow'
         };
-        fetch(`https://testcheckout.redserfinsa.com:8087/${urlPost}`, requestOptions)
+        fetch(`https://www.serfinsacheckout.com/${urlPost}`, requestOptions)
           .then(response => response.text())
           .then(result => {
 

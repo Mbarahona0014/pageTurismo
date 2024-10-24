@@ -558,7 +558,7 @@ async function validarFormReserva() {
                 body: raw,
                 redirect: 'follow'
               };
-              fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
+              fetch("https://www.serfinsacheckout.com/api/PayApi/TokeyTran", requestOptions)
                 .then(response => response.json())
                 .then(async result => {
                   //console.log(result);
@@ -568,7 +568,7 @@ async function validarFormReserva() {
                     //$("#MerchantToken").val(result.JwtMerchantToken);
                     $("#btValidar").hide();
                     $("#linkpagar").show();
-                    $("#linkpagar").attr("href", `https://testcheckout.redserfinsa.com:8087/${result.Datos.UrlPost}`);
+                    $("#linkpagar").attr("href", `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`);
                     $("#btEdit").show();
                     //ACTUALIZAR ID DE TRANSACCION SERFINSA
                     const metadata = {
@@ -629,7 +629,7 @@ async function validarFormReserva() {
               body: raw,
               redirect: 'follow'
             };
-            fetch("https://testcheckout.redserfinsa.com:8087/api/PayApi/TokeyTran", requestOptions)
+            fetch("https://www.serfinsacheckout.com/api/PayApi/TokeyTran", requestOptions)
               .then(response => response.json())
               .then(async result => {
                 //console.log(result);
@@ -638,7 +638,7 @@ async function validarFormReserva() {
                   //$("#MerchantToken").val(result.JwtMerchantToken);
                   $("#btValidar").hide();
                   $("#linkpagar").show();
-                  $("#linkpagar").attr("href", `https://testcheckout.redserfinsa.com:8087/${result.Datos.UrlPost}`);
+                  $("#linkpagar").attr("href", `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`);
                   $("#btEdit").show();
                   //$("#btTest").show();
                   //ACTUALIZAR ID DE TRANSACCION SERFINSA

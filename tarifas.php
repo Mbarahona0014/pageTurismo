@@ -12,7 +12,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-  <link href="https://testcheckout.redserfinsa.com:8087/Assets/css/BtnGoesStyle.css" rel="stylesheet" />
+  <link href="https://www.serfinsacheckout.com/Assets/css/BtnGoesStyle.css" rel="stylesheet" />
 </head>
 
 <body style='padding: 1rem;'>
@@ -209,7 +209,7 @@
   <script src="./js/pliego_tarifario.js"></script>
   <script src="./js/calendario.js"></script>
   <script src="./js/reservacion.js"></script>
-  <script src="https://testcheckout.redserfinsa.com:8087/Scripts/Serfinsa.PayV2.js"></script>
+  <script src="https://www.serfinsacheckout.com/Scripts/Serfinsa.PayV2.js"></script>
   <!-- <script src="./js/serfinsalocal.js"></script> -->
 </body>
 
