@@ -20,7 +20,7 @@ $urls_dev = [
 
 $urls_prod = [
   'tour_virtual' => 'https://360.ambiente.gob.sv/',
-  'url_landing' => 'https://anp.ambiente.gob.sv/',
+  'url_landing' => 'https://anp.ambiente.gob.sv',
   'url_portal' => 'https://portaldeb.marn.gob.sv/portal'
 ];
 
