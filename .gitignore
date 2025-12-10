@@ -1,10 +1,5 @@
-bootstrap5/
-fontawesome6/
-phpmailer/
-fpdf/
 recursos/archivo
 recursos/qr
-phpqrcode
 qrtest
 js/general.js
 config/params.php
