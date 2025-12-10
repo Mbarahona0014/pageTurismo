@@ -165,7 +165,8 @@ if (isset($reserva->reserva->data)) {
             'urlqr' => $url_reserva,
             'imgqr' => $url_qr
         );
-
+        $url_qr = __DIR__ . "/../recursos/qr/" . $idencriptado . ".png";
+        $url_reserva = $config['url_landing'] . "/reserva.php?id=$idencriptado";
         QRcode::png($url_reserva, $url_qr);
 
         class PDF extends FPDF
