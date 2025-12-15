@@ -17,15 +17,23 @@ async function initPage() {
 
   res.slider.forEach((slider) => {
     htmlSlider +=
-      `<div class="carousel-item ` + (i == 0 ? "active" : "") + `">
-        <img src="` + url_imagenes + `/slider/` + slider.imagen_slider + `" class="img-fluid w-100"/>
+      `<div class="carousel-item ` +
+      (i == 0 ? "active" : "") +
+      `">
+        <img src="` +
+      url_imagenes +
+      `/slider/` +
+      slider.imagen_slider +
+      `" class="img-fluid w-100"/>
       </div>`;
     i++;
   });
   //AGREGAR IMAGEN POR DEFECTO SI NO HAY IMAGENES AGREGADAS
   if (res.slider.length <= 0) {
     htmlSlider +=
-      `<div class="carousel-item ` + (i == 0 ? "active" : "") + `">
+      `<div class="carousel-item ` +
+      (i == 0 ? "active" : "") +
+      `">
       <img src="recursos/imagenes/portada.jpg" class="img-fluid w-100"/>
     </div>`;
   }
@@ -96,8 +104,13 @@ async function initPage() {
   let tituloavisos = document.getElementById("titulo-avisos");
   //SI NO HAY AVISOS OCULTAR LA SECCION
   if (res.avisos.length <= 0) {
-    tituloavisos.style = "display:none;";
-    rowavisos.style = "display:none;"
+    htmlAvisos = `
+    <div class="col-12">
+      <p class="text-center">No hay avisos disponibles en este momento.</p>
+    </div>
+    `;
+    //tituloavisos.style = "display:none;";
+    //rowavisos.style = "display:none;";
   }
   //console.log(htmlAvisos);
   rowavisos.innerHTML = htmlAvisos;
