@@ -115,14 +115,6 @@ async function initPage() {
                       <p>No hay avisos por el momento</p>
                   </div>
                 </div></div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselAvisos" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselAvisos" data-bs-slide="next">
-                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Siguiente</span>
-                  </button>
                 <div class="carousel-indicators"><button type="button" data-bs-target="#carouselAvisos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="VOLCAN DE IZALCO"></button></div>
               </div>
     `;
