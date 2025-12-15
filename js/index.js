@@ -105,9 +105,26 @@ async function initPage() {
   //SI NO HAY AVISOS OCULTAR LA SECCION
   if (res.avisos.length <= 0) {
     htmlAvisos = `
-    <div class="col-12">
-      <p class="text-center">No hay avisos disponibles en este momento.</p>
-    </div>
+    <div id="carouselAvisos" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner"><div class="carousel-item active">
+                    <div class="img-shadow">
+                      <img src="recursos/imagenes/portada.jpg" class="d-block w-100">
+                    </div>
+                    <div class="carousel-caption d-block">
+                      <h5>SIN AVISOS</h5>
+                      <p>No hay avisos por el momento</p>
+                  </div>
+                </div></div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselAvisos" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselAvisos" data-bs-slide="next">
+                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                  </button>
+                <div class="carousel-indicators"><button type="button" data-bs-target="#carouselAvisos" data-bs-slide-to="0" class="active" aria-current="true" aria-label="VOLCAN DE IZALCO"></button></div>
+              </div>
     `;
     //tituloavisos.style = "display:none;";
     //rowavisos.style = "display:none;";
