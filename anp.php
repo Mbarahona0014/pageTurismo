@@ -6,7 +6,7 @@
     <?php require_once("head.php"); ?>
 </head>
 
-<body>
+<body class="overflow-x-hidden">
     <input type="hidden" id="idanp" value="<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
     <div class=".container-fluid m-0 p-0 overflow-hidden">
         <div class="row">
@@ -94,7 +94,7 @@
             <div class="row">
                 <div class="navbar navbar-dark bg-titulos shadow-sm">
                     <div class="container p-2 text-white">
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center m-0 p-0 text-center">
                             <!-- <i class="fa fa-list fa-xl"></i> -->
                             <label class="lbl-md">INDICACIONES</label>
                         </div>
@@ -103,32 +103,30 @@
             </div>
             <!--Indicaciones-->
             <div class="row bg-marn-lgray" id='row-indicaciones'>
-
-
             </div>
         </div>
-    </div>
 
 
-    <div id="seccion-recomendaciones">
-        <!-- Barra de separacion -->
-        <div class="row">
-            <div class="navbar navbar-dark bg-titulos shadow-sm">
-                <div class="container p-2 text-white">
-                    <div class="col-12 text-center">
-                        <!-- <i class="fa fa-walking fa-xl"></i> -->
-                        <label class="lbl-md">SENDEROS</label>
+
+        <div id="seccion-recomendaciones">
+            <!-- Barra de separacion -->
+            <div class="row">
+                <div class="navbar navbar-dark bg-titulos shadow-sm">
+                    <div class="container p-2 text-white">
+                        <div class="col-12 text-center m-0 p-0 text-center">
+                            <!-- <i class="fa fa-walking fa-xl"></i> -->
+                            <label class="lbl-md">SENDEROS</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row bg-marn-lgray pt-3" id="row-recomendaciones">
+            <div class="row bg-marn-lgray pt-3" id="row-recomendaciones">
 
+            </div>
         </div>
-    </div>
 
-    <!-- Barra de separacion -->
-    <!-- <div class="row">
+        <!-- Barra de separacion -->
+        <!-- <div class="row">
             <div class="navbar navbar-dark bg-marn-blue shadow-sm">
                 <div class="container p-2 text-white">
                     <div class="col-12 text-center">
@@ -138,8 +136,8 @@
                 </div>
             </div>
         </div> -->
-    <!--Calendario-->
-    <!-- <div class="row bg-marn-lgray">
+        <!--Calendario-->
+        <!-- <div class="row bg-marn-lgray">
             <div class="col-12 p-5">
                 <div class="btn-group-sm" style='display: flex; gap: 0.5rem;justify-content: space-between;'>
                     <p>Disponibilidades
@@ -151,93 +149,93 @@
                 <div id='calendario-dias'></div>
             </div>
         </div> -->
-    <!-- Barra de separacion -->
-    <div class="row">
-        <div class="navbar navbar-dark bg-titulos shadow-sm">
-            <div class="container p-2 text-white">
-                <div class="col-12 text-center">
-                    <!-- <i class="far fa-map fa-xl"></i> -->
-                    <label class="lbl-md">CÓMO LLEGAR</label>
+        <!-- Barra de separacion -->
+        <div class="row">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
+                <div class="container p-2 text-white">
+                    <div class="col-12 text-center m-0 p-0 text-center">
+                        <!-- <i class="far fa-map fa-xl"></i> -->
+                        <label class="lbl-md">CÓMO LLEGAR</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row bg-marn-lgray">
-        <div class="col-lg-4 col-md-4 col-sm-12 p-3">
-            <div class="card bg-transparent text-center align-items-center">
-                <img id="qr-como-llegar" class="img-icon card-img-top" />
-                <div class="card-body">
-                    <label class="card-text ps-5 pe-5">ESCANEA EL CÓDIGO PARA AVERIGUARLO</label>
+        <div class="row bg-marn-lgray">
+            <div class="col-lg-4 col-md-4 col-sm-12 p-3">
+                <div class="card bg-transparent text-center align-items-center">
+                    <img id="qr-como-llegar" class="img-icon card-img-top" />
+                    <div class="card-body">
+                        <label class="card-text ps-5 pe-5">ESCANEA EL CÓDIGO PARA AVERIGUARLO</label>
+                    </div>
+                </div>
+                <div class="text-center align-items-center" id="div-tour" style="display: none;">
+                    <a href="#" id="enlace-tour">
+                        <button type="button" class="btn btn-sm bg-marn-green text-white p-4">
+                            <i class="fa fa-binoculars"></i>&nbsp;TOUR VIRTUAL
+                        </button>
+                    </a>
                 </div>
             </div>
-            <div class="text-center align-items-center" id="div-tour" style="display: none;">
-                <a href="#" id="enlace-tour">
-                    <button type="button" class="btn btn-sm bg-marn-green text-white p-4">
-                        <i class="fa fa-binoculars"></i>&nbsp;TOUR VIRTUAL
-                    </button>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-12">
-            <div class="col-12 p-5 text-center align-items-center">
-                <p id="descripcion-como-llegar">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-12 p-5 text-center align-items-center">
+                    <p id="descripcion-como-llegar">
 
-                </p>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <a href="#" id="enlace-como-llegar">
-                                    <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
-                                        <i class="fa fa-compass fa-xl"></i>
-                                    </button>
-                                </a>
-                            </div>
-                            <div class="col-12 mt-3">
-                                <label>VER MAPA</label>
+                    </p>
+                    <div class="row">
+                        <div class="col-6 text-center m-0 p-0">
+                            <div class="row">
+                                <div class="col-12 text-center m-0 p-0">
+                                    <a href="#" id="enlace-como-llegar">
+                                        <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
+                                            <i class="fa fa-compass fa-xl"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-12 text-center m-0 p-0 mt-3">
+                                    <label>VER MAPA</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <a href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
-                                    <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
-                                        <i class="fa fa-check fa-xl"></i>
-                                    </button>
-                                </a>
+                        <div class="col-6 text-center m-0 p-0">
+                            <div class="row">
+                                <div class="col-12 text-center m-0 p-0">
+                                    <a href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
+                                        <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
+                                            <i class="fa fa-check fa-xl"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-12 text-center m-0 p-0 mt-3">
+                                </div>
+                                <label>RESERVA AQUÍ</label>
                             </div>
-                            <div class="col-12 mt-3">
-                            </div>
-                            <label>RESERVA AQUÍ</label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Barra de separacion -->
-    <div class="row">
-        <div class="navbar navbar-dark bg-titulos shadow-sm">
-            <div class="container p-2 text-white">
-                <div class="col-12 text-center">
-                    <!-- <i class="fa fa-address-card fa-xl"></i> -->
-                    <label class="lbl-md">¿TIENES ALGUNA DUDA?</label>
+        <!-- Barra de separacion -->
+        <div class="row">
+            <div class="navbar navbar-dark bg-titulos shadow-sm">
+                <div class="container p-2 text-white">
+                    <div class="col-12 text-center m-0 p-0 text-center">
+                        <!-- <i class="fa fa-address-card fa-xl"></i> -->
+                        <label class="lbl-md">¿TIENES ALGUNA DUDA?</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--Formulario de contacto-->
-    <div class="row" id="row-contactanos">
-        <div class="col-12 text-center m-0 p-0">
-            <?php require_once("contactanos.php"); ?>
+        <!--Formulario de contacto-->
+        <div class="row" id="row-contactanos">
+            <div class="col-12 text-center m-0 p-0">
+                <?php require_once("contactanos.php"); ?>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <?php require_once("cintillo.php"); ?>
+        <div class="row">
+            <div class="col-12 text-center m-0 p-0">
+                <?php require_once("cintillo.php"); ?>
+            </div>
         </div>
-    </div>
     </div>
 
     <a class="btn-float-screen" href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
