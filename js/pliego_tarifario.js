@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   let htmlDias = ``;
   document.getElementById("ads").innerHTML = "";
 
-  if (lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva > 0) {
+  if (
+    lugar.data.diasAnticipacionReserva ||
+    lugar.data.diasAnticipacionReserva > 0
+  ) {
     htmlDias = `Puedes realizar tu reserva con un máximo de ${lugar.data.diasAnticipacionReserva} días de anticipación`;
   } else {
     htmlDias = `No hay fechas disponibles`;
@@ -99,7 +102,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (cantidad[index].value >= 1) {
         subtotal = 0;
         cantidad[index].value--;
-        const total_cabanias = isNaN(parseFloat(document.getElementById("montoCabanias").value)) ? 0 : parseFloat(document.getElementById("montoCabanias").value);
+        const total_cabanias = isNaN(
+          parseFloat(document.getElementById("montoCabanias").value)
+        )
+          ? 0
+          : parseFloat(document.getElementById("montoCabanias").value);
         const cantidad_dias = document.getElementById("cantidadDias").value;
         if (index < 6) {
           subtotal = personas[index].precio * cantidad[index].value;
@@ -111,11 +118,17 @@ document.addEventListener("DOMContentLoaded", async () => {
           suma_total -= parqueos[index - 6].precio;
           parqueos[index - 6].cantidad = cantidad[index].value;
         }
-        const total_neto = (suma_total + total_cabanias);
+        const total_neto = suma_total + total_cabanias;
         cantidad[index].setAttribute("data-entradas", subtotal);
-        document.getElementById("montoEntradas").setAttribute("value", suma_total);
-        document.getElementById("MontoDiario").setAttribute("value", total_neto);
-        document.getElementById("MontoTransaccion").setAttribute("value", total_neto * cantidad_dias);
+        document
+          .getElementById("montoEntradas")
+          .setAttribute("value", suma_total);
+        document
+          .getElementById("MontoDiario")
+          .setAttribute("value", total_neto);
+        document
+          .getElementById("MontoTransaccion")
+          .setAttribute("value", total_neto * cantidad_dias);
         total.innerHTML = formatMoney(total_neto * cantidad_dias);
       }
     });
@@ -125,7 +138,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     item.addEventListener("click", () => {
       subtotal = 0;
       const cantidad_dias = document.getElementById("cantidadDias").value;
-      const total_cabanias = isNaN(parseFloat(document.getElementById("montoCabanias").value)) ? 0 : parseFloat(document.getElementById("montoCabanias").value);
+      const total_cabanias = isNaN(
+        parseFloat(document.getElementById("montoCabanias").value)
+      )
+        ? 0
+        : parseFloat(document.getElementById("montoCabanias").value);
       cantidad[index].value++;
       if (index < 6) {
         subtotal = personas[index].precio * cantidad[index].value;
@@ -137,11 +154,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         suma_total += parqueos[index - 6].precio;
         parqueos[index - 6].cantidad = cantidad[index].value;
       }
-      const total_neto = (suma_total + total_cabanias);
+      const total_neto = suma_total + total_cabanias;
       cantidad[index].setAttribute("data-entradas", subtotal);
-      document.getElementById("montoEntradas").setAttribute("value", suma_total);
+      document
+        .getElementById("montoEntradas")
+        .setAttribute("value", suma_total);
       document.getElementById("MontoDiario").setAttribute("value", total_neto);
-      document.getElementById("MontoTransaccion").setAttribute("value", total_neto * cantidad_dias);
+      document
+        .getElementById("MontoTransaccion")
+        .setAttribute("value", total_neto * cantidad_dias);
       total.innerHTML = formatMoney(total_neto * cantidad_dias);
     });
   });
@@ -151,7 +172,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       let subtotal = 0;
       //OBTENER DATO DE ENTRADAS
       const anterior = item.getAttribute("data-entradas");
-      const total_cabanias = isNaN(parseFloat(document.getElementById("montoCabanias").value)) ? 0 : parseFloat(document.getElementById("montoCabanias").value);
+      const total_cabanias = isNaN(
+        parseFloat(document.getElementById("montoCabanias").value)
+      )
+        ? 0
+        : parseFloat(document.getElementById("montoCabanias").value);
       const cantidad_dias = document.getElementById("cantidadDias").value;
       if (item.value < 0) {
         item.value = 0;
@@ -164,18 +189,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         parqueos[index - 6].cantidad = item.value * item.value;
       }
       suma_total += subtotal - anterior;
-      const total_neto = (suma_total + total_cabanias);
+      const total_neto = suma_total + total_cabanias;
       cantidad[index].setAttribute("data-entradas", subtotal);
-      document.getElementById("montoEntradas").setAttribute("value", suma_total);
+      document
+        .getElementById("montoEntradas")
+        .setAttribute("value", suma_total);
       document.getElementById("MontoDiario").setAttribute("value", total_neto);
-      document.getElementById("MontoTransaccion").setAttribute("value", total_neto * cantidad_dias);
+      document
+        .getElementById("MontoTransaccion")
+        .setAttribute("value", total_neto * cantidad_dias);
       total.innerHTML = formatMoney(total_neto * cantidad_dias);
     });
   });
 });
 
 const getPliego = async () => {
-  const response = await fetch(`${url}/turismo/api/servicios`, {
+  const lugar = document.getElementById("idanp").value;
+  const response = await fetch(`${url}/turismo/api/servicios/lugar/${lugar}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -210,7 +240,8 @@ const pintarPliegos = (data, div) => {
     </div>
     <div class="col-md-5 mb-3 d-flex justify-content-center align-items-center">
       <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_menos">-</button>
-      <input type="number" class="form-control text-center input-sm ctrl-reserva w-50" id="cantidad" value="0" step="1" min="0" data-servicio="${item.id
+      <input type="number" class="form-control text-center input-sm ctrl-reserva w-50" id="cantidad" value="0" step="1" min="0" data-servicio="${
+        item.id
       }" data-entradas="0">
       <button class="btn rounded btn-dark btn-sm bg-marn-blue text-white ctrl-reserva" id="btn_mas">+</button>
     </div>
@@ -220,7 +251,8 @@ const pintarPliegos = (data, div) => {
       </div>
       &nbsp;
       &nbsp;
-      <i class="fa-solid fa-circle-exclamation" style="color: gray;" title="${item.descripcion
+      <i class="fa-solid fa-circle-exclamation" style="color: gray;" title="${
+        item.descripcion
       }"></i>
     </div>
     `;
@@ -253,33 +285,44 @@ async function showModalCabania(id) {
 }
 
 async function reservarCabania(id) {
-  let inicio, fin, mensaje = '';
+  let inicio,
+    fin,
+    mensaje = "";
   const cantidad_dias = document.getElementById("cantidadDias").value;
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
-    inicio = new Date(parseInt(arrayfechainicio[2]), parseInt(arrayfechainicio[1]) - 1, parseInt(arrayfechainicio[0])).toISOString().split("T")[0];
+    inicio = new Date(
+      parseInt(arrayfechainicio[2]),
+      parseInt(arrayfechainicio[1]) - 1,
+      parseInt(arrayfechainicio[0])
+    )
+      .toISOString()
+      .split("T")[0];
   }
   if ($("#fecha_retiro").val() != "") {
     const arrayfecharetiro = $("#fecha_retiro").val().split("-");
-    fin = new Date(parseInt(arrayfecharetiro[2]), parseInt(arrayfecharetiro[1]) - 1, parseInt(arrayfecharetiro[0])).toISOString().split("T")[0];
+    fin = new Date(
+      parseInt(arrayfecharetiro[2]),
+      parseInt(arrayfecharetiro[1]) - 1,
+      parseInt(arrayfecharetiro[0])
+    )
+      .toISOString()
+      .split("T")[0];
   }
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
   let bodyContent = JSON.stringify({
     id_cabania: id,
     inicio: inicio,
     fin: fin,
   });
-  let response = await fetch(
-    `${url}/turismo/api/reserva/disponibilidad`,
-    {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList,
-    }
-  );
+  let response = await fetch(`${url}/turismo/api/reserva/disponibilidad`, {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  });
   let contadordisponibilidad = await response.json();
   /* console.log(contadordisponibilidad); */
   if (contadordisponibilidad.ok) {
@@ -305,19 +348,41 @@ async function reservarCabania(id) {
       buttonReserva.classList.remove("bg-marn-blue");
       buttonReserva.classList.add("bg-marn-red");
       //AGREGAR AL TOTAL RESERVADO
-      const precio_cabania = isNaN(parseFloat(buttonReserva.getAttribute("data-precio"))) ? 0 : parseFloat(buttonReserva.getAttribute("data-precio"));
-      const total_cabanias = isNaN(parseFloat(document.getElementById("montoCabanias").value)) ? 0 : parseFloat(document.getElementById("montoCabanias").value);
-      const total_entradas = isNaN(parseFloat(document.getElementById("montoEntradas").value)) ? 0 : parseFloat(document.getElementById("montoEntradas").value)
+      const precio_cabania = isNaN(
+        parseFloat(buttonReserva.getAttribute("data-precio"))
+      )
+        ? 0
+        : parseFloat(buttonReserva.getAttribute("data-precio"));
+      const total_cabanias = isNaN(
+        parseFloat(document.getElementById("montoCabanias").value)
+      )
+        ? 0
+        : parseFloat(document.getElementById("montoCabanias").value);
+      const total_entradas = isNaN(
+        parseFloat(document.getElementById("montoEntradas").value)
+      )
+        ? 0
+        : parseFloat(document.getElementById("montoEntradas").value);
       //console.log("preciocabania>" + precio_cabania + "total_cabania>" + total_cabanias + "total_entradas>" + total_entradas);
-      document.getElementById("montoCabanias").setAttribute("value", total_cabanias + precio_cabania);
-      totalDiario.setAttribute("value", (precio_cabania + total_cabanias + total_entradas));
-      total.setAttribute("value", (precio_cabania + total_cabanias + total_entradas) * cantidad_dias);
-      document.getElementById("total").innerHTML = formatMoney(totalDiario.value * cantidad_dias);
+      document
+        .getElementById("montoCabanias")
+        .setAttribute("value", total_cabanias + precio_cabania);
+      totalDiario.setAttribute(
+        "value",
+        precio_cabania + total_cabanias + total_entradas
+      );
+      total.setAttribute(
+        "value",
+        (precio_cabania + total_cabanias + total_entradas) * cantidad_dias
+      );
+      document.getElementById("total").innerHTML = formatMoney(
+        totalDiario.value * cantidad_dias
+      );
       appendCabania(id);
     }
   } else {
     if (!inicio) {
-      mensaje += '<br>No se ha se han seleccionado fechas<br>';
+      mensaje += "<br>No se ha se han seleccionado fechas<br>";
     }
     Swal.fire({
       title: "<strong>No se pudo comprobar la disponibilidad</strong>",
@@ -344,14 +409,32 @@ async function quitarReserva(id) {
   buttonReserva.classList.add("bg-marn-blue");
   buttonReserva.classList.remove("bg-marn-red");
   //AGREGAR AL TOTAL RESERVADO
-  const precio_cabania = isNaN(parseFloat(buttonReserva.getAttribute("data-precio"))) ? 0 : parseFloat(buttonReserva.getAttribute("data-precio"));
-  const total_cabanias = isNaN(parseFloat(document.getElementById("montoCabanias").value)) ? 0 : parseFloat(document.getElementById("montoCabanias").value);
-  const total_entradas = isNaN(parseFloat(document.getElementById("montoEntradas").value)) ? 0 : parseFloat(document.getElementById("montoEntradas").value);
-  const nuevo_total_cabanias = total_cabanias - precio_cabania < 0 ? 0 : total_cabanias - precio_cabania;
+  const precio_cabania = isNaN(
+    parseFloat(buttonReserva.getAttribute("data-precio"))
+  )
+    ? 0
+    : parseFloat(buttonReserva.getAttribute("data-precio"));
+  const total_cabanias = isNaN(
+    parseFloat(document.getElementById("montoCabanias").value)
+  )
+    ? 0
+    : parseFloat(document.getElementById("montoCabanias").value);
+  const total_entradas = isNaN(
+    parseFloat(document.getElementById("montoEntradas").value)
+  )
+    ? 0
+    : parseFloat(document.getElementById("montoEntradas").value);
+  const nuevo_total_cabanias =
+    total_cabanias - precio_cabania < 0 ? 0 : total_cabanias - precio_cabania;
   //VALIDAR MENOR QUE 0
-  document.getElementById("montoCabanias").setAttribute("value", nuevo_total_cabanias);
+  document
+    .getElementById("montoCabanias")
+    .setAttribute("value", nuevo_total_cabanias);
   totalDiario.setAttribute("value", nuevo_total_cabanias + total_entradas);
-  total.setAttribute("value", (nuevo_total_cabanias + total_entradas) * cantidad_dias);
+  total.setAttribute(
+    "value",
+    (nuevo_total_cabanias + total_entradas) * cantidad_dias
+  );
   document.getElementById("total").innerHTML = formatMoney(total.value);
   prependCabania(id);
 }
@@ -375,7 +458,7 @@ function totalFinal(dias) {
 async function getLugarTuristico(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
   let response = fetch(`${url}/turismo/api/lugares/${id}`, {
     method: "GET",
@@ -387,7 +470,7 @@ async function getLugarTuristico(id) {
 async function getCabanias(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
   let response = fetch(`${url}/turismo/api/cabanias/${id}`, {
     method: "GET",
@@ -399,15 +482,12 @@ async function getCabanias(id) {
 async function getImagenesCabanias(id) {
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
-  let response = fetch(
-    `${url}/turismo/api/cabanias/imagenes/${id}`,
-    {
-      method: "GET",
-      headers: headersList,
-    }
-  ).then((response) => response.json());
+  let response = fetch(`${url}/turismo/api/cabanias/imagenes/${id}`, {
+    method: "GET",
+    headers: headersList,
+  }).then((response) => response.json());
   return response;
 }
 
@@ -416,13 +496,10 @@ async function encriptarId(id) {
   datos.append("accion", "encrypt");
   datos.append("data", id);
 
-  let response = await fetch(
-    `${url_landing}/recursos/helper.controller.php`,
-    {
-      method: "POST",
-      body: datos
-    }
-  ).then(response => response.json());
+  let response = await fetch(`${url_landing}/recursos/helper.controller.php`, {
+    method: "POST",
+    body: datos,
+  }).then((response) => response.json());
   return response.data;
 }
 
@@ -467,7 +544,7 @@ async function validarFormReserva() {
   const MontoTransaccion = document.getElementById("MontoTransaccion").value;
   const ConceptoPago = document.getElementById("ConceptoPago").value;
   const UrlOrigen = `${url_landing}/tarifas.php?id=${lugarId}`;
-  let UrlRedirect = '';
+  let UrlRedirect = "";
 
   if (nombres == "") {
     mensajeError += "Verificar Nombres<br>";
@@ -533,7 +610,9 @@ async function validarFormReserva() {
         let respuestaReservacion = await saveReservacion();
         if (respuestaReservacion.ok) {
           //SI SE GUARDO LA RESERVACION GUARDAR POST
-          let idencriptado = await encriptarId(respuestaReservacion.data.reservacionId);
+          let idencriptado = await encriptarId(
+            respuestaReservacion.data.reservacionId
+          );
           UrlRedirect = `${url_landing}/pdf?id=${idencriptado}`;
           if (cabanias != "") {
             $("#idReserva").val(respuestaReservacion.data.reservacionId);
@@ -550,60 +629,71 @@ async function validarFormReserva() {
                 Monto: MontoTransaccion,
                 ConceptoPago: ConceptoPago,
                 UrlOrigen: UrlOrigen,
-                UrlRedirect: UrlRedirect
+                UrlRedirect: UrlRedirect,
               });
               var requestOptions = {
-                method: 'POST',
+                method: "POST",
                 headers: myHeaders,
                 body: raw,
-                redirect: 'follow'
+                redirect: "follow",
               };
-              fetch("https://www.serfinsacheckout.com/api/PayApi/TokeyTran", requestOptions)
-                .then(response => response.json())
-                .then(async result => {
+              fetch(
+                "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
+                requestOptions
+              )
+                .then((response) => response.json())
+                .then(async (result) => {
                   //console.log(result);
                   if (result.Satisfactorio) {
                     //DESHABILITAR BOTONES DE RESERVA
-                    $(".ctrl-reserva").prop('disabled', true);
+                    $(".ctrl-reserva").prop("disabled", true);
                     //$("#MerchantToken").val(result.JwtMerchantToken);
                     $("#btValidar").hide();
                     $("#linkpagar").show();
-                    $("#linkpagar").attr("href", `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`);
+                    $("#linkpagar").attr(
+                      "href",
+                      `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`
+                    );
                     $("#btEdit").show();
                     //ACTUALIZAR ID DE TRANSACCION SERFINSA
                     const metadata = {
-                      TransaccionId: result.Datos.Id
-                    }
+                      TransaccionId: result.Datos.Id,
+                    };
                     let headersList = {
                       "Content-Type": "application/json",
-                      Authorization: `Bearer ${token}`
+                      Authorization: `Bearer ${token}`,
                     };
                     let bodyContent = JSON.stringify({
-                      "claveAcceso": respuestaReservacion.data.claveAcceso,
-                      "metadata": metadata
+                      claveAcceso: respuestaReservacion.data.claveAcceso,
+                      metadata: metadata,
                     });
-                    await fetch(`${url}/turismo/api/validar/${respuestaReservacion.data.reservacionId}`, {
-                      method: "PUT",
-                      body: bodyContent,
-                      headers: headersList,
-                    });
+                    await fetch(
+                      `${url}/turismo/api/validar/${respuestaReservacion.data.reservacionId}`,
+                      {
+                        method: "PUT",
+                        body: bodyContent,
+                        headers: headersList,
+                      }
+                    );
                   } else {
                     Swal.fire({
-                      title: "<strong>No se puede realizar la transacción</strong>",
+                      title:
+                        "<strong>No se puede realizar la transacción</strong>",
                       icon: "error",
                       html: "No hay disponibilidad para realizar la reserva",
                       showCloseButton: true,
                     });
                   }
                 })
-                .catch(error => {
+                .catch((error) => {
                   Swal.fire({
-                    title: "<strong>No se puede realizar la transacción</strong>",
+                    title:
+                      "<strong>No se puede realizar la transacción</strong>",
                     icon: "error",
                     html: "No fue posible realizar su reservacion intente nuevamente mas tarde",
                     showCloseButton: true,
                   });
-                  console.log('error', error)
+                  console.log("error", error);
                 });
             } else {
               alert(respuestaCabanias.mensaje);
@@ -621,76 +711,89 @@ async function validarFormReserva() {
               Monto: MontoTransaccion,
               ConceptoPago: ConceptoPago,
               UrlOrigen: UrlOrigen,
-              UrlRedirect: UrlRedirect
+              UrlRedirect: UrlRedirect,
             });
             var requestOptions = {
-              method: 'POST',
+              method: "POST",
               headers: myHeaders,
               body: raw,
-              redirect: 'follow'
+              redirect: "follow",
             };
-            fetch("https://www.serfinsacheckout.com/api/PayApi/TokeyTran", requestOptions)
-              .then(response => response.json())
-              .then(async result => {
+            fetch(
+              "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
+              requestOptions
+            )
+              .then((response) => response.json())
+              .then(async (result) => {
                 //console.log(result);
                 if (result.Satisfactorio) {
-                  $(".ctrl-reserva").prop('disabled', true);
+                  $(".ctrl-reserva").prop("disabled", true);
                   //$("#MerchantToken").val(result.JwtMerchantToken);
                   $("#btValidar").hide();
                   $("#linkpagar").show();
-                  $("#linkpagar").attr("href", `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`);
+                  $("#linkpagar").attr(
+                    "href",
+                    `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`
+                  );
                   $("#btEdit").show();
                   //$("#btTest").show();
                   //ACTUALIZAR ID DE TRANSACCION SERFINSA
                   const metadata = {
-                    TransaccionId: result.Datos.Id
-                  }
+                    TransaccionId: result.Datos.Id,
+                  };
                   let headersList = {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                   };
                   let bodyContent = JSON.stringify({
-                    "claveAcceso": respuestaReservacion.data.claveAcceso,
-                    "metadata": metadata
+                    claveAcceso: respuestaReservacion.data.claveAcceso,
+                    metadata: metadata,
                   });
-                  await fetch(`${url}/turismo/api/validar/${respuestaReservacion.data.reservacionId}`, {
-                    method: "PUT",
-                    body: bodyContent,
-                    headers: headersList,
-                  });
+                  await fetch(
+                    `${url}/turismo/api/validar/${respuestaReservacion.data.reservacionId}`,
+                    {
+                      method: "PUT",
+                      body: bodyContent,
+                      headers: headersList,
+                    }
+                  );
                 } else {
                   Swal.fire({
-                    title: "<strong>No se puede realizar la transacción</strong>",
+                    title:
+                      "<strong>No se puede realizar la transacción</strong>",
                     icon: "error",
                     html: "No hay disponibilidad para realizar la reserva",
                     showCloseButton: true,
                   });
                 }
               })
-              .catch(error => {
+              .catch((error) => {
                 Swal.fire({
                   title: "<strong>No se puede realizar la transacción</strong>",
                   icon: "error",
                   html: "No fue posible realizar su reservacion intente nuevamente mas tarde",
                   showCloseButton: true,
                 });
-                console.log('error', error)
+                console.log("error", error);
               });
           }
         } else {
-          let mensajeerror = 'No fue posible realizar su reservacion intente nuevamente mas tarde';
+          let mensajeerror =
+            "No fue posible realizar su reservacion intente nuevamente mas tarde";
           if (respuestaReservacion.detalle) {
-            mensajeerror = '<br>';
-            var detalle = Object.keys(respuestaReservacion.detalle).map((key) => [key, respuestaReservacion.detalle[key]]);
+            mensajeerror = "<br>";
+            var detalle = Object.keys(respuestaReservacion.detalle).map(
+              (key) => [key, respuestaReservacion.detalle[key]]
+            );
             detalle.forEach((e) => {
               const [key, value] = e;
               mensajeerror += `<b>${key.toUpperCase()} : </b> ${value}<br>`;
-            })
+            });
           }
           Swal.fire({
             title: respuestaReservacion.mensaje,
             html: mensajeerror,
-            type: "warning"
+            type: "warning",
           });
         }
       }
@@ -704,10 +807,14 @@ async function saveReservacion() {
   const apellidos = document.getElementById("apellidos").value;
   const correo = document.getElementById("correo").value;
   const telefono = document.getElementById("telefono").value;
-  const fecha_ingreso = document.getElementById("fecha_ingreso").value.split("-");
+  const fecha_ingreso = document
+    .getElementById("fecha_ingreso")
+    .value.split("-");
   const fecha_retiro = document.getElementById("fecha_retiro").value.split("-");
-  const fecha_ingreso_format = fecha_ingreso[2] + "-" + fecha_ingreso[1] + "-" + fecha_ingreso[0];
-  const fecha_retiro_format = fecha_retiro[2] + "-" + fecha_retiro[1] + "-" + fecha_retiro[0];
+  const fecha_ingreso_format =
+    fecha_ingreso[2] + "-" + fecha_ingreso[1] + "-" + fecha_ingreso[0];
+  const fecha_retiro_format =
+    fecha_retiro[2] + "-" + fecha_retiro[1] + "-" + fecha_retiro[0];
   const lugarid = parseInt(document.getElementById("idanp").value);
   detalles = [];
   cantidad.forEach((item, index) => {
@@ -718,7 +825,7 @@ async function saveReservacion() {
   });
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
   let bodyContent = JSON.stringify({
     codeStatus: false,
@@ -731,13 +838,13 @@ async function saveReservacion() {
     fin: fecha_retiro_format,
     correo: correo,
     telefono: telefono,
-    detalles: detalles
+    detalles: detalles,
   });
   let response = await fetch(`${url}/turismo/api/validar`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
-  }).then(response => response.json())
+  }).then((response) => response.json());
   return response;
 }
 
@@ -748,28 +855,40 @@ async function saveCabanias() {
   const idreserva = $("#idReserva").val();
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
-    inicio = new Date(parseInt(arrayfechainicio[2]), parseInt(arrayfechainicio[1]) - 1, parseInt(arrayfechainicio[0])).toISOString().split("T")[0];
+    inicio = new Date(
+      parseInt(arrayfechainicio[2]),
+      parseInt(arrayfechainicio[1]) - 1,
+      parseInt(arrayfechainicio[0])
+    )
+      .toISOString()
+      .split("T")[0];
   }
   if ($("#fecha_retiro").val() != "") {
     const arrayfecharetiro = $("#fecha_retiro").val().split("-");
-    fin = new Date(parseInt(arrayfecharetiro[2]), parseInt(arrayfecharetiro[1]) - 1, parseInt(arrayfecharetiro[0])).toISOString().split("T")[0];
+    fin = new Date(
+      parseInt(arrayfecharetiro[2]),
+      parseInt(arrayfecharetiro[1]) - 1,
+      parseInt(arrayfecharetiro[0])
+    )
+      .toISOString()
+      .split("T")[0];
   }
   let headersList = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   };
   let bodyContent = JSON.stringify({
     id_cabanias: cabanias,
     id_lugar: idlugar,
     id_reserva: idreserva,
     inicio: inicio,
-    fin: fin
+    fin: fin,
   });
   let response = await fetch(`${url}/turismo/api/reserva`, {
     method: "POST",
     body: bodyContent,
     headers: headersList,
-  }).then(response => response.json())
+  }).then((response) => response.json());
   return response;
 }
 
@@ -784,7 +903,12 @@ function validarCorreo(correo) {
 
 async function verificardias() {
   let lugar = await getLugarTuristico(document.getElementById("idanp").value);
-  if (!(lugar.data.diasAnticipacionReserva || lugar.data.diasAnticipacionReserva > 0)) {
+  if (
+    !(
+      lugar.data.diasAnticipacionReserva ||
+      lugar.data.diasAnticipacionReserva > 0
+    )
+  ) {
     Swal.fire({
       title: "<strong>Error</strong>",
       icon: "error",
@@ -804,8 +928,8 @@ async function reabrirReserva() {
   $("#btEdit").hide();
   $("#btValidar").show();
   $("#linkpagar").hide();
-  $(".ctrl-reserva").prop('disabled', false);
-};
+  $(".ctrl-reserva").prop("disabled", false);
+}
 
 window.addEventListener("beforeunload", (evento) => {
   if (true) {
