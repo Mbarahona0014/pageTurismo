@@ -10,6 +10,11 @@ const parqueos = [];
 document.addEventListener("DOMContentLoaded", async () => {
   await getPliego();
   let lugar = await getLugarTuristico(document.getElementById("idanp").value);
+  console.log(lugar);
+  if (lugar.data.activo == false) {
+    //REDIRECCIONAR A PAGINA DE INICIO SI EL LUGAR NO ESTA ACTIVO
+    window.location.href = url_landing;
+  }
   let cabanias = await getCabanias(document.getElementById("idanp").value);
   let htmlCabanias = ``;
   let htmlDias = ``;
@@ -103,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         subtotal = 0;
         cantidad[index].value--;
         const total_cabanias = isNaN(
-          parseFloat(document.getElementById("montoCabanias").value)
+          parseFloat(document.getElementById("montoCabanias").value),
         )
           ? 0
           : parseFloat(document.getElementById("montoCabanias").value);
@@ -139,7 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       subtotal = 0;
       const cantidad_dias = document.getElementById("cantidadDias").value;
       const total_cabanias = isNaN(
-        parseFloat(document.getElementById("montoCabanias").value)
+        parseFloat(document.getElementById("montoCabanias").value),
       )
         ? 0
         : parseFloat(document.getElementById("montoCabanias").value);
@@ -173,7 +178,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       //OBTENER DATO DE ENTRADAS
       const anterior = item.getAttribute("data-entradas");
       const total_cabanias = isNaN(
-        parseFloat(document.getElementById("montoCabanias").value)
+        parseFloat(document.getElementById("montoCabanias").value),
       )
         ? 0
         : parseFloat(document.getElementById("montoCabanias").value);
@@ -294,7 +299,7 @@ async function reservarCabania(id) {
     inicio = new Date(
       parseInt(arrayfechainicio[2]),
       parseInt(arrayfechainicio[1]) - 1,
-      parseInt(arrayfechainicio[0])
+      parseInt(arrayfechainicio[0]),
     )
       .toISOString()
       .split("T")[0];
@@ -304,7 +309,7 @@ async function reservarCabania(id) {
     fin = new Date(
       parseInt(arrayfecharetiro[2]),
       parseInt(arrayfecharetiro[1]) - 1,
-      parseInt(arrayfecharetiro[0])
+      parseInt(arrayfecharetiro[0]),
     )
       .toISOString()
       .split("T")[0];
@@ -349,17 +354,17 @@ async function reservarCabania(id) {
       buttonReserva.classList.add("bg-marn-red");
       //AGREGAR AL TOTAL RESERVADO
       const precio_cabania = isNaN(
-        parseFloat(buttonReserva.getAttribute("data-precio"))
+        parseFloat(buttonReserva.getAttribute("data-precio")),
       )
         ? 0
         : parseFloat(buttonReserva.getAttribute("data-precio"));
       const total_cabanias = isNaN(
-        parseFloat(document.getElementById("montoCabanias").value)
+        parseFloat(document.getElementById("montoCabanias").value),
       )
         ? 0
         : parseFloat(document.getElementById("montoCabanias").value);
       const total_entradas = isNaN(
-        parseFloat(document.getElementById("montoEntradas").value)
+        parseFloat(document.getElementById("montoEntradas").value),
       )
         ? 0
         : parseFloat(document.getElementById("montoEntradas").value);
@@ -369,14 +374,14 @@ async function reservarCabania(id) {
         .setAttribute("value", total_cabanias + precio_cabania);
       totalDiario.setAttribute(
         "value",
-        precio_cabania + total_cabanias + total_entradas
+        precio_cabania + total_cabanias + total_entradas,
       );
       total.setAttribute(
         "value",
-        (precio_cabania + total_cabanias + total_entradas) * cantidad_dias
+        (precio_cabania + total_cabanias + total_entradas) * cantidad_dias,
       );
       document.getElementById("total").innerHTML = formatMoney(
-        totalDiario.value * cantidad_dias
+        totalDiario.value * cantidad_dias,
       );
       appendCabania(id);
     }
@@ -410,17 +415,17 @@ async function quitarReserva(id) {
   buttonReserva.classList.remove("bg-marn-red");
   //AGREGAR AL TOTAL RESERVADO
   const precio_cabania = isNaN(
-    parseFloat(buttonReserva.getAttribute("data-precio"))
+    parseFloat(buttonReserva.getAttribute("data-precio")),
   )
     ? 0
     : parseFloat(buttonReserva.getAttribute("data-precio"));
   const total_cabanias = isNaN(
-    parseFloat(document.getElementById("montoCabanias").value)
+    parseFloat(document.getElementById("montoCabanias").value),
   )
     ? 0
     : parseFloat(document.getElementById("montoCabanias").value);
   const total_entradas = isNaN(
-    parseFloat(document.getElementById("montoEntradas").value)
+    parseFloat(document.getElementById("montoEntradas").value),
   )
     ? 0
     : parseFloat(document.getElementById("montoEntradas").value);
@@ -433,7 +438,7 @@ async function quitarReserva(id) {
   totalDiario.setAttribute("value", nuevo_total_cabanias + total_entradas);
   total.setAttribute(
     "value",
-    (nuevo_total_cabanias + total_entradas) * cantidad_dias
+    (nuevo_total_cabanias + total_entradas) * cantidad_dias,
   );
   document.getElementById("total").innerHTML = formatMoney(total.value);
   prependCabania(id);
@@ -611,7 +616,7 @@ async function validarFormReserva() {
         if (respuestaReservacion.ok) {
           //SI SE GUARDO LA RESERVACION GUARDAR POST
           let idencriptado = await encriptarId(
-            respuestaReservacion.data.reservacionId
+            respuestaReservacion.data.reservacionId,
           );
           UrlRedirect = `${url_landing}/pdf?id=${idencriptado}`;
           if (cabanias != "") {
@@ -639,7 +644,7 @@ async function validarFormReserva() {
               };
               fetch(
                 "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
-                requestOptions
+                requestOptions,
               )
                 .then((response) => response.json())
                 .then(async (result) => {
@@ -652,7 +657,7 @@ async function validarFormReserva() {
                     $("#linkpagar").show();
                     $("#linkpagar").attr(
                       "href",
-                      `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`
+                      `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`,
                     );
                     $("#btEdit").show();
                     //ACTUALIZAR ID DE TRANSACCION SERFINSA
@@ -673,7 +678,7 @@ async function validarFormReserva() {
                         method: "PUT",
                         body: bodyContent,
                         headers: headersList,
-                      }
+                      },
                     );
                   } else {
                     Swal.fire({
@@ -721,7 +726,7 @@ async function validarFormReserva() {
             };
             fetch(
               "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
-              requestOptions
+              requestOptions,
             )
               .then((response) => response.json())
               .then(async (result) => {
@@ -733,7 +738,7 @@ async function validarFormReserva() {
                   $("#linkpagar").show();
                   $("#linkpagar").attr(
                     "href",
-                    `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`
+                    `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`,
                   );
                   $("#btEdit").show();
                   //$("#btTest").show();
@@ -755,7 +760,7 @@ async function validarFormReserva() {
                       method: "PUT",
                       body: bodyContent,
                       headers: headersList,
-                    }
+                    },
                   );
                 } else {
                   Swal.fire({
@@ -783,7 +788,7 @@ async function validarFormReserva() {
           if (respuestaReservacion.detalle) {
             mensajeerror = "<br>";
             var detalle = Object.keys(respuestaReservacion.detalle).map(
-              (key) => [key, respuestaReservacion.detalle[key]]
+              (key) => [key, respuestaReservacion.detalle[key]],
             );
             detalle.forEach((e) => {
               const [key, value] = e;
@@ -858,7 +863,7 @@ async function saveCabanias() {
     inicio = new Date(
       parseInt(arrayfechainicio[2]),
       parseInt(arrayfechainicio[1]) - 1,
-      parseInt(arrayfechainicio[0])
+      parseInt(arrayfechainicio[0]),
     )
       .toISOString()
       .split("T")[0];
@@ -868,7 +873,7 @@ async function saveCabanias() {
     fin = new Date(
       parseInt(arrayfecharetiro[2]),
       parseInt(arrayfecharetiro[1]) - 1,
-      parseInt(arrayfecharetiro[0])
+      parseInt(arrayfecharetiro[0]),
     )
       .toISOString()
       .split("T")[0];

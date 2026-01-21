@@ -11,6 +11,12 @@ async function initPage() {
   let htmlRecomendaciones = "";
   let htmlIndicaciones = "";
   let i = 0;
+
+  if(res.lugar.activo == 0){
+    //REDIRECCIONAR A PAGINA DE INICIO SI EL LUGAR NO ESTA ACTIVO
+    window.location.href = url_landing;
+  }
+  
   document.getElementById("titulo-area-res").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
   document.getElementById("titulo-area").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
 
