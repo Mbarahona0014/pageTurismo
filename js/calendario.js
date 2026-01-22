@@ -30,7 +30,7 @@ async function initCalendar() {
   permiteAcampar = datalugar.data.permiteAcampar;
   periodosDeshabilitados = await getPeriodosDeshabilitados(lugarId);
   responseDisponibilidades = await getDisponibilidadesMax(lugarId);
-  responseDisponibilidades.forEach(element => {
+  responseDisponibilidades.forEach((element) => {
     if (element.grupoId == 2) {
       if (element.cantidadMaxima <= 0) {
         $("#div_parqueos").hide();
@@ -55,7 +55,7 @@ async function initCalendar() {
         disableGaps: true,
         disabled: [
           ...transformarPeriodosDeshabilitadosParaCalendario(
-            periodosDeshabilitados
+            periodosDeshabilitados,
           ),
           ...obtenerDiasDeshabilitadosDeContador(contador, dispMax),
         ],
@@ -76,7 +76,7 @@ async function initCalendar() {
         // if (!calendario.selectedDates.includes(date)) return;
         if (
           HTMLButtonElement.classList.contains(
-            "vanilla-calendar-day__btn_disabled"
+            "vanilla-calendar-day__btn_disabled",
           )
         ) {
           return;
@@ -95,7 +95,7 @@ async function initCalendar() {
       },
       clickDay(e, dates) {
         const calendarMessages = document.querySelector(
-          "#vanilla-calendar-mensajes"
+          "#vanilla-calendar-mensajes",
         );
         dates = dates.sort((a, b) => +new Date(a) - +new Date(b));
         const eventoCambio = new Event("focusout", { bubbles: true });
@@ -145,7 +145,22 @@ async function initCalendar() {
         </section>`,
     },
   };
-
+  $("#permite-acampar").empty();
+  if (permiteAcampar) {
+    $("#permite-acampar").html(
+      `<span class="badge bg-success text-white" style="font-size: 0.8rem;">
+        <i class="fa fa-check"></i>
+        <i class="fa fa-campground"></i> Se permite acampar: puede seleccionar mas de un dia
+      </span>`,
+    );
+  }else{
+    $("#permite-acampar").html(
+      `<span class="badge bg-danger text-white" style="font-size: 0.8rem;">
+        <i class="fa fa-ban"></i>
+        <i class="fa fa-campground"></i> No se permite acampar: seleccione un dia
+      </span>`,
+    );
+  }
   const calendario = new VanillaCalendar("#calendario-vanilla", options);
   calendario.init();
   document.getElementById("actualizar-Calendario").onclick = () => {
@@ -193,7 +208,7 @@ async function getContador(lugarId, reservacionOmitida) {
       {
         headers: { Authorization: `Bearer ${token}` },
         method: "GET",
-      }
+      },
     );
 
     if (!response.ok) {
@@ -265,7 +280,7 @@ async function getDisponibilidadesMax(lugarId) {
       {
         headers: { Authorization: `Bearer ${token}` },
         method: "GET",
-      }
+      },
     );
 
     if (!response.ok) {
@@ -320,7 +335,7 @@ async function getPeriodosDeshabilitados(lugarId) {
       {
         headers: { Authorization: `Bearer ${token}` },
         method: "GET",
-      }
+      },
     );
 
     if (!response.ok) {
@@ -333,7 +348,7 @@ async function getPeriodosDeshabilitados(lugarId) {
   } catch (error) {
     console.error(
       "Ocurrió un error al obtener los periodos deshabilitados:",
-      error
+      error,
     );
   }
   return periodosDeshabilitados;

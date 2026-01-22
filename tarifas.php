@@ -158,6 +158,7 @@
               </p>
             </div>
             <div id='calendario-vanilla'></div>
+            <div id='permite-acampar'></div>
             <!-- <div id='calendario-dias'></div>
             <div>
               <label>Inicio:<input type="text" name='fecha_inicio' readonly></label>

@@ -922,6 +922,7 @@ async function verificardias() {
     });
     $("#modalCalendario").hide();
   } else {
+    initCalendar();
     $("#modalCalendario").modal();
   }
 }
