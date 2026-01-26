@@ -17,6 +17,10 @@ async function initPage() {
     window.location.href = url_landing;
   }
   
+  if(res.total_servicios <= 0){
+    document.getElementById("btn-float-screen").style.display = "none";
+  }
+  
   document.getElementById("titulo-area-res").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
   document.getElementById("titulo-area").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
 

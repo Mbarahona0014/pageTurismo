@@ -15,7 +15,7 @@ define("CORREO_SECURE", "ssl"); //SMTPSECURE
 $urls_dev = [
   'tour_virtual' => 'http://localhost/tourVirtual',
   'url_landing' => 'http://localhost/pageTurismo',
-  'url_portal' => 'http://localhost/Turismo-MARN'
+  'url_portal' => 'http://localhost/portaldeb'
 ];
 
 $urls_prod = [
@@ -25,4 +25,4 @@ $urls_prod = [
 ];
 
 //SELECCION DE URLS
-$config = $urls_prod;
+$config = $urls_dev;

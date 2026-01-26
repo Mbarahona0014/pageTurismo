@@ -238,7 +238,7 @@
         </div>
     </div>
 
-    <a class="btn-float-screen" href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
+    <a id="btn-float-screen" class="btn-float-screen" href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
         <button type="button" style="padding:1rem;" class="btn bg-marn-green text-white rounded-circle">
             <i class="fa fa-hiking fa-xl"></i><br><span class="d-none d-md-block" style="font-size: 10px;">HAZ TU<br>&nbsp;&nbsp;RESERVA&nbsp;&nbsp;</span>
         </button>
