@@ -217,15 +217,22 @@ const getPliego = async () => {
       Authorization: `Bearer ${token}`,
     },
   }).then((response) => response.json());
-  response.forEach((item) => {
-    if (!/Vehículo/i.test(item.nombre)) {
-      personas.push(item);
-    } else {
-      parqueos.push(item);
-    }
-  });
-  pintarPliegos(personas, div_entradas);
-  pintarPliegos(parqueos, div_parqueos);
+  if (response.length > 0) {
+    response.forEach((item) => {
+      if (!/Vehículo/i.test(item.nombre)) {
+        personas.push(item);
+      } else {
+        parqueos.push(item);
+      }
+    });
+    pintarPliegos(personas, div_entradas);
+    pintarPliegos(parqueos, div_parqueos);
+  }else{
+    div_entradas.innerHTML = `<div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">No hay servicios disponibles</div>`;
+    document.getElementById("btValidar").disabled = true;
+    document.getElementById("btn-ver-disponibilidad").disabled = true;
+    document.getElementById("label-ver-disponibilidad").innerText = "No hay servicios disponibles";
+  }
 };
 
 const formatMoney = (number) => {

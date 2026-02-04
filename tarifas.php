@@ -68,12 +68,12 @@
 
         <div class="row mb-2" style="height: 140px;">
           <div class="col-md-12 mb-2 d-flex justify-content-center align-items-end">
-            <button type="button" class="btn btn-dark btn-calendario text-white rounded-circle btn-lg bg-marn-blue ctrl-reserva" data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
+            <button type="button" id="btn-ver-disponibilidad" class="btn btn-dark btn-calendario text-white rounded-circle btn-lg bg-marn-blue ctrl-reserva" data-bs-toggle="modal" data-bs-target="#modalCalendario" onclick="verificardias()">
               <h2 class="fa fa-calendar-days p-2"></h2>
             </button>
           </div>
           <div class="col-md-12 d-flex justify-content-center">
-            <p>VER DISPONIBILIDAD</p>
+            <p id="label-ver-disponibilidad">VER DISPONIBILIDAD</p>
           </div>
           <div class="col-md-12 d-flex justify-content-center">
             <figcaption class="blockquote-footer">
