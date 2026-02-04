@@ -181,33 +181,33 @@
                     <p id="descripcion-como-llegar">
 
                     </p>
-                    <div class="row">
-                        <div class="col-6 text-center m-0 p-0">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-6 text-center">
                             <div class="row">
-                                <div class="col-12 text-center m-0 p-0">
+                                <div class="col-12 text-center">
                                     <a href="#" id="enlace-como-llegar">
                                         <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
                                             <i class="fa fa-compass fa-xl"></i>
                                         </button>
                                     </a>
                                 </div>
-                                <div class="col-12 text-center m-0 p-0 mt-3">
+                                <div class="col-12 text-center mt-3">
                                     <label>VER MAPA</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 text-center m-0 p-0">
+                        <div class="col-6 text-center" id="div-reserva-anp">
                             <div class="row">
-                                <div class="col-12 text-center m-0 p-0">
+                                <div class="col-12 text-center">
                                     <a href="tarifas.php?id=<?php echo (isset($_GET['id']) ? (int)$_GET['id'] : '1') ?>">
                                         <button type="button" class="btn bg-marn-blue text-white p-4 rounded-circle btn-lg">
                                             <i class="fa fa-check fa-xl"></i>
                                         </button>
                                     </a>
                                 </div>
-                                <div class="col-12 text-center m-0 p-0 mt-3">
+                                <div class="col-12 text-center mt-3">
+                                    <label>RESERVA AQUÍ</label>
                                 </div>
-                                <label>RESERVA AQUÍ</label>
                             </div>
                         </div>
                     </div>

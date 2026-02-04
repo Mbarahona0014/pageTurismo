@@ -19,6 +19,7 @@ async function initPage() {
   
   if(res.total_servicios <= 0){
     document.getElementById("btn-float-screen").style.display = "none";
+    document.getElementById("div-reserva-anp").style.display = "none";
   }
   
   document.getElementById("titulo-area-res").innerHTML = res.generalidades[0].nombre_anp.toUpperCase();
