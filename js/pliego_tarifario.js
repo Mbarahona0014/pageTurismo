@@ -8,9 +8,54 @@ const personas = [];
 const parqueos = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const checkboxTerminos = document.getElementById("terminos");
+  const btnValidar = document.getElementById("btValidar");
+  const res = await getPage();
+  let htmlIndicaciones = ``;
+  htmlIndicaciones = `<div class="col-12 text-justify"><div class="list-group" id="list-tab" role="tablist">`;
+
+  if (res.indicaciones.length > 0) {
+    res.indicaciones.forEach((indicacion) => {
+      htmlIndicaciones += `<span style="white-space: pre-line;">${indicacion.indicaciones}</span>`;
+    });
+    htmlIndicaciones += `</div>`;
+  } else {
+    htmlIndicaciones += `<div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">No hay indicaciones especificas</div>`;
+  }
+
+  document.getElementById("row-indicaciones").innerHTML = htmlIndicaciones;
+
+  checkboxTerminos.addEventListener("change", (event) => {
+    if (event.target.checked) {
+      checkboxTerminos.disabled = true;
+      btnValidar.disabled = false;
+    } else {
+      btnValidar.disabled = true;
+    }
+  });
+
+  async function getPage() {
+    let res = null;
+    let idanp = document.getElementById("idanp").value;
+    try {
+      const response = await fetch(`${url}/turismo/api/anp/${idanp}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        method: "GET",
+      });
+      if (!response.ok) {
+        console.error(`Error en la solicitud: ${response.statusText}`);
+      }
+      const data = await response.json();
+      res = data;
+    } catch (error) {
+      console.error("Ocurrió un error", error);
+    }
+    return res;
+  }
+
   await getPliego();
   let lugar = await getLugarTuristico(document.getElementById("idanp").value);
-  console.log(lugar);
+  //console.log(lugar);
   if (lugar.data.activo == false) {
     //REDIRECCIONAR A PAGINA DE INICIO SI EL LUGAR NO ESTA ACTIVO
     window.location.href = url_landing;
@@ -20,11 +65,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   let htmlDias = ``;
   document.getElementById("ads").innerHTML = "";
 
+  const dias_antelacion = lugar.data.diasAntelacionReserva || 0;
   if (
     lugar.data.diasAnticipacionReserva ||
     lugar.data.diasAnticipacionReserva > 0
   ) {
-    htmlDias = `Puedes realizar tu reserva con un máximo de ${lugar.data.diasAnticipacionReserva} días de anticipación`;
+    htmlDias = `Puedes realizar tu reserva con un máximo de ${lugar.data.diasAnticipacionReserva} días de anticipación y con un minimo de ${dias_antelacion} dias de antelacion`;
   } else {
     htmlDias = `No hay fechas disponibles`;
   }
@@ -36,43 +82,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
     `;
   } else {
-    cabanias.cabanias.forEach((item, index) => {
+    cabanias.cabanias.forEach((item) => {
       htmlCabanias +=
         `
-        <div class="col-md-4">
+      <div class="col-md-4">
       <div class="card rounded">
-        <div class="card-image">
-          <img
-            class="img-fluid"
-            src="` +
+      <div class="card-image" style="height: 250px; overflow: hidden;">
+        <img
+        class="img-fluid"
+        src="` +
         url_imagenes +
         `/cabanias/` +
         item.imagen_ref +
         `"
-          />
-        </div>
-        <div class="card-image-overlay m-auto">
-          <span id="span_reserva_${item.idcabania}" class="card-notify-badge" style="display:none;">RESERVADA</span>
-          <span class="card-detail-badge"><i class="fa fa-users"></i> ` +
+        style="width: 100%; height: 100%; object-fit: cover;"
+        />
+      </div>
+      <div class="card-image-overlay m-auto">
+        <span id="span_reserva_${item.idcabania}" class="card-notify-badge" style="display:none;">RESERVADA</span>
+        <span class="card-detail-badge"><i class="fa fa-users"></i> ` +
         item.capacidad +
         `</span>
-          <span class="card-detail-badge"><i class="fa fa-coins"></i> $` +
+        <span class="card-detail-badge"><i class="fa fa-coins"></i> $` +
         item.precio +
         `</span>
-        </div>
-        <div class="card-body text-center">
-          <div class="ad-title m-auto">
-            <h5>` +
+      </div>
+      <div class="card-body text-center">
+        <div class="ad-title m-auto">
+        <h5>` +
         item.descripcion +
         `</h5>
-          </div>
-          <button data-bs-toggle="modal" data-bs-target="#modalCabania" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="showModalCabania(` +
+        </div>
+        <button data-bs-toggle="modal" data-bs-target="#modalCabania" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="showModalCabania(` +
         item.idcabania +
         `)">VER MAS</a>
-          <button id ="btn_reservar_${item.idcabania}" data-precio="${item.precio}" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="reservarCabania(` +
+        <button id ="btn_reservar_${item.idcabania}" data-precio="${item.precio}" class="btn btn-dark ad-btn bg-marn-blue ctrl-reserva" href="#" onclick="reservarCabania(` +
         item.idcabania +
         `)">RESERVAR</a>
-        </div>
+      </div>
       </div>
     </div>
     `;
@@ -83,10 +130,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("ads").innerHTML = htmlCabanias;
   //console.log(lugar.data.permiteAcampar);
   //OCULTAR FECHA DE RETIRO SI LUGAR NO PERMITE ACAMPAR
-  if (!lugar.data.permiteAcampar) {
+  /* if (!lugar.data.permiteAcampar) {
     div_fecha_retiro.style.display = "none";
     div_cabanias.style.display = "none";
-  }
+  } */
   const idtransaccion =
     Date.now() + "-" + document.getElementById("idanp").value;
   const conceptopago =
@@ -113,6 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           ? 0
           : parseFloat(document.getElementById("montoCabanias").value);
         const cantidad_dias = document.getElementById("cantidadDias").value;
+        const cantidad_dias_cabania = cantidad_dias > 1 ? cantidad_dias - 1 : 0;
         if (index < 6) {
           subtotal = personas[index].precio * cantidad[index].value;
           suma_total -= personas[index].precio;
@@ -123,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           suma_total -= parqueos[index - 6].precio;
           parqueos[index - 6].cantidad = cantidad[index].value;
         }
-        const total_neto = suma_total + total_cabanias;
+        const total_neto = suma_total + total_cabanias * cantidad_dias_cabania;
         cantidad[index].setAttribute("data-entradas", subtotal);
         document
           .getElementById("montoEntradas")
@@ -133,8 +181,20 @@ document.addEventListener("DOMContentLoaded", async () => {
           .setAttribute("value", total_neto);
         document
           .getElementById("MontoTransaccion")
-          .setAttribute("value", total_neto * cantidad_dias);
-        total.innerHTML = formatMoney(total_neto * cantidad_dias);
+          .setAttribute(
+            "value",
+            suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+          );
+        total.innerHTML = formatMoney(
+          suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+        );
+
+        //ACTUALIZAR DETALLE DE RESERVA
+        document.getElementById("det-entradas").innerHTML =
+          formatMoney(suma_total);
+        document.getElementById("det-entradas-dias").innerHTML = cantidad_dias;
+        document.getElementById("det-entradas-subtotal").innerHTML =
+          formatMoney(suma_total * cantidad_dias);
       }
     });
   });
@@ -143,6 +203,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     item.addEventListener("click", () => {
       subtotal = 0;
       const cantidad_dias = document.getElementById("cantidadDias").value;
+      const cantidad_dias_cabania = cantidad_dias > 1 ? cantidad_dias - 1 : 0;
       const total_cabanias = isNaN(
         parseFloat(document.getElementById("montoCabanias").value),
       )
@@ -159,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         suma_total += parqueos[index - 6].precio;
         parqueos[index - 6].cantidad = cantidad[index].value;
       }
-      const total_neto = suma_total + total_cabanias;
+      const total_neto = suma_total + total_cabanias * cantidad_dias_cabania;
       cantidad[index].setAttribute("data-entradas", subtotal);
       document
         .getElementById("montoEntradas")
@@ -167,8 +228,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("MontoDiario").setAttribute("value", total_neto);
       document
         .getElementById("MontoTransaccion")
-        .setAttribute("value", total_neto * cantidad_dias);
-      total.innerHTML = formatMoney(total_neto * cantidad_dias);
+        .setAttribute(
+          "value",
+          suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+        );
+      total.innerHTML = formatMoney(
+        suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+      );
+
+      //ACTUALIZAR DETALLE DE RESERVA
+      document.getElementById("det-entradas").innerHTML =
+        formatMoney(suma_total);
+      document.getElementById("det-entradas-dias").innerHTML = cantidad_dias;
+      document.getElementById("det-entradas-subtotal").innerHTML = formatMoney(
+        suma_total * cantidad_dias,
+      );
     });
   });
 
@@ -183,6 +257,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         ? 0
         : parseFloat(document.getElementById("montoCabanias").value);
       const cantidad_dias = document.getElementById("cantidadDias").value;
+      const cantidad_dias_cabania = cantidad_dias > 1 ? cantidad_dias - 1 : 0;
       if (item.value < 0) {
         item.value = 0;
       }
@@ -202,8 +277,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("MontoDiario").setAttribute("value", total_neto);
       document
         .getElementById("MontoTransaccion")
-        .setAttribute("value", total_neto * cantidad_dias);
-      total.innerHTML = formatMoney(total_neto * cantidad_dias);
+        .setAttribute(
+          "value",
+          suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+        );
+      total.innerHTML = formatMoney(
+        suma_total * cantidad_dias + total_cabanias * cantidad_dias_cabania,
+      );
+
+      //ACTUALIZAR DETALLE DE RESERVA
+      document.getElementById("det-entradas").innerHTML =
+        formatMoney(suma_total);
+      document.getElementById("det-entradas-dias").innerHTML = cantidad_dias;
+      document.getElementById("det-entradas-subtotal").innerHTML = formatMoney(
+        suma_total * cantidad_dias,
+      );
     });
   });
 });
@@ -227,11 +315,12 @@ const getPliego = async () => {
     });
     pintarPliegos(personas, div_entradas);
     pintarPliegos(parqueos, div_parqueos);
-  }else{
+  } else {
     div_entradas.innerHTML = `<div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">No hay servicios disponibles</div>`;
     document.getElementById("btValidar").disabled = true;
     document.getElementById("btn-ver-disponibilidad").disabled = true;
-    document.getElementById("label-ver-disponibilidad").innerText = "No hay servicios disponibles";
+    document.getElementById("label-ver-disponibilidad").innerText =
+      "No hay servicios disponibles";
   }
 };
 
@@ -301,6 +390,7 @@ async function reservarCabania(id) {
     fin,
     mensaje = "";
   const cantidad_dias = document.getElementById("cantidadDias").value;
+  const cantidad_dias_cabania = cantidad_dias > 1 ? cantidad_dias - 1 : 0;
   if ($("#fecha_ingreso").val() != "") {
     const arrayfechainicio = $("#fecha_ingreso").val().split("-");
     inicio = new Date(
@@ -385,11 +475,24 @@ async function reservarCabania(id) {
       );
       total.setAttribute(
         "value",
-        (precio_cabania + total_cabanias + total_entradas) * cantidad_dias,
+        (precio_cabania + total_cabanias) * cantidad_dias_cabania +
+          total_entradas * cantidad_dias,
       );
       document.getElementById("total").innerHTML = formatMoney(
-        totalDiario.value * cantidad_dias,
+        (precio_cabania + total_cabanias) * cantidad_dias_cabania +
+          total_entradas * cantidad_dias,
       );
+
+      //LLENAR DETALLE PARA CABANIAS
+      document.getElementById("det-cabanias").innerHTML = formatMoney(
+        precio_cabania + total_cabanias,
+      );
+      document.getElementById("det-cabanias-dias").innerHTML =
+        cantidad_dias_cabania;
+      document.getElementById("det-cabanias-subtotal").innerHTML = formatMoney(
+        (precio_cabania + total_cabanias) * cantidad_dias_cabania,
+      );
+
       appendCabania(id);
     }
   } else {
@@ -407,6 +510,7 @@ async function reservarCabania(id) {
 
 async function quitarReserva(id) {
   const cantidad_dias = document.getElementById("cantidadDias").value;
+  const cantidad_dias_cabania = cantidad_dias > 1 ? cantidad_dias - 1 : 0;
   //MANEJO DE BOTON DE RESERVA
   let buttonReserva = document.getElementById("btn_reservar_" + id);
   //MANEJO DE ALERTA DE RESERVADA
@@ -442,12 +546,26 @@ async function quitarReserva(id) {
   document
     .getElementById("montoCabanias")
     .setAttribute("value", nuevo_total_cabanias);
-  totalDiario.setAttribute("value", nuevo_total_cabanias + total_entradas);
+  totalDiario.setAttribute(
+    "value",
+    nuevo_total_cabanias * cantidad_dias_cabania +
+      total_entradas * cantidad_dias,
+  );
   total.setAttribute(
     "value",
-    (nuevo_total_cabanias + total_entradas) * cantidad_dias,
+    nuevo_total_cabanias * cantidad_dias_cabania +
+      total_entradas * cantidad_dias,
   );
   document.getElementById("total").innerHTML = formatMoney(total.value);
+
+  //LLENAR DETALLE PARA CABANIAS
+  document.getElementById("det-cabanias").innerHTML =
+    formatMoney(nuevo_total_cabanias);
+  document.getElementById("det-cabanias-dias").innerHTML =
+    cantidad_dias_cabania;
+  document.getElementById("det-cabanias-subtotal").innerHTML = formatMoney(
+    nuevo_total_cabanias * cantidad_dias_cabania,
+  );
   prependCabania(id);
 }
 
@@ -457,13 +575,43 @@ function alert(mensaje) {
 
 function totalFinal(dias) {
   if (dias > 0) {
+    if (dias > 1) {
+      document.getElementById("div-cabanias").style.display = "block";
+    }
+    const dias_cabania = dias > 1 ? dias - 1 : 0;
     const totalDiario = document.getElementById("MontoDiario");
     const total = document.getElementById("MontoTransaccion");
-    const totalpordias = totalDiario.value * dias;
+    const totalPersonasParqueos =
+      document.getElementById("montoEntradas").value === ""
+        ? 0
+        : parseFloat(document.getElementById("montoEntradas").value);
+    const totalCabanias =
+      document.getElementById("montoCabanias").value === ""
+        ? 0
+        : parseFloat(document.getElementById("montoCabanias").value);
+    const totalpordias =
+      totalPersonasParqueos * dias + totalCabanias * dias_cabania;
+
     //console.log(totalpordias);
     document.getElementById("cantidadDias").setAttribute("value", dias);
     document.getElementById("total").innerHTML = formatMoney(totalpordias);
     total.setAttribute("value", totalpordias);
+
+    //ACTUALIZAR DETALLE DE RESERVA
+    document.getElementById("det-dias").innerHTML = dias;
+    document.getElementById("det-entradas-dias").innerHTML = dias;
+    document.getElementById("det-entradas").innerHTML = formatMoney(
+      totalPersonasParqueos,
+    );
+    document.getElementById("det-entradas-subtotal").innerHTML = formatMoney(
+      totalPersonasParqueos * dias,
+    );
+    document.getElementById("det-cabanias-dias").innerHTML = dias_cabania;
+    document.getElementById("det-cabanias").innerHTML =
+      formatMoney(totalCabanias);
+    document.getElementById("det-cabanias-subtotal").innerHTML = formatMoney(
+      totalCabanias * dias_cabania,
+    );
   }
 }
 
@@ -949,5 +1097,46 @@ window.addEventListener("beforeunload", (evento) => {
     evento.preventDefault();
     evento.returnValue = "";
     return "";
+  }
+});
+
+const actualizarDias = () => {
+  const fecha_ingreso = document.getElementById("fecha_ingreso").value;
+  const fecha_retiro = document.getElementById("fecha_retiro").value;
+  if (fecha_ingreso != "" && fecha_retiro != "") {
+    const fechaIngreso = new Date(fecha_ingreso.split("-").reverse().join("-"));
+    const fechaRetiro = new Date(fecha_retiro.split("-").reverse().join("-"));
+    const timeDiff = fechaRetiro.getTime() - fechaIngreso.getTime();
+    const dias = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    if (dias > 0) {
+      totalFinal(dias);
+    } else {
+      Swal.fire({
+        title: "<strong>Error</strong>",
+        icon: "error",
+        html: "La fecha de retiro debe ser mayor a la fecha de ingreso",
+        showCloseButton: true,
+      });
+      document.getElementById("fecha_retiro").value = "";
+    }
+  }
+};
+
+$("#modalCalendario").on("hidden.bs.modal", function () {
+  const fecha_ingreso = document.getElementById("fecha_ingreso").value;
+  const fecha_retiro = document.getElementById("fecha_retiro").value;
+  if (fecha_ingreso != "" && fecha_retiro != "") {
+    const fechaIngreso = new Date(fecha_ingreso.split("-").reverse().join("-"));
+    const fechaRetiro = new Date(fecha_retiro.split("-").reverse().join("-"));
+    const timeDiff = fechaRetiro.getTime() - fechaIngreso.getTime();
+    const dias = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    console.log(dias);
+    if (dias == 0) {
+      const cabaniaIds = document
+        .getElementById("idCanabias")
+        .value.split(",")
+        .filter((id) => id);
+      cabaniaIds.forEach((id) => quitarReserva(id));
+    }
   }
 });

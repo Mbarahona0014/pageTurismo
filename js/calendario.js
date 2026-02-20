@@ -1,5 +1,5 @@
 const reservacionOmitida = "5" ?? 0;
-let diasMaxDeAntelacion = 90;
+let diasMaxAnticipacion = 90;
 const hoy = new Date(Date.now()).toISOString().split("T")[0];
 let mostrarEntradasDisp = false;
 let mostrarParqueosDisp = false;
@@ -22,11 +22,14 @@ function mainCalendar() {
 async function initCalendar() {
   const inputInicio = document.getElementsByName("fecha_inicio")[0] ?? null;
   const inputFin = document.getElementsByName("fecha_fin")[0] ?? null;
+
   let resContador = null;
   let lugarId = document.getElementById("idanp").value;
   let datalugar = await getLugarTuristico(lugarId);
+  const totalCabanias = datalugar.data.totalCabanias || 0;
+  let diasAntelacion = datalugar.data.diasAntelacionReserva || 0;
   /* console.log(datalugar); */
-  diasMaxDeAntelacion = datalugar.data.diasAnticipacionReserva - 1;
+  diasMaxAnticipacion = datalugar.data.diasAnticipacionReserva - 1;
   permiteAcampar = datalugar.data.permiteAcampar;
   periodosDeshabilitados = await getPeriodosDeshabilitados(lugarId);
   responseDisponibilidades = await getDisponibilidadesMax(lugarId);
@@ -42,13 +45,21 @@ async function initCalendar() {
   resContador = await getContador(lugarId, reservacionOmitida);
   if (resContador?.ok) {
     contador = resContador?.data?.contador ?? contador;
+    cabanias = resContador?.data?.cabanias ?? [];
+  }
+  
+  if(permiteAcampar){
+    $("#span-cabanias").show();
   }
 
   const options = {
     settings: {
       lang: "es",
       range: {
-        max: new Date(Date.now() + diasMaxDeAntelacion * 24 * 60 * 60 * 1000)
+        min: new Date(Date.now() + diasAntelacion * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        max: new Date(Date.now() + diasMaxAnticipacion * 24 * 60 * 60 * 1000)
           .toISOString()
           .split("T")[0],
         disablePast: true,
@@ -85,12 +96,14 @@ async function initCalendar() {
           dispMax.entradas - (contador.entradas[date] ?? 0);
         const parqueosDisponibles =
           dispMax.parqueos - (contador.parqueos[date] ?? 0);
+        const cabaniasDisponibles = totalCabanias - (cabanias[date] ?? 0);
         HTMLButtonElement.style.display = "grid";
         HTMLButtonElement.innerHTML = `
           <span>${day}</span>
           <div>
             <span class="badge bg-success" style="color:white">${entradasDisponibles}</span>
             <span class="badge bg-primary" style="color:white">${parqueosDisponibles}</span>
+            <span class="badge bg-warning" style="color:white; ${cabaniasDisponibles > 0 && permiteAcampar ? '' : 'display:none;'}">${cabaniasDisponibles}</span>
           </div>`;
       },
       clickDay(e, dates) {
@@ -153,7 +166,7 @@ async function initCalendar() {
         <i class="fa fa-campground"></i> Se permite acampar: puede seleccionar mas de un dia
       </span>`,
     );
-  }else{
+  } else {
     $("#permite-acampar").html(
       `<span class="badge bg-danger text-white" style="font-size: 0.8rem;">
         <i class="fa fa-ban"></i>
