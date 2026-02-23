@@ -150,7 +150,7 @@ async function initPage() {
   //CARGAR INDICACIONES
   htmlIndicaciones = `<div class="col-12 text-justify m-1 p-3 bg-marn-lgray"><div class="list-group bg-marn-lgray" id="list-tab" role="tablist">`;
   res.indicaciones.forEach((indicacion) => {
-    htmlIndicaciones += `<span style="white-space: pre-line;" class="p-4 p-md-5">${indicacion.indicaciones}</span>`;
+    htmlIndicaciones += `<span style="white-space: pre-line;" class="px-4 py-2">${indicacion.indicaciones}</span>`;
     i++;
   });
   htmlIndicaciones += `</div>`;
