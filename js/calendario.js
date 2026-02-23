@@ -46,6 +46,7 @@ async function initCalendar() {
   if (resContador?.ok) {
     contador = resContador?.data?.contador ?? contador;
     cabanias = resContador?.data?.cabanias ?? [];
+    cabaniasdeshabilitadas = resContador?.data?.periodosDeshabilitados ?? [];
   }
   
   if(permiteAcampar){
@@ -96,7 +97,7 @@ async function initCalendar() {
           dispMax.entradas - (contador.entradas[date] ?? 0);
         const parqueosDisponibles =
           dispMax.parqueos - (contador.parqueos[date] ?? 0);
-        const cabaniasDisponibles = totalCabanias - (cabanias[date] ?? 0);
+        const cabaniasDisponibles = totalCabanias - (cabanias[date] ?? 0) - (cabaniasdeshabilitadas[date] ?? 0);
         HTMLButtonElement.style.display = "grid";
         HTMLButtonElement.innerHTML = `
           <span>${day}</span>
