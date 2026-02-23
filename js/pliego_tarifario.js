@@ -826,6 +826,7 @@ async function validarFormReserva() {
                     let bodyContent = JSON.stringify({
                       claveAcceso: respuestaReservacion.data.claveAcceso,
                       metadata: metadata,
+                      idlugar: lugarId,
                     });
                     await fetch(
                       `${url}/turismo/api/validar/${respuestaReservacion.data.reservacionId}`,
@@ -922,7 +923,9 @@ async function validarFormReserva() {
                     title:
                       "<strong>No se puede realizar la transacción</strong>",
                     icon: "error",
-                    html: "No hay disponibilidad para realizar la reserva",
+                    html: "No se ha podido validar pasarela de pago, intente nuevamente mas tarde". concat(
+                      result.Mensaje ? ": " + result.Mensaje : "",
+                    ),
                     showCloseButton: true,
                   });
                 }
