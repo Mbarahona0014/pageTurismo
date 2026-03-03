@@ -48,8 +48,8 @@ async function initCalendar() {
     cabanias = resContador?.data?.cabanias ?? [];
     cabaniasdeshabilitadas = resContador?.data?.periodosDeshabilitados ?? [];
   }
-  
-  if(permiteAcampar){
+
+  if (permiteAcampar) {
     $("#span-cabanias").show();
   }
 
@@ -97,14 +97,17 @@ async function initCalendar() {
           dispMax.entradas - (contador.entradas[date] ?? 0);
         const parqueosDisponibles =
           dispMax.parqueos - (contador.parqueos[date] ?? 0);
-        const cabaniasDisponibles = totalCabanias - (cabanias[date] ?? 0) - (cabaniasdeshabilitadas[date] ?? 0);
+        const cabaniasDisponibles =
+          totalCabanias -
+          (cabanias[date] ?? 0) -
+          (cabaniasdeshabilitadas[date] ?? 0);
         HTMLButtonElement.style.display = "grid";
         HTMLButtonElement.innerHTML = `
           <span>${day}</span>
           <div>
             <span class="badge bg-success" style="color:white">${entradasDisponibles}</span>
             <span class="badge bg-primary" style="color:white">${parqueosDisponibles}</span>
-            <span class="badge bg-warning" style="color:white; ${cabaniasDisponibles > 0 && permiteAcampar ? '' : 'display:none;'}">${cabaniasDisponibles}</span>
+            <span class="badge bg-warning" style="color:white; ${cabaniasDisponibles > 0 && permiteAcampar ? "" : "display:none;"}">${cabaniasDisponibles}</span>
           </div>`;
       },
       clickDay(e, dates) {
@@ -162,14 +165,14 @@ async function initCalendar() {
   $("#permite-acampar").empty();
   if (permiteAcampar) {
     $("#permite-acampar").html(
-      `<span class="badge bg-success text-white" style="font-size: 0.8rem;">
-        <i class="fa fa-check"></i>
-        <i class="fa fa-campground"></i> Se permite acampar: puede seleccionar mas de un dia
+      `<span class="badge bg-success text-white" style="font-size: 0.85rem; word-break: break-word; display: block; width: 100%; white-space: normal;">
+      <i class="fa fa-check"></i>
+      <i class="fa fa-campground"></i> Se permite acampar: puede seleccionar mas de un dia
       </span>`,
     );
   } else {
     $("#permite-acampar").html(
-      `<span class="badge bg-danger text-white" style="font-size: 0.8rem;">
+      `<span class="badge bg-danger text-white" style="font-size: 0.85rem; word-break: break-word; display: block; width: 100%; white-space: normal;">
         <i class="fa fa-ban"></i>
         <i class="fa fa-campground"></i> No se permite acampar: seleccione un dia
       </span>`,

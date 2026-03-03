@@ -21,7 +21,7 @@
   <input type="hidden" id="TokenSerfinsa" value=<?php echo TKN_SFS ?> />
   <input type="hidden" id="IdTransaccion" />
   <input type="hidden" id="montoEntradas" />
-  <input type="hidden" id="montoCabanias" value="0"/>
+  <input type="hidden" id="montoCabanias" value="0" />
   <input type="hidden" id="MontoDiario" />
   <input type="hidden" id="MontoTransaccion" />
   <input type="hidden" id="cantidadDias" value="0" />
@@ -117,74 +117,75 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 p-4">
       <div class="mb-3">
-      <div class="row justify-content-center">
-        <!-- Detalles de costos -->
-        <div class="col-md-12">
-        <div class="card mb-3">
-          <div class="card-body">
-          <h5 class="card-title">Detalles de tu Reserva</h5>&nbsp;<small><strong>Días de reserva:</strong><label id="det-dias"></label></small>
-          <table class="table table-sm">
-            <tbody>
-            <th>
-              <td>Monto diario</td>
-              <td>Dias cobrados</td>
-              <td>Subtotal</td>
-            </th>
-            <tr>
-              <td><strong>Entradas y Parqueos</strong></td>
-              <td id="det-entradas">$0.00</td>
-              <td id="det-entradas-dias">-</td>
-              <td id="det-entradas-subtotal">$0.00</td>
-            </tr>
-            <tr>
-              <td><strong>Cabañas:</strong></td>
-              <td id="det-cabanias">$0.00</td>
-              <td id="det-cabanias-dias">-</td>
-              <td id="det-cabanias-subtotal">$0.00</td>
-            </tr>
-            </tbody>
-          </table>
+        <div class="row justify-content-center">
+          <!-- Detalles de costos -->
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Detalles de tu Reserva</h5>&nbsp;<small><strong>Días de reserva:</strong><label id="det-dias"></label></small>
+                <table class="table table-sm">
+                  <tbody>
+                    <th>
+                    <td>Monto diario</td>
+                    <td>Dias cobrados</td>
+                    <td>Subtotal</td>
+                    </th>
+                    <tr>
+                      <td><strong>Entradas y Parqueos</strong></td>
+                      <td id="det-entradas">$0.00</td>
+                      <td id="det-entradas-dias">-</td>
+                      <td id="det-entradas-subtotal">$0.00</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cabañas:</strong></td>
+                      <td id="det-cabanias">$0.00</td>
+                      <td id="det-cabanias-dias">-</td>
+                      <td id="det-cabanias-subtotal">$0.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 d-flex justify-content-center">
+            <p>Total a pagar:</p>
+          </div>
+          <div class="col-md-12 d-flex justify-content-center mb-3">
+            <h1 id="total"></h1>
+          </div>
+          <div class="col-md-12 d-flex justify-content-center mb-3">
+            <div class="form-check">
+              <input class="form-check-input ctrl-reserva" type="checkbox" id="terminos" required>
+              <label class="form-check-label" for="terminos">
+                Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminos">términos y condiciones</a>
+              </label>
+            </div>
+          </div>
+          <div id="divPagar" class="col-md-12 d-flex justify-content-center">
+            <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()" disabled>
+              <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
+            </button>
+            <a class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="linkpagar" href="#" target="_blank"></a>
+          </div>
+          <div id="divPago">
           </div>
         </div>
-        </div>
-
-        <div class="col-md-12 d-flex justify-content-center">
-        <p>Total a pagar:</p>
-        </div>
-        <div class="col-md-12 d-flex justify-content-center mb-3">
-        <h1 id="total"></h1>
-        </div>
-        <div class="col-md-12 d-flex justify-content-center mb-3">
-        <div class="form-check">
-          <input class="form-check-input ctrl-reserva" type="checkbox" id="terminos" required>
-          <label class="form-check-label" for="terminos">
-          Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#modalTerminos">términos y condiciones</a>
-          </label>
-        </div>
-        </div>
-        <div id="divPagar" class="col-md-12 d-flex justify-content-center">
-        <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()" disabled>
-          <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
-        </button>
-        <a class="btnGoes btnGoes-off btnGoes-medium" style="display: none;" id="linkpagar" href="#" target="_blank"></a>
-        </div>
-        <div id="divPago">
-        </div>
-      </div>
       </div>
     </div>
 
     <!-- Modal Términos y Condiciones -->
     <div class="modal fade" id="modalTerminos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
           <div class="modal-header">
             <!-- <h5 class="modal-title" id="modalTerminosLabel">Términos y Condiciones</h5> -->
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body" style="overflow-y: none;">
+          <div class="modal-body" style="overflow-y: auto;">
             <h4>Términos y Condiciones de Reserva</h4>
-            <p style="font-size: small;">Al realizar una reserva, el cliente acepta los siguientes términos y condiciones:</p>
+            <p><b>Al realizar una reserva, el cliente acepta los siguientes términos y condiciones:</b></p>
+            <br>
             <div style="font-size: small;" class="row" id='row-indicaciones'></div>
           </div>
           <div class="modal-footer">
@@ -202,14 +203,14 @@
           </div>
           <div class="modal-body">
             <div class="btn-group-sm" style='display: flex; gap: 0.5rem;justify-content: space-between;'>
-              <p>Disponibilidades
+              <p>Disponibilidades<br>
                 <span class="badge bg-success" style="color:white">Entradas</span>
                 <span class="badge bg-primary" style="color:white">Parqueos</span>
                 <span class="badge bg-warning" style="color:white" id="span-cabanias">Cabañas</span>
               </p>
             </div>
-            <div id='calendario-vanilla'></div>
-            <div id='permite-acampar'></div>
+            <div id='calendario-vanilla' style="width: 100%;"></div>
+            <div id='permite-acampar' style="max-height: 60vh; overflow-y: auto;"></div>
             <!-- <div id='calendario-dias'></div>
             <div>
               <label>Inicio:<input type="text" name='fecha_inicio' readonly></label>

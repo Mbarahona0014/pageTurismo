@@ -14,14 +14,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   let htmlIndicaciones = ``;
   htmlIndicaciones = `<div class="col-12 text-justify"><div class="list-group" id="list-tab" role="tablist">`;
 
+  if (res.indicaciones_generales.length > 0) {
+    res.indicaciones_generales.forEach((indicacion) => {
+      htmlIndicaciones += `<span style="white-space: pre-line; font-size: 0.875rem;">${indicacion.descripcion}</span>`;
+      htmlIndicaciones += `<br>`;
+    });
+  }
+
   if (res.indicaciones.length > 0) {
     res.indicaciones.forEach((indicacion) => {
-      htmlIndicaciones += `<span style="white-space: pre-line;">${indicacion.indicaciones}</span>`;
+      htmlIndicaciones += `<span style="white-space: pre-line; font-size: 0.875rem;">${indicacion.indicaciones}</span>`;
+      htmlIndicaciones += `<br>`;
     });
-    htmlIndicaciones += `</div>`;
   } else {
     htmlIndicaciones += `<div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">No hay indicaciones especificas</div>`;
   }
+
+  htmlIndicaciones += `</div>`;
+
+  console.log(htmlIndicaciones);
 
   document.getElementById("row-indicaciones").innerHTML = htmlIndicaciones;
 
@@ -923,7 +934,7 @@ async function validarFormReserva() {
                     title:
                       "<strong>No se puede realizar la transacción</strong>",
                     icon: "error",
-                    html: "No se ha podido validar pasarela de pago, intente nuevamente mas tarde". concat(
+                    html: "No se ha podido validar pasarela de pago, intente nuevamente mas tarde".concat(
                       result.Mensaje ? ": " + result.Mensaje : "",
                     ),
                     showCloseButton: true,
