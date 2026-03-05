@@ -211,7 +211,7 @@ input[type=number] {
 }
 
 
-.ad-btn {
+#ads .ad-btn {
     text-transform: uppercase;
     width: 100px;
     height: 40px;
@@ -228,7 +228,7 @@ input[type=number] {
     position: relative;
 }
 
-.ad-btn:hover {
+#ads .ad-btn:hover {
     background-color: #303845;
     color: #FFFFFF;
     border: 2px solid #303845;
@@ -237,7 +237,7 @@ input[type=number] {
     box-shadow: 12px 15px 20px 0px rgba(46, 61, 73, 0.15);
 }
 
-.ad-title h5 {
+#ads .ad-title h5 {
     text-transform: uppercase;
     font-size: 18px;
 }
