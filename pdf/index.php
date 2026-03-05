@@ -359,12 +359,12 @@ if (isset($reserva->reserva->data)) {
         $pdf->Cell(0, 10, 'DATOS DE PAGO: ', 0, 1);
         $pago = json_decode($reserva->reserva->data->metadata);
         $pdf->SetFont('arial', '', 10);
-        $pdf->Cell(0, 5, mb_convert_encoding('Transacción: ', "ISO-8859-1", "UTF-8") . $pago->pago->transaccion, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Transacción: ', "ISO-8859-1", "UTF-8") . ($pago->pago->transaccion ?? ''), 0, 1);
         /*$pdf->Cell(0, 5, 'Nombre/s y Apellido/s: '.$pago->pago->titular, 0, 1);
  $pdf->Cell(0, 5, 'Monto: '.$pago->pago->transaccion, 0, 1); */
-        $pdf->Cell(0, 5, mb_convert_encoding('Número de autorización: ', "ISO-8859-1", "UTF-8") . $pago->pago->autorizacion, 0, 1);
-        $pdf->Cell(0, 5, mb_convert_encoding('Número de cuenta: ', "ISO-8859-1", "UTF-8") . $pago->pago->cuenta, 0, 1);
-        $pdf->Cell(0, 5, 'Titular de cuenta: ' . $pago->pago->titular, 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Número de autorización: ', "ISO-8859-1", "UTF-8") . ($pago->pago->autorizacion ?? ''), 0, 1);
+        $pdf->Cell(0, 5, mb_convert_encoding('Número de cuenta: ', "ISO-8859-1", "UTF-8") . ($pago->pago->cuenta ?? ''), 0, 1);
+        $pdf->Cell(0, 5, 'Titular de cuenta: ' . ($pago->pago->titular ?? ''), 0, 1);
         $pdf->AddPage();
         $pdf->SetFont('arial', 'B', 12);
         $pdf->Cell(0, 10, 'DETALLES DE RESERVA: ', 0, 1);
@@ -392,7 +392,18 @@ if (isset($reserva->reserva->data)) {
             $pdf->Cell(0, 5, mb_convert_encoding("Codigo de cabaña: " . $cabania->codcabania, "ISO-8859-1", "UTF-8"), '', 0, 'L');
         }
 
-        $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
+        $textoReprogramacion = '';
+        $textoIndicaciones = '';
+        foreach ($reserva->indicaciones_generales as $indicacion) {
+            if($indicacion->titulo == "REPROGRAMACION"){
+                $textoReprogramacion .= $indicacion->descripcion;
+            $textoReprogramacion .= "\n";
+            }elseif($indicacion->titulo == "INDICACIONES"){
+                $textoIndicaciones .= $indicacion->descripcion;
+            } 
+        }
+
+        /* $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
 El ticket tendrá vigencia de 60 días a partir de la fecha de compra, pasado el tiempo estipulado caducará el mismo y se se dará por utilizado.
 Las reprogramaciones deberán hacerse, previamente a la fecha establecida en el ticket, al correo electrónico: cardon@ambiente.gob.sv o al número +503 7850 2018 en días y horarios hábiles.
 En casos afortuitos, el MARN se comunicará con el usuario para informar y dar la opción de reprogramación.';
@@ -414,7 +425,7 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
 * El personal de Guarda Recursos cuenta con la autoridad para aplicar la normativa vigente y confiscar equipos de sonido, armas de fuego, armas blancas, bebidas alcohólicas, mascotas u otros elementos prohibidos.
 * Se solicita atender las indicaciones de los Guarda recursos como la autoridad en el Área Natural Protegida.
 * Prohibido el ingreso de plásticos de un solo uso como pajitas, platos, vasos y otros objetos desechables.
-* Prohibido el ingreso de mascotas.';
+* Prohibido el ingreso de mascotas.'; */
 
         $pdf->Cell(0, 10, 'Precios incluyen IVA', 0, 1);
         $pdf->SetFont('arial', 'B', 10);
@@ -435,7 +446,7 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
         $pdf->SetFont('arial', '', 10);
         $textoIndicacionesEspecificas = '';
         foreach ($reserva->indicaciones->data as $indicaciones) {
-            $textoIndicacionesEspecificas .= $indicaciones->indicaciones;
+            $textoIndicacionesEspecificas .= $indicaciones->indicaciones . "\n";
         }
         $pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicacionesEspecificas, "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');

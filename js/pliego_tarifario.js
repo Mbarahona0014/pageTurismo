@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   htmlIndicaciones = `<div class="col-12 text-justify"><div class="list-group" id="list-tab" role="tablist">`;
 
   if (res.indicaciones_generales.length > 0) {
+    htmlIndicaciones += `<h4 class="py-2">Indicaciones Generales</h4>`;
     res.indicaciones_generales.forEach((indicacion) => {
       htmlIndicaciones += `<span style="white-space: pre-line; font-size: 0.875rem;">${indicacion.descripcion}</span>`;
       htmlIndicaciones += `<br>`;
@@ -22,9 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   if (res.indicaciones.length > 0) {
+    htmlIndicaciones += `<h4 class="py-2">Indicaciones Específicas</h4>`;
     res.indicaciones.forEach((indicacion) => {
       htmlIndicaciones += `<span style="white-space: pre-line; font-size: 0.875rem;">${indicacion.indicaciones}</span>`;
-      htmlIndicaciones += `<br>`;
+      //htmlIndicaciones += `<br>`;
     });
   } else {
     htmlIndicaciones += `<div class="col-md-12 alert alert-primary" style="display: flex; justify-content: center;">No hay indicaciones especificas</div>`;

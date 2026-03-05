@@ -262,6 +262,12 @@
   <script src="./js/calendario.js"></script>
   <script src="./js/reservacion.js"></script>
   <script src="https://www.serfinsacheckout.com/Scripts/Serfinsa.PayV2.js"></script>
+  <style>
+    .vanilla-calendar-arrow {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+  </style>
   <!-- <script src="./js/serfinsalocal.js"></script> -->
 </body>
 

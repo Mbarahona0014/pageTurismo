@@ -143,14 +143,16 @@ async function initCalendar() {
     DOMTemplates: {
       default: `
         <div class="vanilla-calendar-header">
-            <div class="btn-group btn-group-sm" role="group">
-              <button type="button" class="btn btn btn-outline-secondary" id='actualizar-Calendario'>Actualizar</button>
-            </div>
+          <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn btn-outline-secondary" id='actualizar-Calendario'><i class="fa fa-redo"></i></button>
+          </div>
           <div class="vanilla-calendar-header__content">
             <#Year /> | <#Month />
           </div>
-          <#ArrowPrev />
-          <#ArrowNext />
+          <div class="btn-group btn-group-sm" role="group">
+            <#ArrowPrev />
+            <#ArrowNext />
+          </div>
         </div>
         <div class="vanilla-calendar-wrapper">
           <div class="vanilla-calendar-content">
