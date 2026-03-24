@@ -161,6 +161,7 @@
               </label>
             </div>
           </div>
+          <div class="text-center"><cite><small>Serás redirigido al formulario de pago. Contarás con 15 minutos para finalizar el proceso</small></cite></div>
           <div id="divPagar" class="col-md-12 d-flex justify-content-center">
             <button type="button" class="btn btn-labeled btn-success" id="btValidar" onclick="validarFormReserva()" disabled>
               <span class="btn-label"><i class="fa fa-check"></i>&nbsp;</span>Validar
@@ -261,14 +262,14 @@
   <script src="./js/pliego_tarifario.js"></script>
   <script src="./js/calendario.js"></script>
   <script src="./js/reservacion.js"></script>
-  <script src="https://www.serfinsacheckout.com/Scripts/Serfinsa.PayV2.js"></script>
+  <!-- <script src="https://www.serfinsacheckout.com/Scripts/Serfinsa.PayV2.js"></script> -->
   <style>
     .vanilla-calendar-arrow {
       height: 2.5rem;
       width: 2.5rem;
     }
   </style>
-  <!-- <script src="./js/serfinsalocal.js"></script> -->
+  <script src="./js/serfinsalocal.js"></script>
 </body>
 
 </html>
