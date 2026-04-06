@@ -2,6 +2,7 @@ const div_entradas = document.getElementById("div_entradas");
 const div_parqueos = document.getElementById("div_parqueos");
 const div_fecha_retiro = document.getElementById("div-fecha-retiro");
 const div_cabanias = document.getElementById("div-cabanias");
+const url_serfinsa = "https://testcheckout.redserfinsa.com:8087";
 
 const inputFechas = document.querySelector("#fecha_ingreso");
 const personas = [];
@@ -811,7 +812,7 @@ async function validarFormReserva() {
                 redirect: "follow",
               };
               fetch(
-                "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
+                url_serfinsa +"/api/PayApi/TokeyTran",
                 requestOptions,
               )
                 .then((response) => response.json())
@@ -825,7 +826,7 @@ async function validarFormReserva() {
                     $("#linkpagar").show();
                     $("#linkpagar").attr(
                       "href",
-                      `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`,
+                      `${url_serfinsa}/${result.Datos.UrlPost}`,
                     );
                     $("#btEdit").show();
                     //ACTUALIZAR ID DE TRANSACCION SERFINSA
@@ -894,7 +895,7 @@ async function validarFormReserva() {
               redirect: "follow",
             };
             fetch(
-              "https://www.serfinsacheckout.com/api/PayApi/TokeyTran",
+              url_serfinsa +"/api/PayApi/TokeyTran",
               requestOptions,
             )
               .then((response) => response.json())
@@ -907,7 +908,7 @@ async function validarFormReserva() {
                   $("#linkpagar").show();
                   $("#linkpagar").attr(
                     "href",
-                    `https://www.serfinsacheckout.com/${result.Datos.UrlPost}`,
+                    `${url_serfinsa}/${result.Datos.UrlPost}`,
                   );
                   $("#btEdit").show();
                   //$("#btTest").show();

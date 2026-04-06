@@ -330,6 +330,42 @@ if (isset($reserva->reserva->data)) {
                 } else
                     $this->x += $w;
             }
+
+            function htmlToText($html)
+            {
+
+                // Decodificar entidades HTML (&nbsp;, &aacute;, etc.)
+                $html = html_entity_decode($html, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+                // Saltos de línea
+                $html = str_replace(
+                    ['<br>', '<br/>', '<br />'],
+                    "\n",
+                    $html
+                );
+
+                // Párrafos → doble salto
+                $html = preg_replace('/<\/p>/i', "\n", $html);
+                $html = preg_replace('/<p[^>]*>/i', '', $html);
+
+                // Listas → viñetas
+                $html = preg_replace('/<li[^>]*>/i', "• ", $html);
+                $html = preg_replace('/<\/li>/i', "\n", $html);
+
+                // Quitar UL/OL
+                $html = preg_replace('/<\/?(ul|ol)[^>]*>/i', "\n", $html);
+
+                // Quitar cualquier otra etiqueta HTML
+                $html = strip_tags($html);
+
+                // Normalizar espacios
+                $html = preg_replace("/[ \t]+/", " ", $html);
+
+                // Limpiar múltiples saltos de línea
+                $html = preg_replace("/\n{3,}/", "\n", $html);
+
+                return trim($html);
+            }
         }
 
         $fecha1 = new DateTime($reserva->reserva->data->inicio);
@@ -395,12 +431,11 @@ if (isset($reserva->reserva->data)) {
         $textoReprogramacion = '';
         $textoIndicaciones = '';
         foreach ($reserva->indicaciones_generales as $indicacion) {
-            if($indicacion->titulo == "REPROGRAMACION"){
+            if ($indicacion->titulo == "REPROGRAMACION") {
                 $textoReprogramacion .= $indicacion->descripcion;
-            $textoReprogramacion .= "\n";
-            }elseif($indicacion->titulo == "INDICACIONES"){
+            } elseif ($indicacion->titulo == "INDICACIONES") {
                 $textoIndicaciones .= $indicacion->descripcion;
-            } 
+            }
         }
 
         /* $textoReprogramacion = 'El MARN no hace devoluciones del monto correspondiente al ingreso a la ANP, sin embargo, se permite realizar un máximo de dos reprogramaciones de las visitas o entradas.
@@ -432,13 +467,13 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
         $pdf->Ln();
         $pdf->Cell(0, 5, 'CONDICIONES DE REPROGRAMACION', 0, 1);
         $pdf->SetFont('arial', '', 10);
-        $pdf->MultiCell(0, 5, mb_convert_encoding($textoReprogramacion, "ISO-8859-1", "UTF-8"), 0, 1);
+        $pdf->MultiCell(0, 5, mb_convert_encoding($pdf->htmlToText($textoReprogramacion), "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->AddPage();
         $pdf->SetFont('arial', 'B', 10);
         $pdf->Ln();
         $pdf->Cell(0, 5, 'INDICACIONES GENERALES', 0, 1);
         $pdf->SetFont('arial', '', 10);
-        $pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicaciones, "ISO-8859-1", "UTF-8"), 0, 1);
+        $pdf->MultiCell(0, 5, mb_convert_encoding($pdf->htmlToText($textoIndicaciones), "ISO-8859-1", "UTF-8"), 0, 1);
         $pdf->SetFont('arial', 'B', 10);
         $pdf->AddPage();
         $pdf->Ln();
@@ -449,8 +484,8 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
             $textoIndicacionesEspecificas .= $indicaciones->indicaciones . "\n";
         }
         $pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicacionesEspecificas, "ISO-8859-1", "UTF-8"), 0, 1);
-        $pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');
-        $pdf->Output($idencriptado . '.pdf', 'D');
+        //$pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');
+        //$pdf->Output($idencriptado . '.pdf', 'D');
         $pdf->Output();
     } catch (Exception $e) {
         echo $htmlnoencontrado;
