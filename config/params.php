@@ -6,7 +6,7 @@ define("TKN_SFS", "81d4c8f5-fd44-41ec-b084-b09570fbe043");
 //CONFIGURACION DE SERVIDOR DE CORREOS PARA CONTACTO Y RESERVA
 define("CORREO_HOST", "smtp.gmail.com"); //SERVIDOR 
 define("CORREO_USER", "miguelbarahona014@gmail.com"); //CORREO QUE ENVIA
-define("CORREO_PASS", "tkiq ydfk zaeo hktc"); //CONTRASENA DE APLICACIONES
+define("CORREO_PASS", "laki fgko tiyx tgji"); //CONTRASENA DE APLICACIONES
 define("CORREO_CC", "copia_oculta@outlook.com"); //CORREO EN COPIA OCULTA(PARA RESERVA)
 define("CORREO_PORT", 465); //PUERTO DE SERVIDOR DE CORREO
 define("CORREO_SECURE", "ssl"); //SMTPSECURE

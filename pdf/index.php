@@ -484,8 +484,8 @@ En casos afortuitos, el MARN se comunicará con el usuario para informar y dar l
             $textoIndicacionesEspecificas .= $indicaciones->indicaciones . "\n";
         }
         $pdf->MultiCell(0, 5, mb_convert_encoding($textoIndicacionesEspecificas, "ISO-8859-1", "UTF-8"), 0, 1);
-        //$pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');
-        //$pdf->Output($idencriptado . '.pdf', 'D');
+        $pdf->Output(__DIR__ . '/../recursos/archivo/' . $idencriptado . '.pdf', 'F');
+        $pdf->Output($idencriptado . '.pdf', 'D');
         $pdf->Output();
     } catch (Exception $e) {
         echo $htmlnoencontrado;
